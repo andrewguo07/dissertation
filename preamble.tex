@@ -1,0 +1,150 @@
+% \usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts,dsfont}
+\usepackage{bm}
+\usepackage{layout}
+\usepackage{float}
+\usepackage{amssymb}%
+% \usepackage[margin=0.75in]{geometry}
+\usepackage{color}
+\usepackage{soul}
+\usepackage{mathtools}
+\usepackage{varwidth}
+% \usepackage[colorlinks=true,citecolor=blue]{hyperref}
+\usepackage{subfigure}
+\usepackage{xr} %allow cross-referencing across files
+\usepackage{times}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{mathtools}
+\usepackage{qcircuit}
+\usepackage{comment}
+
+\theoremstyle{definition}
+% \newtheorem{theorem}{Theorem}
+\newtheorem{claim}{Claim}
+\newtheorem{problem}{Problem}
+% \newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{conjecture}{Conjecture}
+% \newtheorem{corollary}{Corollary}
+\usepackage[capitalise,compress]{cleveref}
+\newcommand{\avg}[1]{\left \langle #1 \right\rangle}
+\newcommand{\corrc}[1]{\left \langle #1 \right\rangle_c}
+\newcommand{\ket}[1]{\left | #1 \right\rangle}
+\newcommand{\oket}[1]{\left | #1 \right)}
+\newcommand{\bra}[1]{\left \langle #1 \right |}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\smallfrac}[2][1]{\mbox{$\textstyle \frac{#1}{#2}$}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\renewcommand{\Re}{\mathrm{Re}}
+\newcommand{\braket}[2]{\left\langle #1|#2\right\rangle}
+\newcommand{\bracket}[3]{\left\langle #1|#2|#3\right\rangle}
+\newcommand{\proj}[1]{\ket{#1}\bra{#1}}
+\newcommand{\abs}[1]{\left | #1 \right|}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\O}[1]{ O\left(#1\right)}
+%\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\lnorm}[1]{\left\|#1\right\|_l}
+\newcommand{\comm}[1]{\left[#1\right]}
+% \newcommand{\C}{\mathcal{C}}
+\newcommand{\Laplace}{\mathcal{L}}
+% \newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\arrowto}{$\Rightarrow$ }
+\newcounter{para}
+\newcommand{\dist}{\textrm{dist}}
+\newcommand\observation{ \par\emph{Observation \refstepcounter{para}\thepara.\space}}
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\newcommand{\U}[2]{U^{#1}_{#2}}
+\newcommand{\Udag}[2]{\left(U^{#1}_{#2}\right)^\dag}
+\newcommand{\B}{\mathcal B}
+\newcommand{\const}{\text{const.}}
+%\renewcommand{\labelitemi}{--}
+\makeatother
+\newcommand{\nmax}{\omega_*}
+\newcommand{\qmax}{q_{\text{max}}}
+\newcommand{\ad}{\text{ad}}
+\newcommand{\Hpl}{\mathbb{H}_{\alpha}}
+
+\newcommand{\tr}{\text{Tr}}
+% \newcommand{\mL}{\mathcal{L}}
+% \newcommand{\mT}{\mathcal{T}}
+% \newcommand{\mQ}{\mathcal{Q}}
+
+%Packages/Commands Added by Adam%
+\usepackage{braket}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\usepackage{array}
+\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+\newcolumntype{R}{>{$}r<{$}} % math-mode version of "r" column type
+
+\usepackage{xcolor}
+\usepackage{mathtools}
+
+
+% Commands added by Andrew
+\usepackage{physics}
+\usepackage{tikz}
+
+\newcommand{\eps}{\ensuremath{\varepsilon}}
+\newcommand{\vphi}{\ensuremath{\varphi}}
+\newcommand{\ra}{\ensuremath{\rightarrow}}
+\newcommand{\la}{\ensuremath{\leftarrow}}
+\newcommand{\ds}{\ensuremath{\displaystyle}}
+\newcommand{\vn}{\ensuremath{\varnothing}}
+\newcommand{\al}{\ensuremath{\alpha}}
+\newcommand{\lam}{\ensuremath{\lambda}}
+\newcommand{\Lam}{\ensuremath{\Lambda}}
+\renewcommand{\norm}[1]{\left\|#1\right\|}
+
+\newcommand{\mL}{\L}
+\newcommand{\mT}{\mathcal{T}}
+\newcommand{\mQ}{\mathcal{Q}}
+
+\newcommand{\Ra}{\ensuremath{\: \Rightarrow \:}}
+
+% Make nice displaystyle big-O,Ω,θ notations without the weird spaces
+\DeclarePairedDelimiter\parentheses{\lparen}{\rparen}
+\renewcommand{\O}[1]{\mathcal{O}\parentheses*{#1}}
+\newcommand{\W}[1]{\Omega\parentheses*{#1}}
+\newcommand{\Th}[1]{\Theta\parentheses*{#1}}
+
+\newcommand{\J}{\mathcal{J}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\Wlog}{Without loss of generality}
+\newcommand{\opket}[1]{|#1)}
+
+% GuoVLR shortcuts
+\newcommand{\vac}{0}
+
+\newcommand{\td}{\tilde}
+
+% Ceiling and floor operators
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% Shortcuts for section labels and organization
+\newcommand{\dash}{\textemdash}
+\newcommand{\etal}{\emph{et al.}}
+\newcommand{\sect}[1]{\emph{{#1}}.\dash}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+
+% Clever ref
+\usepackage[capitalise,compress]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\crefname{section}{Section}{Sections}
+\crefrangelabelformat{equation}{\textup{(#3#1#4)}--\textup{(#5#2#6)}}
+
+% Editorial commands
+\newcommand{\red}[1]{\textcolor{red}{[#1]}}
