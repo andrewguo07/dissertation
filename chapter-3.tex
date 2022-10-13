@@ -1,4 +1,4 @@
-\chapter{My Chapter}
+\chapter{Implementing a fast unbounded quantum fanout gate using power-law interactions}
 In the circuit model for quantum computation, the depth of a quantum circuit is given by the number of layers of non-overlapping quantum gates it contains.
 In typical quantum systems, coherence times are a limitation, so low-depth circuits prioritized for the regime of noisy intermediate-scale quantum computers are more desirable \cite{Preskill2018}.
 Various proposed models of quantum computation are equivalent up to polynomial overhead, making the definition of the complexity class $\BQP$ insensitive to the model of computation \cite{Bernstein1993,Raussendorf2001,Raussendorf2003,Hoyer2005}.
@@ -12,7 +12,7 @@ By ``unbounded,'' we mean that there is no limit on the number of bits that can 
 
 The unbounded fanout gate makes it possible for constant-depth circuits to perform a number of fundamental quantum arithmetic operations \cite{Hoyer2005}.
 Furthermore, unbounded fanout can also reduce the quantum Fourier transform (QFT)---a subroutine of a large class of quantum algorithms, including most famously Shor’s algorithm for integer factorization \cite{Shor1997}---to constant depth as well.
-In fact, it enables implementing the entirety of Shor's algorithm by constant-depth circuits with access to a polynomial amount of classical pre- and post-processing \cite{note_precomputation}.
+In fact, it enables implementing the entirety of Shor's algorithm by constant-depth circuits with access to a polynomial amount of classical pre- and post-processing \footnote{While the rate-limiting step for factoring is actually modular exponentiation, it is possible to implement this subroutine in logarithmic quantum depth with a polynomial number of classical gates as a pre-computation step, using a standard universal gate set for quantum computing \cite{Cleve2000}. Using the unbounded fanout gate, the quantum circuit for modular exponentiation can be reduced to constant depth as well \cite{Hoyer2005}.}.
 
 While the unbounded fanout gate is clearly a powerful resource for quantum computation, its efficient implementation in physically realizable architectures has not been studied in great depth.
 In the standard circuit model---where one may apply single-qubit and two-qubit gates from a standard gate set on arbitrary non-overlapping subsets of the qubits---a fanout gate on $n$ qubits can be implemented optimally in $\Th{\log{n}}$-depth \cite{bigO,Broadbent2009a}.
@@ -29,8 +29,9 @@ Specifically, for a lattice of qubits in $D$ dimensions, the interaction strengt
 These long-range interactions are native to many experimental quantum systems and have attracted interest as potential resources for faster quantum information processing. Examples of long-range interactions include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
 Previous works have explored the acceleration of quantum information processing using strong and tunable power-law interactions between Rydberg states~\cite{Isenhower2011,Molmer2011,Petrosyan2017,Gulliksen2015,Muller2009,Young2020,Levine2019}, which can implement $k$-local gates that control or target simultaneously $k \gg 10$ qubits.
 Those gates still have a finite spatial range and can therefore only give a constant-factor speed-up over nearest-neighbor architectures.
-Recently, Refs.~\cite{Eldredge2017,Guo2020,Tran2020,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
-As we will show, it is also possible to leverage the power of these interactions to implement quantum gates asymptotically faster than is possible with finite-range interactions \cite{note_ions}.
+Recently, Refs.~\cite{Eldredge2017,Guo2020,Tran2020hierarchylinearlightcones,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
+As we will show, it is also possible to leverage the power of these interactions to implement quantum gates asymptotically faster than is possible with finite-range interactions \footnote{We note that in Refs.~\cite{Maslov2018,Lu2019}, it was shown that the unbounded quantum fanout could be implemented in trapped-ion systems using a global Molmer-Sorensen gate.
+    However, those methods lead to gate durations that scale superlinearly in the system size in order to achieve a certain value of state fidelity and, as such, do not yield an asymptotic speed-up.}.
 
 In this Letter, we propose a protocol for implementing the unbounded fanout gate quickly using engineered Hamiltonians with power-law interactions.
 As an application of this protocol, we show that simulating strongly long-range systems with $\al$\,$\le$\,$2D$ for logarithmic time or longer is classically intractable, if factoring is classically hard.
@@ -68,9 +69,9 @@ This long-range broadcast is not the same as fanout because it requires that all
 However, as we now show, it is possible to adapt the broadcast protocol to implement the fanout gate in time $\tghz$ using $n$ ancillary qubits.
 
 \begin{figure}[t]
-  \begin{centering}
-    \includegraphics[scale=0.45]{fanoutgate.pdf}
-  \par\end{centering}
+\centering
+    \includegraphics[scale=0.45]{figures/fanoutgate.pdf}
+\centering
   \caption{A protocol for a fast unbounded quantum fanout gate using long-range interactions, depicted here for a 1D lattice.
   The layout consists of a chain of data qubits, along with their adjacent ancillary qubits that are initialized to $\ket{0}$.
   (a) The first step is a local controlled-\textsc{Not} (\textsc{CNot}) gate from $\ket{d_1}$ to $\ket{a_1}$.
@@ -136,7 +137,7 @@ Using the ability to sample from the output of the order-finding algorithm to er
 Therefore, if it were possible to efficiently sample from the output distribution in strongly long-range systems for evolution-time $t$\,$=$\,$\mathcal{O}(\log n)$, then it would be possible to factor $n$-bit integers efficiently as well.
 The best classical algorithm currently known for factoring an $n$-bit integer takes runtime $\exp[\mathcal{O}(\sqrt{n \log n})]$ \cite{Lenstra1992} and the problem is widely believed to be classically intractable.
 This stands in contrast to systems with finite-range interactions in 1D, for which efficient classical simulation is possible up to any time satisfying $t$\,$\leq$\,$\O{\log n}$ \cite{Osborne2006}.
-Under the complexity assumption mentioned above (\textsc{Factoring} $\notin$\,$\BPP$), we have shown that this result is not fully generalizable to strongly long-range interacting systems \cite{note_takahashi}.
+Under the complexity assumption mentioned above (\textsc{Factoring} $\notin$\,$\BPP$), we have shown that this result is not fully generalizable to strongly long-range interacting systems \footnote{We note that a similar result could have been achieved using the fact that constant-depth quantum circuits with two fanouts are not strongly classically simulable unless $P = PP$ \cite{Takahashi2014}.}.
 
 
 %%%%%%Lower bounds on the time required to implement QFT and fanout%%%%%%%
@@ -154,7 +155,7 @@ In addition, we show that the same lower bound applies even to circuits that per
 Our $\W {n^{1/D}}$ lower bound holds for any lattice system with finite velocities of information spreading, which include short-range interactions (i.e., finite-ranged or exponentially decaying) and power-law interactions with $\al$\,$>$\,$2$ in one dimension or $\alpha$\,$>$\,$2D$\,$+$\,$1$ for $D$\,$>$\,$1$ \cite{Lieb1972,Chen2019,kuwaharaStrictlyLinearLight2020}.
 Combined with our results above, this implies that systems with strongly long-range interactions can implement the QFT and fanout asymptotically faster than more weakly interacting systems.
 
-The intuitive idea behind our proof is that the QFT unitary can spread out operators in a certain precise sense, a task that can be bounded by the ``Frobenius-norm light cone'' of Ref.\,\cite{Tran2020}.
+The intuitive idea behind our proof is that the QFT unitary can spread out operators in a certain precise sense, a task that can be bounded by the ``Frobenius-norm light cone'' of Ref.\,\cite{Tran2020hierarchylinearlightcones}.
 The fact that this light cone imposes a finite speed limit on information propagation in short-range interacting systems implies that the minimum time $t_2(r)$ required for operator-spreading is proportional to the distance between qubits $r$.
 This constrains the implementation time for the QFT, denoted $t_\mathrm{QFT}$, by $\W {n^{1/D}}$, from which the circuit-depth lower bound follows.
 The same Frobenius-norm bound also constrains the time required to implement the approximate QFT (AQFT).
@@ -162,8 +163,10 @@ The same Frobenius-norm bound also constrains the time required to implement the
 We consider the $4^n$-dimensional vector space of $n$-qubit operators for which the set of Pauli operators $\{I,X,Y,Z\}^{\otimes n}$ forms a basis.
 We quantify operator spreading outside a region of radius $r$ as follows.
 Taking an operator $|O)$ initially supported on site 1, we measure the weight of its time-evolved version, $|O(t))$, on sites at distance $r$ (and beyond) using a \emph{projection} operator $\mathcal{Q}_{r}$, which projects onto strings of Pauli operators that act nontrivially on at least one site at distance $r$ or greater.
-We measure the weight of this projected operator $|O_r)$\,$\coloneqq$\,$\mathcal{Q}_{r}|O(t))$ via the (squared) normalized Frobenius norm $\norm{O_r}_F^2$\,$\coloneqq$\,$\Tr(O_r^\dag O_r)/2^n$, which coincides with the Euclidean norm over the operator space, $(O_r|O_r)$ \cite{note_norm}.
-We define $t_2(r)$ to be the minimal time after which $\norm{O_r}_F^2$ is able to achieve a predetermined constant value \cite{Tran2020}.
+We measure the weight of this projected operator $|O_r)$\,$\coloneqq$\,$\mathcal{Q}_{r}|O(t))$ via the (squared) normalized Frobenius norm $\norm{O_r}_F^2$\,$\coloneqq$\,$\Tr(O_r^\dag O_r)/2^n$, which coincides with the Euclidean norm over the operator space, $(O_r|O_r)$ \footnote{See Ref.\,\cite{Tran2020} for a more precise definition.
+    We note that our projector $\mathcal{Q}_r$ is a variation on the $\mathbb{Q}_r$ used in {Ref.\,\cite{Tran2020}}.
+    Specifically, for $D=1$, they are related via $\mathcal{Q}_r = \sum_{x:\,|x|\ge r} \mathbb{Q}_x$.}.
+We define $t_2(r)$ to be the minimal time after which $\norm{O_r}_F^2$ is able to achieve a predetermined constant value \cite{Tran2020hierarchylinearlightcones}.
 % on sites at distance $r$ or beyond. \cite{note_t2r}.
 
 We show that operators spread by the action of the QFT can have high weight on distant regions,
@@ -206,7 +209,7 @@ This leads directly to the following theorem:
 \begin{theorem*}  \label{thm:QFTlowerbounds}
   For systems with finite-range or exponentially-decaying interactions in $D$ dimensions, the time required to implement the QFT unitary is lower bounded by $t_\mathrm{QFT}$\,$= $\,$\W{r}$, where $r$\,$=$\,$\Theta(n^{1/D})$ is the distance between the first and $n$-th qubits.
 
-  For systems with long-range interactions, the Lieb-Robinson light cone gives the following bounds \cite{kuwaharaStrictlyLinearLight2020,Tran2019,Hastings2006,Tran2021b}:
+  For systems with long-range interactions, the Lieb-Robinson light cone gives the following bounds \cite{kuwaharaStrictlyLinearLight2020,Tran2019a,Hastings2006,Tran2021b}:
   \begin{align}
   \label{eq:LRlowerbounds}
    t_\mathrm{QFT} =
@@ -217,7 +220,7 @@ This leads directly to the following theorem:
       \\ \W{r}, & \alpha > 2D + 1.
     \end{cases}
   \end{align}
-  The Frobenius light cone gives the following (tighter) bounds \cite{Kuwahara2021,Chen2021}:
+  The Frobenius light cone gives the following (tighter) bounds \cite{Kuwahara2021,Chen2021Frobenius}:
   \begin{align}
   \label{eq:Froblowerbounds}
    t_\mathrm{QFT} =
@@ -249,14 +252,14 @@ As a corollary, we showed that the classical simulation of strongly long-range s
 
 To benchmark our protocol, we developed a new and general approach for lower-bounding the time required to perform a given quantum algorithm that is independent of its implementation as a quantum circuit.
 In particular, we derive a $\W{n^{1/D}}$ lower bound on the time required to implement quantum fanout—--as well as the exact and approximate QFTs---for all systems constrained by a linear light cone.
-In doing so, we used the state-of-the-art Frobenius bounds from \cite{Tran2020,Kuwahara2021,Chen2021}, which have been shown to be tighter than the Lieb-Robinson bound in the regimes of $\al$ in which they hold.
+In doing so, we used the state-of-the-art Frobenius bounds from \cite{Tran2020hierarchylinearlightcones,Kuwahara2021,Chen2021Frobenius}, which have been shown to be tighter than the Lieb-Robinson bound in the regimes of $\al$ in which they hold.
 While the Lieb-Robinson bound has been shown to be saturable for all $\al$\,$\ge$\,$D$ (up to logarithmic factors), the corresponding result for the Frobenius bound remains unknown.
-For higher dimensions, the conjectured Frobenius light cone is $t$\,$=$\,$\W{r^{\alpha-D}}$ for $D$\,$<$\,$\al$\,$<$\,$D+1$ \cite{Chen2021}.
+For higher dimensions, the conjectured Frobenius light cone is $t$\,$=$\,$\W{r^{\alpha-D}}$ for $D$\,$<$\,$\al$\,$<$\,$D+1$ \cite{Chen2021Frobenius}.
 If this generalization of the Frobenius bound were to hold, our lower bounds on the circuit complexity of QFT and fanout would immediately generalize.
 
 As a final remark, we have derived our lower bounds on $t_\textrm{QFT}$ under the assumption that the first and last qubits of the QFT are separated by a distance of $r$\,$=$\,$\Theta(n^{1/D})$.
 However, other mappings of computational qubits to lattice qubits could potentially lead to faster implementations.
-For example, consider the mapping onto a one-dimensional chain of qubits wherein the second half of the chain is interleaved in reverse order with the first half \cite{note_interleaving}.
+For example, consider the mapping onto a one-dimensional chain of qubits wherein the second half of the chain is interleaved in reverse order with the first half \footnote{Specifically, for even $n$, this mapping is defined by $q_i\mapsto q_{2i-1}$ for $i \le n/2$ and $q_i\mapsto q_{2(n-i+1)}$ for $i > n/2$.}.
 Applying the QFT to a product state in this layout results in a state with two-qubit correlations that decay exponentially in the distance between the qubits.
 In this case, our lower bound techniques cannot rule out the possibility of $t_\textrm{QFT}$\,$=$\,$o(n)$ for short-range interacting Hamiltonians.
 This suggests that $t_\textrm{QFT}$ could depend strongly on qubit placement.

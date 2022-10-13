@@ -21,6 +21,7 @@
 \usepackage{mathtools}
 \usepackage{qcircuit}
 \usepackage{comment}
+\usepackage{complexity}
 
 \theoremstyle{definition}
 % \newtheorem{theorem}{Theorem}
@@ -104,7 +105,8 @@
 \newcommand{\Lam}{\ensuremath{\Lambda}}
 \renewcommand{\norm}[1]{\left\|#1\right\|}
 
-\newcommand{\mL}{\L}
+
+\renewcommand{\mL}{\L}
 \newcommand{\mT}{\mathcal{T}}
 \newcommand{\mQ}{\mathcal{Q}}
 
@@ -113,19 +115,31 @@
 % Make nice displaystyle big-O,Ω,θ notations without the weird spaces
 \DeclarePairedDelimiter\parentheses{\lparen}{\rparen}
 \renewcommand{\O}[1]{\mathcal{O}\parentheses*{#1}}
-\newcommand{\W}[1]{\Omega\parentheses*{#1}}
+\renewcommand{\W}[1]{\Omega\parentheses*{#1}}
 \newcommand{\Th}[1]{\Theta\parentheses*{#1}}
 
 \newcommand{\J}{\mathcal{J}}
 \renewcommand{\L}{\mathcal{L}}
-\newcommand{\C}{\mathcal{C}}
+\renewcommand{\C}{\mathcal{C}}
 \newcommand{\Wlog}{Without loss of generality}
 \newcommand{\opket}[1]{|#1)}
 
 % GuoVLR shortcuts
 \newcommand{\vac}{0}
-
 \newcommand{\td}{\tilde}
+
+% QFO shortcuts
+\newcommand{\tghz}{t_{\text{GHZ}}}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{lemma*}{Lemma}
+% declaration of a new "parallel for" block
+\algblock{ParFor}{EndParFor}
+% customising the new block
+\algnewcommand\algorithmicparfor{\textbf{parfor}}
+\algnewcommand\algorithmicpardo{\textbf{do}}
+\algnewcommand\algorithmicendparfor{\textbf{end\ parfor}}
+\algrenewtext{ParFor}[1]{\algorithmicparfor\ #1\ \algorithmicpardo}
+\algrenewtext{EndParFor}{\algorithmicendparfor}
 
 % Ceiling and floor operators
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}

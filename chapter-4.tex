@@ -1,6 +1,6 @@
 \section{Clustering of steady-state correlations in open systems with long-range interactions}
 
-While the  speed of information transfer  is always bounded by the speed of light, many quantum platforms operate in a non-relativistic regime where typical velocities are far below this threshold.
+While the speed of information transfer is always bounded by the speed of light, many quantum platforms operate in a non-relativistic regime where typical velocities are far below this threshold.
 Nevertheless, the  Schr\"odinger equation admits fundamental limits to the rate  at which correlations  can spread throughout the system.
 Such bounds are known as Lieb-Robinson bounds and are connected to a diverse array of phenomena, including the decay of correlations in the ground state \cite{Hastings2006}, generation of topological order \cite{Bravyi2006, Bravyi2010}, efficiency of classical/quantum simulation \cite{Osborne2006,Tran2019a}, hardness of bosonic sampling tasks \cite{Deshpande2018}, heating rates in periodically driven Floquet systems \cite{Abanin2015,Tran2019b}, and signatures of quantum chaos \cite{Lashkari2013,Guo2019}.
 
@@ -137,7 +137,8 @@ We first state a lemma that describes how to use a modified version of the Lieb-
 Specifically, we give a bound on the error of approximating the time-evolution of an operator $A$ supported on a site $X\in\Lam$ by a truncated adjoint Liouvillian that only acts on ball of radius $r$ centered on a site $X\in\Lam$ (see \cref{fig:LRbound_truncated}).
 
 \begin{figure}
-  \includegraphics[scale=0.875]{truncate.png}
+\centering
+  \includegraphics[scale=0.875]{figures/truncate.pdf}
   \caption{The evolution of an operator $A$ initially supported on $X$ by an adjoint Liouvillian $\L^\dag$ can be approximated by the same operator evolved by the truncated version of the Liouvillian, $\td \L^\dag$, supported on a ball of radius $r$ around $X$, up to an error given by $C(r,t)$.}
   \label{fig:LRbound_truncated}
 \end{figure}
@@ -317,8 +318,9 @@ In the limit of $x\ra \infty$, $\tilde \al$ is tighter for all $\al > 3d$.
 Thus, for large enough $\al$ and $v$, the power-law light-cone bounds [second line in Eq.~(\ref{eq:LR-bound-cc}), which in turn comes from Eq.~(\ref{eq:LR-Minh-constX})]  give asymptotically tighter bounds on the clustering of covariance correlations than the logarithmic light-cone bound [first line in Eq.~(\ref{eq:LR-bound-cc}), which in turn comes from Eq.~(\ref{eq:LR-ZX-open})].
 
 \begin{figure}[h]
+\centering
 \label{fig:model1}
-\includegraphics[width=.45\textwidth]{light-cones-log.png}
+\includegraphics[width=.45\textwidth]{figures/light-cones-log.pdf}
 \caption{A log-log plot of the tails of the bounds on the various connected correlation functions in Theorems 1, 2, and 3 for $d = 1$. We include the exponentially decaying tail from the short-range interactions case (red curve) for comparison.
 For the power-law decaying bounds, we have different scaling exponents of the power-law tails for the bound for $\alpha >1$ (blue curve) and the bound for $\alpha > 3$ (green curve).
 For a given choice of $x = \frac v\lambda$, the relative positioning of the curves
