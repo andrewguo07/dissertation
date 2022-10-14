@@ -3,39 +3,60 @@
 %Title
 Many-body entanglement dynamics and computation in quantum systems with power-law interactions
 
+% Introduction
 At the heart of every quantum computer is a many-body quantum system.
-These systems can evolve and entangle with each other in a profund manner so as to generate complex states of matter, such as topological insulators, discrete time crystals, quantum spin liquids, ...
-They can also encode hard computational problems in their dynamics % many-body wavefunctions, upon which measurements can be performed to discern the answer.
----indeed, a quantum computation can be viewed as evolution of a many-body quantum system to an entangled state, followed by measurements to discern a specific answer.
-% Quantum many-body physics aims to study systems with multiple individual entangled degrees of freedom.
-% Quantum simulators can engineer complex Hamiltonians like the Fermi-Hubbard model, to exotic phases of matter such as discrete time crystals and quantum spin liquids.
-%
-Solving hard problems quickly has been the sellling point of quantum computers since the 1980s, when Feynman first conceived of a device built that could simulate the fundamental laws of nature.
+The particles in these systems can evolve and entangle with each other in a profound manner so as to generate complex states of matter, such as topological insulators, discrete time crystals, quantum spin liquids, ...
+
 One fundamental question in quantum many-body physics is to find the fastest rates at which the  Schr\"odinger equation allows correlations to spread throughout the system.
 Such bounds are known as Lieb-Robinson bounds and are connected to a diverse array of phenomena, including the decay of correlations in the ground state \cite{Hastings2006}, generation of topological order \cite{Bravyi2006, Bravyi2010}, efficiency of classical/quantum simulation \cite{Osborne2006,Tran2019a}, hardness of bosonic sampling tasks \cite{Deshpande2018}, heating rates in periodically driven Floquet systems \cite{Abanin2015,Tran2019b}, and signatures of quantum chaos \cite{Lashkari2013,Guo2019}.
 
-The study of these fundamental speed limits can also bring something to bear on quantum computation.
-Bounds on the rate of transferring quantum states or engineering many-body entangled states can allow one to arrive at new tools for bounding the runtimes of quantum algorithms.
-And using many-body Hamiltonians, it may be possible to engineer protocols to transfer quantum states quickly---which can be used for quantum routing---or to produce many-body entangled states quickly. As we show in this thesis, these entangled states can be used as resources for performing certain multiqubit quantum gates quickly. Thus, studying many-body physics can lead to enhancements in a physicist's toolbox for performing quantum computation.
+Indeed, this ability to generate correlations quickly is central to the power of quantum computers.
+A quantum computation can be viewed as the encoding of a computational problem in the evolution of a many-body quantum system through an entangled intermediate state, followed by measurements to discern a specific answer.
+The ability to generate entanglement quickly allows for quantum computers to achieve speed-ups in problems that are intractable for classical computers.
+Indeed, solving hard problems quickly has been the selling point of quantum computers since the 1980s, when Feynman first conceived of a device built that could simulate the fundamental laws of nature \cite{Feynman}.
+In practice, the question of how quickly this computation can be performed is intricately tied to how quickly entanglement can be generated in the system.
 
-One test bed for this mutualism arises when one considers architectures for quantum computers.
-The standard circuit model assumes one may apply single-qubit and two-qubit gates from a standard gate set on arbitrary non-overlapping subsets of the qubits.
-However, the assumption of being able to directly apply interactions between two arbitrarily distant qubits does not hold in practice for large quantum computing architectures \cite{Monroe2014,Linke2017,Bapat2018,Childs2019c,Schoute2022}.
-Mapping these circuits to restricted architectures inevitably leads to overheads and potentially even different asymptotic scaling.
+In terms of solving classically intractable problems quickly, current-day quantum computers have yet to realize this vision.
+Today's qubits are small and have short coherence times, which limits their ability to perform non-trivial computations.
+Furthermore, many of the prevalent models also rely on a restricted 2D planar architecture [cite SC qubit literature], whereas the standard circuit model of quantum computing assumes one may apply single-qubit and two-qubit gates from a standard gate set on arbitrary non-overlapping subsets of the qubits.
+Since this assumption of being able to directly apply interactions between two arbitrarily distant qubits does not hold in practice for large quantum computing architectures \cite{Monroe2014,Linke2017,Bapat2018,Childs2019c,Schoute2022}, it leads to further overheads when mapping circuits to thiese restricted connectivities.
+These overheads can affect the asymptotic scaling of the quantum algorithms and possibly negate their quantum advantages.
+As such, it motivates the need to study both novel architectures as well as new ways of generating entanglement quickly.
 
 Long-range interactions provide a natural way of augmenting the power of quantum systems.
-In particular, power-law systems---those that decay as a power-law $1/r^\alpha$ in the distance  $r$ between particles, for some $\alpha > 0$.are exciting due to their ability to act as quantum sensors, clocks.
+In particular, power-law systems---those that decay as a power-law $1/r^\alpha$ in the distance  $r$ between particles, for some $\alpha > 0$.
+These long-range interactions are native to many experimental quantum systems and have attracted interest due to their ability to act as quantum sensors and clocks, in addition to their potential as resources for faster quantum information processing. Examples of long-range interactions include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
+
+Recently, Refs.~\cite{Eldredge2017,Guo2020,Tran2020,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
+As we will show in Section [], it is also possible to leverage the power of these interactions to implement quantum gates asymptotically faster than is possible with finite-range interactions.
+In this way, we use bounds on the rate of transferring quantum states or engineering many-body entangled states can allow one to arrive at new tools for bounding the runtimes of quantum algorithms.
+% And using many-body Hamiltonians, it may be possible to engineer protocols to transfer quantum states quickly---which can be used for quantum routing---or to produce many-body entangled states quickly.
+% As we show in this thesis, these entangled states can be used as resources for performing certain multiqubit quantum gates quickly.
+These two applications combined demonstrate the power of many-body physics to lead to enhancements in a physicist's toolbox for performing quantum computation.
+
+
+% many-body wavefunctions, upon which measurements can be performed to discern the answer.
+% Quantum many-body physics aims to study systems with multiple individual entangled degrees of freedom.
+% Quantum simulators can engineer complex Hamiltonians like the Fermi-Hubbard model, to exotic phases of matter such as discrete time crystals and quantum spin liquids.
+% A fundamental question for quantum computing is how quickly one can generate entanglement given such architectural constraints.
 
 
 
-Systems with power-law interactions, however, present an opportunity for realizing speed-ups.
-Specifically, for a lattice of qubits in $D$ dimensions, the interaction strengths between pairs of qubits separated by a distance $r$ are weighted by a power-law decaying function $1/r^\alpha$. These long-range interactions are native to many experimental quantum systems and have attracted interest as potential resources for faster quantum information processing. Examples of long-range interactions include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
 
-Such power-law-decaying interactions feature in experimental platforms relevant to quantum computation and simulation, such as Rydberg atoms~\cite{Saffman2010}, trapped ion crystals~\cite{Britton2012,Monroe2021}, polar molecules \cite{Yan2013}, and nitrogen-vacancy color centers in diamond \cite{Yao2012}.
-In all of these platforms, interactions with a larger environment cannot be neglected, and a Markovian description of system dynamics is often justified.  In such systems, improved understanding of the fundamental rates of information transfer has spurred the development of optimal protocols for quantum information processing and state transfer \cite{Eldredge2017,Tran2021a}.
-Recently, experimental advancements have allowed for unprecedented control of these systems.
+% One test bed for this mutualism arises when one considers architectures for quantum computers.
+% The standard circuit model assumes one may apply single-qubit and two-qubit gates from a standard gate set on arbitrary non-overlapping subsets of the qubits.
+% However, the assumption of being able to directly apply interactions between two arbitrarily distant qubits does not hold in practice for large quantum computing architectures \cite{Monroe2014,Linke2017,Bapat2018,Childs2019c,Schoute2022}.
+% Mapping these circuits to restricted architectures inevitably leads to overheads and potentially even different asymptotic scaling.
 
 
+
+Correlations in many-body quantum systems have many uses, from indicating the presence of criticality to measuring the spread of entanglement. In particular, the fact that correlations decay rapidly in some states, a phenomenon referred to as the “clustering of correlations,” has been used to prove the pivotal \emph{area law} for the entanglement entropy in 1D systems. This result has had significant implications for the development of classical tensor network algorithms for simulating these quantum systems \cite{Hastings07}.
+
+We restore a notion of locality for open systems by proving two Lieb-Robinson bounds, which constrain information propagation in many-body quantum systems, for systems whose dynamics can be modeled by a Liouvillian master equation. We then use these bounds to prove that correlations decay rapidly in the steady-states of these open long-range systems, thus marking the first step towards proving the entanglement area law in these states.
+
+% Such power-law-decaying interactions feature in experimental platforms relevant to quantum computation and simulation, such as Rydberg atoms~\cite{Saffman2010}, trapped ion crystals~\cite{Britton2012,Monroe2021}, polar molecules \cite{Yan2013}, and nitrogen-vacancy color centers in diamond \cite{Yao2012}.
+% In all of these platforms, interactions with a larger environment cannot be neglected, and a Markovian description of system dynamics is often justified.  In such systems, improved understanding of the fundamental rates of information transfer has spurred the development of optimal protocols for quantum information processing and state transfer \cite{Eldredge2017,Tran2021a}.
+% Recently, experimental advancements have allowed for unprecedented control of these systems.
 
 % Quantum information undergoes many transformations. It is ;possible to create non-local quantum states
 
@@ -47,21 +68,10 @@ The study of scrambling in particular is a rich subject with connections to quan
 
 %%% These interactions can provide a speed-up over short-range systems with architectural constraints. %%%
 
-The standard circuit model assumes one may apply single-qubit and two-qubit gates from a standard gate set on arbitrary non-overlapping subsets of the qubits.
-However, the assumption of being able to directly apply interactions between two arbitrarily distant qubits does not hold in practice for large quantum computing architectures \cite{Monroe2014,Linke2017,Bapat2018,Childs2019c,Schoute2022}.
-Mapping these circuits to restricted architectures inevitably leads to overheads and potentially even different asymptotic scaling.
 
-Systems with power-law interactions, however, present an opportunity for realizing speed-ups.
-Specifically, for a lattice of qubits in $D$ dimensions, the interaction strengths between pairs of qubits separated by a distance $r$ are weighted by a power-law decaying function $1/r^\alpha$. These long-range interactions are native to many experimental quantum systems and have attracted interest as potential resources for faster quantum information processing. Examples of long-range interactions include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
-
-Recently, Refs.~\cite{Eldredge2017,Guo2020,Tran2020,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
-As we will show in Section [], it is also possible to leverage the power of these interactions to implement quantum gates asymptotically faster than is possible with finite-range interactions.
 
 %%% Open systems clustering of correlations introduction
 
-Correlations in many-body quantum systems have many uses, from indicating the presence of criticality to measuring the spread of entanglement. In particular, the fact that correlations decay rapidly in some states, a phenomenon referred to as the “clustering of correlations,” has been used to prove the pivotal \emph{area law} for the entanglement entropy in 1D systems. This result has had significant implications for the development of classical tensor network algorithms for simulating these quantum systems \cite{Hastings07}.
-
-We also restore a notion of locality by proving two Lieb-Robinson bounds, which constrain information propagation in many-body quantum systems, for systems whose dynamics can be modeled by a Liouvillian master equation. We then use these bounds to prove that correlations decay rapidly in the steady-states of these open long-range systems, thus marking the first step towards proving the entanglement area law in these states.
 
 %%% Experimental implementation of state transfer protocols
 We introduce a method to implement fast state transfer protocols that saturate the Leib-Robinson bounds proven in refs {blah}. These experimental methods yield crosstalk errors that destroy the asymptotic speed-ups.
