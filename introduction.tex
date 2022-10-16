@@ -3,38 +3,25 @@
 %Title
 % Many-body entanglement dynamics and computation in quantum systems with power-law interactions
 
-% Introduction
-At the heart of every quantum computer is a many-body quantum system.
-The particles in these systems can evolve and entangle with each other in a profound manner so as to form such complex states of matter as superconductors, time crystals, quantum spin liquids, and topological insulators.
-Indeed, a quantum computation can be also be viewed as the dynamics of a many-body quantum system whose evolution to a complex entangled state encodes a computational problem, followed by measurements to discern its answer.
-As such, the question of how quickly this computation can be performed in practice is intricately tied to how quickly entanglement can be generated in the system.
+At the heart of every quantum computer lies a many-body quantum system. These systems can inhabit a rich and complex class of states with exotic and interesting properties in their own right. One of the fundamental properties that delineate them from classical systems is their ability to experience entanglement. Entanglement allows quantum systems to experience an extra level of correlations that extend beyond classical probability theory. These correlations provide a source of \emph{quantum} information and are what enable the performance of quantum computing. Indeed, a quantum computation can be viewed as the dynamics of a many-body system whose evolution to an entangled state encodes a computational problem. As such, the rate at which a many-body system can generate entanglement directly informs how quickly this computation can be performed in practice.
 
-Most of these systems operate in a non-relativistic regime, where typical velocities fall far below the threshold of the speed of light and where a notion of absolute causality is lacking.
-One fundamental question in quantum many-body physics is to find the fastest rates at which the Schr\"odinger equation allows correlations to spread throughout the system.
+Most many-body systems relevant to modern quantum technologies can be viewed to operate in a non-relativistic regime,
+%[citation needed?]
+where typical velocities of information propagation are far below the threshold set by the speed of light. In this regime, an absolute speed limit is lacking due to the lack of causality inherent in the Schr\"odinger equation. A fundamental question in quantum many-body physics is therefore what are the fastest rates at which entanglement can spread in such systems.
 The first bounds on these rates were shown by Elliot Lieb and Derek Robinson in 1972 \cite{LR}.
 Since then, much progress has been made on sharpening these bounds \cite{ChenLucas2021graphtheory,WangHazzard2020} and proving them for specific classes of systems \cite{Tran2019a,Chen2019,kuwaharaStrictlyLinearLight2020,Tran2021b}.
-These bounds are also connected to a diverse array of phenomena, including the decay of correlations in the ground state \cite{Hastings2006}, generation of topological order \cite{Bravyi2006, Bravyi2010}, efficiency of classical/quantum simulation \cite{Osborne2006,Tran2019a}, hardness of bosonic sampling tasks \cite{Deshpande2018}, heating rates in periodically driven Floquet systems \cite{Abanin2015,Tran2019b}, and signatures of quantum chaos \cite{Lashkari2013,Guo2019}.
+In addition to bounding the rate of entanglement generation, these bounds are also connected to a diverse array of phenomena, including the decay of correlations in the ground state \cite{Hastings2006}, generation of topological order \cite{Bravyi2006, Bravyi2010}, efficiency of classical/quantum simulation \cite{Osborne2006,Tran2019a}, hardness of bosonic sampling tasks \cite{Deshpande2018}, heating rates in periodically driven Floquet systems \cite{Abanin2015,Tran2019b}, and signatures of quantum chaos \cite{Lashkari2013,Guo2019}.
 
+The ability of quantum computers to generate entanglement is central to their ability to achieve speed-ups in problems that are intractable for classical computers.
+Solving hard problems quickly has been the selling point of quantum computers since the 1980s, when Feynman first conceived of a device that could simulate the fundamental laws of nature. %\cite{Feynman}.
+While in practice the computational speed of a quantum computer is inherently determined by parameters of the hardware that realizes the computer, the ``software'' can also play an important role.
+In particular, the choices of algorithms and protocols used to perform the various gates and subroutines in the quantum circuit can affect the asymptotic runtimes.
+% These protocols are highly dependent on the mapping between the circuit-level system and the system-level hardware.  the quantum circuits, which can affect their asymptotic runtimes.
+% Choosing the right sets of gates to match the native hardware and takes best advantage of the limited resources is an important problem.
+It can therefore be advantageous to study the theoretically optimal speeds of entanglement generation in more abstract models that are universal to all quantum computers, regardless of the underlying hardware.
+% As such, it's important to study the theoretically optimal rates at which entanglement can be generated in these systems---to ensure that the computation takes the best advantage of the limited resources.
 
-
-% the dynamics of information in such systems therefore inform the fundamental rates at which the computation can be completed.
-
-% Indeed, a quantum computation can be also be viewed as the dynamics of a many-body quantum system whose evolution to a complex entangled state encodes a computational problem%, followed by measurements to discern its answer.
-
-% As such, the information dynamics of such a system is intricately tied to the fundamental rates of information propagation in such systems.
-% While relativistic quantum mechanics necessarily imposes a speed limit on information propagation in physical systems,
-
-% Many of these systems operate in a non-relativistic regime where typical velocities are far below this threshold of the speed of light,
-% While the speed of information transfer is always bounded by the
-The ability to generate correlations quickly is central to the power of quantum computers.
-A quantum computation can be viewed as the encoding of a computational problem in the evolution of a many-body quantum system through an entangled intermediate state, followed by measurements to discern a specific answer.
-The ability to generate entanglement quickly allows for quantum computers to achieve speed-ups in problems that are intractable for classical computers.
-Indeed, solving hard problems quickly has been the selling point of quantum computers since the 1980s, when Feynman first conceived of a device built that could simulate the fundamental laws of nature \cite{Feynman}.
-In practice, the question of how quickly this computation can be performed is intricately tied to how quickly entanglement can be generated in the system.
-
-In terms of solving classically intractable problems quickly, current-day quantum computers have yet to realize this vision.
-Today's qubits are small and have short coherence times, which limits their ability to perform non-trivial computations.
-Furthermore, many of the prevalent models also rely on a restricted 2D planar architecture [cite SC qubit literature], whereas the standard circuit model of quantum computing assumes one may apply single-qubit and two-qubit gates from a standard gate set on arbitrary non-overlapping subsets of the qubits.
+And in terms of the hardware, modern-day quantum computers are indeed quite limited. They are small and have short coherence times. Furthermore, many of the prevalent models also rely on a restricted qubit layouts such as the such as a 2D planar grid architecture [cite SC qubit literature], whereas the standard circuit model of quantum computing assumes one may apply single-qubit and two-qubit gates from a standard gate set on arbitrary non-overlapping subsets of the qubits.
 Since this assumption of being able to directly apply interactions between two arbitrarily distant qubits does not hold in practice for large quantum computing architectures \cite{Monroe2014,Linke2017,Bapat2018,Childs2019c,Schoute2022}, it leads to further overheads when mapping circuits to thiese restricted connectivities.
 These overheads can affect the asymptotic scaling of the quantum algorithms and possibly negate their quantum advantages.
 As such, it motivates the need to study both novel architectures as well as new ways of generating entanglement quickly.
@@ -43,9 +30,11 @@ Long-range interactions provide a natural way of augmenting the power of quantum
 In particular, power-law systems---those that decay as a power-law $1/r^\alpha$ in the distance  $r$ between particles, for some $\alpha > 0$.
 These long-range interactions are native to many experimental quantum systems and have attracted interest due to their ability to act as quantum sensors and clocks, in addition to their potential as resources for faster quantum information processing. Examples of long-range interactions include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
 
-Recently, Refs.~\cite{Eldredge2017,Guo2020,Tran2020,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
+Recently, Refs.~\cite{Eldredge2017,Guo2020,Tran2021a,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
 As we will show in Section 3, it is also possible to leverage the power of these interactions to implement quantum gates asymptotically faster than is possible with finite-range interactions.
 In this way, we use bounds on the rate of transferring quantum states or engineering many-body entangled states can allow one to arrive at new tools for bounding the runtimes of quantum algorithms.
 % And using many-body Hamiltonians, it may be possible to engineer protocols to transfer quantum states quickly---which can be used for quantum routing---or to produce many-body entangled states quickly.
 % As we show in this thesis, these entangled states can be used as resources for performing certain multiqubit quantum gates quickly.
 These two applications combined demonstrate the power of many-body physics to lead to enhancements in a physicist's toolbox for performing quantum computation.
+
+\red{more specific section introductions here.}
