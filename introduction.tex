@@ -1,8 +1,8 @@
+%!TEX root = body.tex
 \chapter{Introduction}
 
 %Title
 % Many-body entanglement dynamics and computation in quantum systems with power-law interactions
-
 At the heart of every quantum computer lies a many-body quantum system. These systems can inhabit a rich and complex class of states with exotic and interesting properties in their own right. One of the fundamental properties that delineate them from classical systems is their ability to experience entanglement. Entanglement allows quantum systems to experience an extra level of correlations that extend beyond classical probability theory. These correlations provide a source of \emph{quantum} information and are what enable the performance of quantum computing. Indeed, a quantum computation can be viewed as the dynamics of a many-body system whose evolution to an entangled state encodes a computational problem. As such, the rate at which a many-body system can generate entanglement directly informs how quickly this computation can be performed in practice.
 
 Most many-body systems relevant to modern quantum technologies can be viewed to operate in a non-relativistic regime,
@@ -21,20 +21,26 @@ In particular, the choices of algorithms and protocols used to perform the vario
 It can therefore be advantageous to study the theoretically optimal speeds of entanglement generation in more abstract models that are universal to all quantum computers, regardless of the underlying hardware.
 % As such, it's important to study the theoretically optimal rates at which entanglement can be generated in these systems---to ensure that the computation takes the best advantage of the limited resources.
 
-And in terms of the hardware, modern-day quantum computers are indeed quite limited. They are small and have short coherence times. Furthermore, many of the prevalent models also rely on a restricted qubit layouts such as the such as a 2D planar grid architecture [cite SC qubit literature], whereas the standard circuit model of quantum computing assumes one may apply single-qubit and two-qubit gates from a standard gate set on arbitrary non-overlapping subsets of the qubits.
-Since this assumption of being able to directly apply interactions between two arbitrarily distant qubits does not hold in practice for large quantum computing architectures \cite{Monroe2014,Linke2017,Bapat2018,Childs2019c,Schoute2022}, it leads to further overheads when mapping circuits to thiese restricted connectivities.
+And in terms of the hardware, modern-day quantum computers are indeed quite limited. They contain small numbers of qubits that decohere quickly. Furthermore, many of the prevalent models also rely on restricted qubit layouts such as a 2D planar grid architecture [cite SC qubit literature], whereas the standard circuit model of quantum computing assumes one may apply single-qubit and two-qubit gates on arbitrary non-overlapping subsets of the qubits.
+Since this assumption of being able to directly apply interactions between two arbitrarily distant qubits does not hold in practice for large quantum computing architectures \cite{Monroe2014,Linke2017,Bapat2018,Childs2019c,Schoute2022}, it leads to further overheads when mapping circuits to these restricted connectivities.
 These overheads can affect the asymptotic scaling of the quantum algorithms and possibly negate their quantum advantages.
 As such, it motivates the need to study both novel architectures as well as new ways of generating entanglement quickly.
 
-Long-range interactions provide a natural way of augmenting the power of quantum systems.
-In particular, power-law systems---those that decay as a power-law $1/r^\alpha$ in the distance  $r$ between particles, for some $\alpha > 0$.
-These long-range interactions are native to many experimental quantum systems and have attracted interest due to their ability to act as quantum sensors and clocks, in addition to their potential as resources for faster quantum information processing. Examples of long-range interactions include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
+In terms of novel architectures, there exist candidate systems for quantum computing that possess longer-range interactions.
+In particular, power-law interactions---those that decay as a power-law $1/r^\alpha$ in the distance  $r$ between particles, for some $\alpha > 0$---provide a natural way of augmenting the power of quantum systems.
+These not-so-local interactions are native to many experimental quantum systems and include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
+Such systems and have attracted interest due to their ability to act as quantum sensors and clocks, in addition to their potential as resources for faster quantum information processing.
 
 Recently, Refs.~\cite{Eldredge2017,Guo2020,Tran2021a,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
 As we will show in Section 3, it is also possible to leverage the power of these interactions to implement quantum gates asymptotically faster than is possible with finite-range interactions.
-In this way, we use bounds on the rate of transferring quantum states or engineering many-body entangled states can allow one to arrive at new tools for bounding the runtimes of quantum algorithms.
+Furthermore, bounds on the rate of transferring quantum states or engineering many-body entangled states can allow one to arrive at new tools for lower-bounding the runtimes of quantum algorithms.
 % And using many-body Hamiltonians, it may be possible to engineer protocols to transfer quantum states quickly---which can be used for quantum routing---or to produce many-body entangled states quickly.
 % As we show in this thesis, these entangled states can be used as resources for performing certain multiqubit quantum gates quickly.
 These two applications combined demonstrate the power of many-body physics to lead to enhancements in a physicist's toolbox for performing quantum computation.
 
 \red{more specific section introductions here.}
+In Section \cref{ch:vlr}, we provide one such demonstration of this synthesis of perspectives. We provide for systems with small $\al$ ($\al < D$) a set of matching protocols as well as bounds. For systems that can be mapped to free bosons or fermions with $1/r^{\alpha}$ hopping strength, we prove a Lieb-Robinson-type bound of $t \gtrsim N^{\alpha/D}/\sqrt{N}$. Notably, our free-particle bound is tight for $\alpha\le D/2$, as we show that it can be saturated by a new quantum state transfer protocol. We also prove a bound for many-site signaling (from one site to an extensive part of the system) that can be saturated. This bound leads to a bound on scrambling of $t_\text{sc}\gtrsim N^{\alpha/D}/N$, which generalizes the result in Ref.~\cite{Lashkari13} of $t_\text{sc} \gtrsim 1/N$ to all $\alpha<D$.
+
+In \cref{ch:qfo}, we propose a method to engineer power-law interacting Hamiltonians to quickly generate a multiqubit quantum gate known as the unbounded fanout gate. In particular, we show that it is able to achieve asymptotic speed-ups over short-range systems for all $\al \le 2d+1$. As an application of our protocol, we show that simulating long-range systems with $\al \le 2D$ for polylogarithmic times or longer is classically intractable, if factoring is classically hard. As a complement to our upper bounds on the fanout time, we also develop a technique that allows us to prove the tightest-known lower bounds for the time required to implement the QFT and unbounded fanout in a general lattice architecture.
+
+In \cref{ch:occ}, we prove bounds for the dynamics of information generation in Markovian open systems with long-range interactions. In addition to bounding the dynamics, we use these Lieb-Robinson bounds to constrain the entanglement structure of the corresponding steady states. In particular, we prove the so-called ``clustering of correlations'' that has previously justified the use of finite-dimensional tensor network representations of states via the so-called ``area law.''

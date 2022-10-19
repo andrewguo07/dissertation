@@ -1,11 +1,12 @@
+%!TEX root = body.tex
 \section{Clustering of steady-state correlations in open systems with long-range interactions}
-
+\label{ch:occ}
 % While the speed of information transfer is always bounded by the speed of light, many quantum platforms operate in a non-relativistic regime where typical velocities are far below this threshold.
 % Nevertheless, the  Schr\"odinger equation admits fundamental limits to the rate  at which correlations  can spread throughout the system.
 % Such bounds are known as Lieb-Robinson bounds and are connected to a diverse array of phenomena, including the decay of correlations in the ground state \cite{Hastings2006}, generation of topological order \cite{Bravyi2006, Bravyi2010}, efficiency of classical/quantum simulation \cite{Osborne2006,Tran2019a}, hardness of bosonic sampling tasks \cite{Deshpande2018}, heating rates in periodically driven Floquet systems \cite{Abanin2015,Tran2019b}, and signatures of quantum chaos \cite{Lashkari2013,Guo2019}.
 
 To date, most  formulations of Lieb-Robinson bounds apply to closed systems that evolve  via a unitary time-evolution operator.
-In such systems, recent advances have proved tight information-transfer bounds for interaction ranges that span the whole spectrum from local \cite{ChenLucas2021graphtheory,WangHazzard2020} to highly non-local regimes \cite{Tran2019a,Chen2019,kuwaharaStrictlyLinearLight2020,Tran2021b}, and have been saturated via explicit state-transfer protocols \cite{Eldredge2017,Tran2020hierarchylinearlightcones,Tran2021}.
+In such systems, recent advances have proved tight information-transfer bounds for interaction ranges that span the whole spectrum from local \cite{ChenLucas2021graphtheory,WangHazzard2020} to highly non-local regimes \cite{Tran2019a,Chen2019,kuwaharaStrictlyLinearLight2020,Tran2021b}, and have been saturated via explicit state-transfer protocols \cite{Eldredge2017,Tran2020hierarchylinearlightcones,Tran2021a}.
 While a complete picture for quantum information transfer has emerged for closed quantum systems,  the analogous question for systems that evolve \textit{non-unitarily} in time remains less well understood.
 For a broad range of quantum platforms (including noisy quantum simulators), interactions with a  larger environment are unavoidable and must be taken into account to accurately describe dynamics.
 While progress in this direction has been made \cite{poulin2010, descamps2013, cubitt2015, Kastoryano2013, Sweke2019}, the question of how the fundamental rate of information transfer differs for systems that interact with some larger environment remains unanswered.
@@ -15,7 +16,7 @@ A specific  trajectory belonging to a spatially-local Hamiltonian with local dis
 
 In this work, we make progress on the question of the fundamental rates of information propagation in open systems by proving a broad class of Lieb-Robinson bounds for systems with long-range interactions---specifically those that decay as a power-law $1/r^\alpha$ in the distance  $r$ between particles, for some $\alpha > 0$.
 Such power-law-decaying interactions feature in experimental platforms relevant to quantum computation and simulation, such as Rydberg atoms~\cite{Saffman2010}, trapped ion crystals~\cite{Britton2012,Monroe2021}, polar molecules \cite{Yan2013}, and nitrogen-vacancy color centers in diamond \cite{Yao2012}.
-In all of these platforms, interactions with a larger environment cannot be neglected, and a Markovian description of system dynamics is often justified.  In such systems, improved understanding of the fundamental rates of information transfer has spurred the development of optimal protocols for quantum information processing and state transfer \cite{Eldredge2017,Tran2021}.
+In all of these platforms, interactions with a larger environment cannot be neglected, and a Markovian description of system dynamics is often justified.  In such systems, improved understanding of the fundamental rates of information transfer has spurred the development of optimal protocols for quantum information processing and state transfer \cite{Eldredge2017,Tran2021a}.
 
 In addition to bounding dynamics of open long-range systems, we use these Lieb-Robinson bounds to constrain the entanglement structure of the corresponding steady states.
 For closed systems, Lieb-Robinson bounds have played an important role in proving rigorous statements on the decay of correlations in gapped ground states \cite{Hastings2006}. This justifies the use of finite-dimensional matrix-product-state representations of the ground state in one-dimensional systems with local interactions \cite{Hastings2007}.
@@ -413,7 +414,7 @@ We comment briefly on the tightness of the bounds derived in this work. Intuitiv
 In this work, we have  generalized the proof of Lieb-Robinson bounds from closed system dynamics to Markovian evolution (\textit{a priori}, such bounds need not exist for Markovian dynamics).
 However, our bounds only depend on interaction range and the dimension of the lattice.
 Any bound that only depends on these two inputs cannot be tighter than the corresponding closed-system Lieb-Robinson bound, since the latter is a special case of former.
-As such, the saturating protocols for closed systems \cite{Tran2020hierarchylinearlightcones,Tran2021} can be used to saturate open Lieb-Robinson bounds such as those uncovered in  \cref{lemma:LRbound_truncated}.
+As such, the saturating protocols for closed systems \cite{Tran2020hierarchylinearlightcones,Tran2021a} can be used to saturate open Lieb-Robinson bounds such as those uncovered in  \cref{lemma:LRbound_truncated}.
 In the future, it would be interesting to add another degree of freedom into formulations of open Lieb-Robinson bounds: the dissipative gap. (Some progress has been made in showing that Lieb-Robinson velocities can get tighter in dissipative systems \cite{descamps2013}.)
 In principle, it might be possible to derive Lieb-Robinson bounds that reduce to closed-system ones when the dissipative gap is zero, and get tighter in the presence of non-zero dissipation.
 Then one can develop protocols that saturate the dissipative-gap-dependent bounds.

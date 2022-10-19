@@ -1,0 +1,641 @@
+\section{Bounds on the error incurred by approximating time-evolved operators by local ones}
+\label{app:sim-local-obs}
+
+Here we use the open-system Lieb-Robinson bounds described in \cref{sec:open-LR} of the main text to derive the scalings in \cref{lemma:LRbound_truncated}.
+Recall that $\tilde A(t)$ is the evolution of the operator $A$ under the Liouvillian $\td \L$, the restriction of the long-range Liouvillian $\L$ to $\mathcal{B}_r(X)$, the ball of radius $r$ centered on $X$, for time $t$.
+We bound the difference between $A(t)$, which is $A$ evolved by the full Liouvillian, and $\tilde A(t)$ as follows:
+\begin{align}
+  \norm{A(t)-\tilde A(t)}&= \norm{\int_0^t \frac{d}{ds} \left[e^{\L ^\dagger(t-s)} e^{\td \L^\dagger s} A\right]\,\text{d}s} \\
+  &= \norm{ \int_0^t e^{\L^\dagger (t-s)} (\L^\dagger-\tilde\L^\dagger)\tilde A(s)\,\text{d}s} \\
+  &\le \int_0^t \sum_{j:\text{dist}(j,X)>r} \sum_{i:\text{dist}(i,X)\le r} \norm{\L^\dagger_{ij} \tilde A(s)}\,\text{d}s. \label{eq:clustering-bound}
+\end{align}
+In order to bound $\norm{\L^\dagger_{ij} \tilde A(s)}$, we turn to the open-system Lieb-Robinson bounds discussed in \cref{sec:open-LR}.
+Each line of \cref{eq:LR-bound-cc} and \cref{eq:LR-bound-cc-small-alpha} will correspond to plugging in one of those bounds.
+For ease of reference, we reproduce the scalings here:
+\begin{equation}
+		\label{app:LR-bound-cc}
+		\mathcal C(r,t) \propto \begin{cases}
+        \ds \frac{e^{\Th{N^{1-\al/d}}t}-1}{\Th{N^{1-\al/d}}},& \al < d,
+        \\ \ds \frac{e^{\Th{\log(N)}t}-1}{\Th{\log(N)}},& \al= d.
+		\\ \ds \frac{e^{vt}}{r^{\al-d}},& \al > d,
+		\\ \ds \frac{t^{\alpha-d+1}}{r^{\alpha-3d}},& \al > 3d,
+		\\ \ds \frac{t^2}{r^{\alpha-3}},& \al > 3, d=1.
+	\end{cases}
+\end{equation}
+The calculations will be similar for each bound, so we will only demonstrate the result of inserting the power-law light cone bound from \cref{eq:LR-Minh-constX} into \cref{eq:clustering-bound}:
+\begin{align}
+  \norm{A(t)-\tilde A(t)} & \le C\norm{A}\int_0^t\text{d}s \sum_{j:\text{dist}(j,X)>r} \sum_{i:d(i,X)\le r} \norm{\L^\dagger_{ij}} \frac{s^{\al-d}}{\text{dist}(i,X)^{\al-2d}} \\
+  & \le C\norm{A}\int_0^t\text{d}s \sum_{j:\text{dist}(j,X)>r} \sum_{i:\text{dist}(i,X)\le r} \frac{1}{\text{dist}(i,j)^\al} \frac{s^{\al-d}}{\text{dist}(i,X)^{\al-2d}} \\
+  &\le C'\norm{A}\int_0^t\text{d}s \sum_{j:\text{dist}(j,X)>r} \frac{s^{\al-d}}{\text{dist}(j,X)^{\al-2d}} \\
+  &\le C''\norm{A}\frac{t^{\al-d+1}}{r^{\al-3d}}.
+\end{align}
+This yields the expression in the fourth line of \cref{app:LR-bound-cc}.
+Performing the same operations for the other bounds gives the other terms in \cref{app:LR-bound-cc}: the first and second lines come from \cref{eq:LR-ZX-open-small-alpha}; the third line comes from \cref{eq:LR-ZX-open}, and the last line comes from \cref{eq:chen-lucas-open-bound}.
+
+% We note that the same bound as in \cref{eq:LR-bound-approx} can be shown for Liouvillians that act on the complement of $\mathcal{B}_r(X)$.
+% As such, the same bounds $\mathcal{C}(r,t)$ will appear in \cref{eq:ops-evolving-together}.
+
+\section{Variance  bound for reversible Liouvillians} \label{sec:var-bound}
+
+Here we provide a derivation of the covariance bound used in Eq.~\eqref{eq:cov-bound}.  We show that $s$-reversibility is important for this bound to hold. We define the variance of an observable $f$  in the steady state $\sigma$ as $\text{Var}[f] = \text{Tr}[f^2 \sigma] - \text{Tr}[f \sigma]^2$, which is real and positive. We wish to find a bound for $\text{Var}[f_t]$ for the time-evolved observable $f_t = e^{\L^\dagger t} f$.
+
+
+
+\begin{comment}
+Consider evolution of a density matrix via the Lindblad master equation
+\begin{equation}
+    \frac{d \rho}{dt} =  \mathcal{  L}(\rho) = -i [H, \rho] +  \sum_\mu \left(    L_\mu \rho  L_\mu^\dagger - \frac{1}{2} \{ L^\dagger_\mu  L_\mu, \rho \}\right).
+\end{equation}
+Now define the adjoint superoperator which evolves Hermitian obervables
+\begin{equation} \label{eq:heisen}
+    \frac{d f}{dt} =  \mathcal{  L}^\dagger(f) = +i [H, f] +  \sum_\mu \left(    L_\mu^\dagger f  L_\mu  - \frac{1}{2} \{ L^\dagger_\mu  L_\mu, f \}\right).
+\end{equation}
+Suppose we wish to calculate the expectation value of an observable as a function of time: $\langle A(t) \rangle$. We can either evolve the state via $\mathcal{  L}$ (Schr\"odinger picture) or the observable via $\mathcal{  L}^\dagger$ (Heisenberg picture):
+\begin{equation}
+\langle A(t) \rangle = \text{Tr}[ A e^{\L t} (\rho)  ] = \text{Tr}[ e^{\L^\dagger t } (A)  \rho  ].
+\end{equation}
+\end{comment}
+The Liouvillian is a non-Hermitian superoperator, which means that each eigenvalue has right and left eigenoperators:
+\begin{equation}
+\L (r_i) = \lambda_i r_i, \qquad \L^\dagger (l_i) = \lambda_i^* l_i.
+\end{equation}
+From the structure of the adjoint Liouvillian ($\L^\dagger$), it is clear that $\L^\dagger(\mathbb{I})=0$, where $\mathbb{I}$ is the identity operator. This implies that one of the eigenvalues $\lambda_0$ is zero, and the corresponding right eigenoperator $\sigma$ is called the steady state and satisfies $\L(\sigma)=0$ and $e^{\L t} (\sigma) = \sigma$.  The eigenoperators are ``bi-orthonormal'' via the Hilbert-Schmidt inner product: $\text{Tr}[l_i^\dagger r_j] = \text{Tr}[r_i^\dagger l_j] = \delta_{ij}$.
+
+We define the superoperator $\Gamma_s(f) = ( \sigma^s f \sigma^{1-s} + \sigma^{1-s} f \sigma^s)/2$ where $s \in[0,1]$ and $\sigma$ is a full-rank, Hermitian operator with positive eigenvalues.  We say that a Liouvillian is $s$-reversible for some $s \in[0,1]$ if
+$\Gamma_s \L^\dag = \L \Gamma_s$.
+By acting both sides on the operator $\mathbb{I}$, we see that $\sigma$ is the steady state, i.e.~that $\L (\sigma)=0$. Imposing reversibility implies that the spectrum must be real because the Liouvillian is pseudo-Hermitian with a positive-definite metric \cite{Mostafazadeh2002}.
+
+The  dynamics preserves Hermiticity of a density matrix, which implies that $\L(f^\dagger) = [\L(f)]^\dagger$, and the same for the adjoint: $\L^\dagger(f^\dagger) = [\L^\dagger(f)]^\dagger$, where $f$ is an arbitrary operator. This implies that (right and left) eigenoperators with real eigenvalues must be Hermitian. For $s$-reversible Liouvillians, the entire spectrum is real, which implies that all eigenoperators are Hermitian.
+
+Ref.~\cite{Kastoryano2013} derives a bound for the time-evolved variance in a $s$-reversible system:
+\begin{equation} \label{eq:bound}
+\text{Var}[ f_t ] \leq e^{ - 2 \lambda_1 t}  \text{Var}[ f(t=0) ],
+\end{equation}
+where $\{ - \lambda_i \}$ is the real, non-positive spectrum of $\L$, sorted from smallest to largest magnitude with $\lambda_0 =0, \lambda_1 > 0$.   ($\lambda = \lambda_1$, i.e.~the dissipative gap.) Here we derive this bound using the properties of the eigenoperators of $\L$.
+
+Consider a general Hermitian  operator which we write in terms of left eigenoperators
+\begin{equation}
+f = \sum_j c_j l_j \Rightarrow f_t = \sum_j c_j e^{ - \lambda_j t} l_j,
+\end{equation}
+where $c_j$ are real because $f$ is Hermitian.
+%which is Hermitian if $c_j \in \mathbb{R}$.
+Noting that  $\text{Tr}[l_j \sigma] = 0$ for $j \neq 0$, we find
+\begin{equation}
+\text{Var}[ f_t ]  =  \text{Tr} \left[  \left(  \sum_{j \neq 0} c_j e^{ - \lambda_j t} l_j \right)^2  \sigma \right] =      \sum_{j \neq 0} c_j^2 e^{ - 2 \lambda_j t},
+\end{equation}
+where in the last equality we have used $\text{Tr}[l_i r_j] = \text{Tr}[l_i \Gamma_s(l_j)] = \delta_{ij}$. From this, it is easy to see that $\lambda_{i > 1} \geq \lambda_1 $ implies the bound Eq.~\eqref{eq:bound}.  For the more general case of a complex spectrum, it is not clear how to repeat the derivation above. We therefore find that $s$-reversibility is sufficient for the bound to hold. (It is unclear whether $s$-reversibility is necessary for the bound.)
+%It is clear that we require a real spectrum (guaranteed by $s$-reversibility) for the bound to hold.
+
+Given the bound Eq.~\eqref{eq:bound}, one can repeat the steps outlined in Eqs.~[49-55] in Ref.~\cite{Kastoryano2013} to obtain the bound used in Eq.~\eqref{eq:cov-bound} of the main text. For completeness, we include these steps below:
+\begin{align}
+|\text{Cov}_\sigma (f_t, g_t)| & \leq \sqrt{ \text{Var}(f_t) \text{Var}(g_t)  }  \label{eq:hold} \\
+& \leq e^{-2 t \lambda_1} \sqrt{ \text{Var}(f) \text{Var}(g)  }  \label{eq:var1}.
+\end{align}
+The inequality in \eqref{eq:hold} is due to  Holder's inequality. The variance can be bounded by
+\begin{align}
+\sqrt{\text{Var}(f)} &= \sqrt{\Tr[ \sigma(f - \Tr[ \sigma f])^2 ] }  \\
+& \leq \sqrt{ \lVert (f - \Tr[ \sigma f])^2 \lVert } \\
+& \leq \lVert f - \Tr[ \sigma f] \lVert\\
+& \leq \lVert f  \lVert + | \Tr[\sigma f]| \\
+& \leq 2 \lVert f \lVert  \label{eq:var2}.
+\end{align}
+Putting together \eqref{eq:var1} and \eqref{eq:var2} leads to the desired bound (where $\lambda = \lambda_1$, i.e.~the dissipative gap):
+\begin{equation}
+|\text{Cov}_\sigma (f_t, g_t)| \leq 4 \norm{f} \norm{g}  e^{-2 \lambda t},
+\end{equation}
+which matches \cref{eq:cov-bound} in the main text.
+
+\section{Bound on the difference between two operators evolving separately versus evolving together}
+\setcounter{lemma}{1}
+\label{app:connectedcorrs}
+In this section, we provide the proof of the bound in \cref{lemma:connectedcorrs}. We restate the lemma here for convenience:
+\begin{lemma}
+  \label{lemma:connectedcorrs2}
+    Take two operators $A$ and $B$ supported on single sites $X,Y \in \Lam$  respectively such that $r\coloneqq d(X,Y)$, and let $A(t)=e^{\L^\dag t}A$ and $B(t) = e^{\L^\dag t}B$ be their time-evolution under the Liouvillian superoperator $\L^\dag$.
+    We also define $(AB)(t) = e^{\L^\dag t}(AB)$.
+    Then the following bound holds:
+    \begin{align}
+        \|(AB)(t) - A(t)B(t)\| \le K'\|A\|\|B\| \mathcal C(r,t),
+    \end{align}
+    where $\mathcal C(r,t)$ is given by the Lieb-Robinson-type bound corresponding to the system in question (see \cref{lemma:LRbound_truncated}) and $K'$ is some constant that depends on lattice parameters.
+\end{lemma}
+
+\begin{proof}
+We define the semi-group $\td \L^\dag$ to be the terms in $\L^\dag$ that act entirely within balls of radius $r/2$ centered around $X$ and $Y$.
+% All the local Liouvillian terms that act on individual sites within the balls are removed.
+Then, let $\tilde A(t)$ be the time-evolved version of $A$ under $\td \L^\dag$ and likewise for $\tilde B(t)$.
+By definition, this implies that $\tilde A(t)\tilde B(t) = (\widetilde{AB})(t)$.
+We then get
+\begin{align}
+\label{eq:connectedcorr1}
+  \|(AB)(t)-A(t)B(t)\| \le \| (AB)(t) - (\widetilde{AB})(t) \| + \|A(t)B(t)-\tilde A(t) \tilde B(t) \|.
+\end{align}
+The first term on the RHS of \cref{eq:connectedcorr1} may be bounded by the Lieb-Robinson bound stated in \cref{lemma:LRbound_truncated} (for an operator that is initially supported on two sites instead of one). The second term can be bounded by
+\begin{align}
+  \|A(t)B(t)-\tilde A(t) \tilde B(t) \| &\le \|A(t)(B(t)-\tilde B(t))\|+\|(A(t)-\tilde A(t))\tilde B(t)\|\\
+  &\le \|A\|\|B(t)-\tilde B(t)\|+\|A(t)-\tilde A(t)\|\|B\|,
+\end{align}
+using $\|A(t)\|\le \|A\|$ and the submultiplicativity of the operator norm.
+Using the Lieb-Robinson bound again, we get
+\begin{equation}
+    \|(AB)(t) - A(t)B(t)\| \le 2K\|A\|\|B\|\mathcal C(r,t),
+\end{equation}
+which is the same as \cref{eq:ops-evolving-together} in the main text.
+\end{proof}
+
+\section{Effect of perturbations on reduced steady-state density matrix}
+\label{app:proof-stability}
+In this section, we provide the proof of \cref{thm:stability_results}. The argument hews closely to that of Lemma 11 in Ref.~\cite{Kastoryano2013}, but uses the Lieb-Robinson bounds for open long-range systems given in the main text.
+\setcounter{theorem}{1}
+\begin{theorem}
+\label{thm:stability_results}
+Let $X,Y$ be two non-overlapping subsets of a $d$-dimensional cubic lattice $\Lambda$.  Let $\L $  be a primitive and $s$-reversible Liouvillian with log-Sobolev constant $\beta$, and let $\mathcal{Q}$ be a local Liouvillian perturbation, acting trivially outside of $X$. Let $\rho$ be the stationary state of $\L$, and let $\sigma$ be the stationary state of $\L  + \mathcal{Q}$. Then,
+\begin{equation}
+\label{eq:perturbation_bounds_app}
+\lVert \rho_Y - \sigma_Y  \lVert_1 \leq \begin{cases}
+       c \log (  \lVert \rho^{-1}  \lVert)^{\frac12} \left(\frac1{r^{\alpha - d}} \right)^{\frac{2 \beta}{ v + 2\beta}},& \al > d,
+    \\ c \log (  \lVert \rho^{-1}  \lVert)^{\frac12} \frac{\log(r)^{\al-d+1}}{r^{\al-3d}},& \al > 3d, % Xssuming that the form of connected correlators bound is the same with t ~ 1+\beta log(r). Check this
+    \\ c \log (  \lVert \rho^{-1}  \lVert)^{\frac12} \frac{\log(r)^2}{r^{\al-3}},& \al> 3,
+    \end{cases}
+\end{equation}
+where $c$ is some constant, and $r$ is the distance between $X$ and $Y$.
+\end{theorem}
+\begin{proof}
+ We use the following definition of the trace norm:
+\begin{equation}
+\frac{1}{2} \lVert \rho - \sigma \lVert_1 = \max_{0\leq A \leq \mathbb{I}} \tr[A (\rho-\sigma)],
+\end{equation}
+for positive semi-definite $A$. This implies
+\begin{equation}
+\lVert \rho_Y - \sigma_Y \lVert_1 = 2 \tr[ (A_Y \otimes \mathbb{I}_{Y^c}) (\rho - \sigma)],
+\end{equation}
+where $A_Y = \tr_{Y^c}[ \text{argmax}_{0\leq A \leq \mathbb{I}} \tr[A (\rho-\sigma)]]$.
+We use the triangle inequality
+\begin{align} \label{eq:triangle}
+\tr[ (A_Y \otimes \mathbb{I}_{Y^c}) (\rho - \sigma)] &= \tr[ (A_Y \otimes \mathbb{I}_{Y^c}) \left[(e^{\L t } - e^{(\L +\mathcal{Q})t})(\phi) + (\sigma - e^{(\mL +\mQ) t}(\phi)) + (e^{\mL t}(\phi) - \rho)\right]] \\
+&\le \tr[ (A_Y \otimes \mathbb{I}_{Y^c}) (e^{\L t } - e^{(\L +\mathcal{Q})t}) (\phi)] + \frac{1}{2} \lVert \tr_{Y^c}[ \sigma - e^{(\mL +\mQ) t}(\phi) ] \lVert_1
++ \frac{1}{2} \lVert  \tr_{Y^c}[ e^{\mL t}(\phi) - \rho ] \lVert_1,
+\end{align}
+where $\phi$ is an arbitrary state. Note that we have introduced two time-evolved operators in this step.
+We will now use a combination of mixing bounds and Lieb-Robinson bounds to restrict the RHS.
+The last term is bounded via the log-Sobolev bound:
+\begin{equation}
+ \frac{1}{2} \lVert  \tr_{Y^c}[ e^{\mL t}(\phi) - \rho ] \lVert_1  \leq \left( \frac{1}{2} \log (\lVert \rho^{-1} \lVert )  \right)^{\frac12} e^{- \beta t}.
+\end{equation}
+This is basically an upper bound on how fast an arbitrary initial state must converge towards the steady state.
+The second term in Eq.~\eqref{eq:triangle} can be bounded using a combination of Lieb-Robinson bounds and the log-Sobolev bound:
+\begin{align}
+\frac{1}{2} \lVert \tr_{Y^c}[ \sigma - e^{(\mL +\mQ) t}(\phi) ] \lVert_1  &=   \tr[ A_Y  e^{(\mL +\mQ) t} (  \sigma - \phi) ]   \\
+&= \tr[ e^{(\mL^\dagger +\mQ^\dagger) t} (A_Y)   (  \sigma - \phi) ]  \\
+&\leq \tr[ (e^{(\mL^\dagger +\mQ^\dagger) t } -  e^{\mL^\dagger t }) (A_Y)   (  \sigma - \phi) ] +  \tr[  e^{\mL^\dagger t } (A_Y)   (  \sigma - \phi) ].
+\end{align}
+%
+The last term can again be bounded via the log-Sobolev bound:
+\begin{align}
+\tr[  e^{\mL^\dagger t } (A_Y)   (  \sigma - \phi) ] &\leq \frac{1}{2} \lVert e^{\mL t} (  \sigma - \phi) \lVert_1 \leq \left( 2 \log (\lVert \rho^{-1} \lVert )  \right)^{\frac12} e^{- \beta t}.
+\end{align}
+The first term can be bounded via the Lieb-Robinson bound:
+\begin{align}
+\tr[ (e^{(\mL^\dagger +\mQ^\dagger) t } -  e^{\mL^\dagger t }) (A_Y)   (  \sigma - \phi) ]  &\leq   \tr[ (e^{(\mL^\dagger +\mQ^\dagger) t } -  e^{\mL^\dagger t }) (A_Y)  ] \lVert \sigma - \phi \lVert_1 \\
+&\leq 2 \tr[ (e^{(\mL^\dagger +\mQ^\dagger) t } -  e^{\mL^\dagger t }) (A_Y)  ] \\
+&\leq 2 \tr[ (e^{(\mL^\dagger +\mQ^\dagger) t } -  e^{\mL_{X^c}^\dagger t }) (A_Y)  ] + 2 \tr[ (e^{\mL_{X^c}^\dagger  t } -  e^{\mL^\dagger t }) (A_Y)  ] \\
+&\leq K \lVert A_Y \lVert \,\mathcal \mathcal{C}(r, t),
+\end{align}
+where $\mL_{X^c}$ is the  Liouvillian restricted to terms that do not intersect $X$. $K$ is an arbitrary constant, and $\mathcal \mathcal{C}(r, t)$ is the Lieb-Robinson bound stated in \cref{lemma:LRbound_truncated}.
+
+The first term in Eq.~\eqref{eq:triangle} can be bounded using  the Lieb-Robinson approach above. Gathering all the bounds together leads to
+\begin{equation}
+\lVert \rho_Y - \sigma_Y  \lVert_1  \leq K_1 \left(\log (\lVert \rho^{-1} \lVert )  \right)^{\frac12} e^{- \beta t} + K_2 \,\mathcal \mathcal{C}(r, t)
+\end{equation}
+for arbitrary constants $K_1,K_2$. We wish to pick a time $t$ that minimizes the RHS.
+We now note that the RHS has the same functional form as the function that we needed to minimize for the covariance correlation bound. Repeating the minimization procedure outlined in Theorem \ref{theorem:covariancebound}, we arrive at the stated bounds in \cref{eq:perturbation_bounds} of the main text.
+\end{proof}
+
+\section{Generalization of the Tran \etal~bound to open long-range systems}
+\label{sec:minh-bound-proof}
+Here we provide the derivation of the open-systems Lieb-Robinson bound in \cref{eq:LR-Minh-constX}.
+We use the generalization of the Hastings \& Koma bound to open systems, as described in \cite{Sweke2019}.
+Let $K_Y\in \mathbb{L}_Y$ be a Liouvillian with support contained in $Y$ and $\tau(t) \equiv  e^{\L^\dagger t}$ be the backwards time-evolution operator.
+The corresponding superoperator bound is
+\begin{align}
+  \mathcal C(r,t) \equiv \norm{  K_Y(\tau(t) A)} \leq C \|K_Y\|_{\infty} \norm A  \abs{X}\abs{Y}
+    \frac{e^{vt}-1}{r^{\alpha}},
+    \label{app:LR-HK-open}
+\end{align}
+% In the closed-system picture, we recover the conventional bound by choosing $K_Y$ such that $K_Y (A) = i[A,B]$ and replacing $\|K_Y\|_{\infty}$ with $2\|B\|$.
+If the supports of operators $K_Y$ and $A$ are not constant, then summing \cref{app:LR-HK-open} over the sites in those supports gives a bound of
+\begin{align}
+  \mathcal C(r,t) \le \|K_Y\|_{\infty} \norm A
+    \phi(Y)\frac{e^{vt}}{r^{\alpha-d-1}},
+    \label{eq:LR-ZX-open-many-site}
+\end{align}
+ where $\phi(Y)$ denotes the boundary of $Y$. For simplicity, we will later write this bound in the form
+\begin{align}
+  C(r,t)\le \|K_Y\|_{\infty}\norm{A}\phi(Y)f(r,t).
+  \label{eq:eq:LR-HK-open}
+\end{align}
+
+To derive the open-systems Lieb-Robinson bound in \cref{eq:LR-Minh-constX}, we follow the proof in Tran \etal~\cite{Tran2019b}.
+We first divide up the time interval $[0,t]$ into $M$ timesteps of size $\Delta t \equiv t/M$ and let $t_i = it/M$ for $i=0,\dots,M$.
+For brevity, we denote by $\tau_i \equiv \tau(t_{M-i},t_{M-i+1})$ the time-evolution operator from time $t_{M-i}$ to $t_{M-i+1}$.
+We can decompose the evolution of $A$ by $\tau(t)$ into $M$ timesteps:
+\begin{align}
+  \tau(t)A = \tau_M \tau_{M-1}\dots \tau_1 A.
+\end{align}
+We then approximate the evolution by $\tau_1$ by a truncated operator $A_1$ such that
+\begin{align}
+  \norm{\tau_1 A - A_1} = \eps_1,
+\end{align}
+where $A_1$ is supported on sites at most a distance $\ell$ from the support of $A$.
+We repeat the above approximation for the other time intervals to get
+\begin{align}
+  &\norm{\tau_2 A_1 - A_2} = \eps_2,\\
+  &\norm{\tau_3 A_2 - A_3} = \eps_3,\\
+   &\dots \nonumber\\
+  &\norm{\tau_M A_{M-1} - A_M} = \eps_M.
+\end{align}
+At the end of this process, we have approximated $\tau(t)A$ by an operator $A_M$ supported on sites located a distance of $M\ell$ from the support of $A$.
+We bound the error of this approximation using the triangle inequality:
+\begin{align}
+  \norm{\tau_M\dots\tau_1 A - A_M} \le \eps_1 + \dots + \eps_M.
+\end{align}
+By choosing $M\ell$ slightly less than $r$, we guarantee that the support of $A_M$ does not overlap with $X$, which implies that $K_Y(A_M) = 0$ and therefore that the commutator
+\begin{equation}
+	\mathcal C(r,t) =  \norm{  K_Y(\tau A)} \leq \norm{  K_Y(\tau A-A_M)} + \norm{  K_Y(A_M)} = \norm{  K_Y(\tau A-A_M)}
+\end{equation} is at most the error of the approximation: $\eps \equiv \eps_1 + \dots +\eps_M$.
+To find a bound on $\eps_1$, we trace out the part of $\tau_1 A$ that lies outside of $\mathcal A_\ell(Y)$, the ball of radius $\ell$ around the support of $A$:
+\begin{align}
+  A_1 \equiv \frac{1}{\Tr(\mathbb I_{\mathcal A_\ell(Y)^c})} \Tr_{\mathcal A_\ell(Y)^c} (\tau_1 A) \otimes \mathbb I_{\mathcal A_\ell(Y)^c}
+     = \int_{\mathcal A_\ell(Y)^c} d\mu(W) W (\tau_1 A) W^\dag,\label{eq:traceint}
+\end{align}
+where $S^c$ denotes the complement of the set $S$ and the trace is rewritten as an integral over Haar unitaries $W$ supported on $\mathcal A_\ell(Y)^c$, and $\mu(W)$ denotes the Haar measure.
+
+Now the error from approximating $\tau_1 A$ with $A_1$ is given by
+\begin{align}
+    \eps_1 =\norm{\tau_1 A - A_1}
+    &= \norm{\tau_1 A - \int_{\mathcal A_\ell(Y)^c} d\mu(W) W (\tau_1 A) W^\dag}\\
+    &= \norm{\int_{\mathcal A_\ell(Y)^c} d\mu(W) \left[\tau_1 A - W (\tau_1 A) W^\dag\right]}\\
+    &\leq \int_{\mathcal A_\ell(Y)^c} d \mu (W) \norm{\left[\tau_1 A,W\right]}.
+    \label{eq:eps_1-bound}
+\end{align}
+Plugging this into \cref{eq:eps_1-bound} gives
+\begin{align}
+  \eps_1 &= \norm{\tau_1 A - A_1} \le  \int_{\mathcal A_\ell(Y)^c} d \mu (W) \norm{A}\phi(Y)f(\ell,\Delta t)
+  = \abs{A}\phi(Y) f(\ell,\Delta t),
+\end{align}
+where $\Delta t = t/M$ is the size of each timestep.
+Applying this to all of the errors yields
+\begin{equation}
+  \eps_j \le \abs{A} \phi(X_j)f(\ell,\Delta t),
+\end{equation}
+where $X_j$ is the support of $A_j$.
+Thus the new bound is
+\begin{align}
+ \mathcal C(r,t) \le 2\|K_Y\|_{\infty} \eps &\le 2M\|K_Y\|_{\infty}\abs{A} \phi_\text{max}f(\ell,\Delta t)\\
+ &= 2 \|K_Y\|_{\infty}\abs{A}\frac{t}{\Delta t}\phi_\text{max}f(\ell,\Delta t),
+\end{align}
+where $\phi_\text{max} = \max_j \phi(X_j)$, and we replaced $M$ with $t/\Delta t$.
+% Certain practical constraints here are $\ell \ge 1$, $\Delta t \le t$, and $M = \frac t{\Delta t} < \frac r \ell$.
+Without loss of generality, we may set $\Delta t = 1$.
+Using the form of $f(r,t)$ given in \cref{eq:LR-ZX-open-many-site}, this yields the bound
+\begin{align}
+   \mathcal C(r,t) &\le C \|K_Y\|_{\infty} \norm A t \phi_{\max} \frac{e^v}{\left(\frac rt\right)^{\al-d-1}} \\
+   &\le C \|K_Y\|_{\infty} \norm A \frac{t^{\al-d}}{r^{\al-2d}},
+\end{align}
+which matches \cref{eq:LR-Minh-constX} in the main text.
+
+\section{Generalization of the Chen \& Lucas bound to open long-range systems}
+\label{sec:chen-lucas-bound-proof}
+In this section, we provide the proof of the bound in \cref{eq:chen-lucas-open-bound}, which generalizes the closed-system Lieb-Robinson bound from \cite{Chen2019} to open systems.
+In the process, we improve the tail of the bound from $1/r$ to $1/r^{\al-2-o(1)}$.
+Our goal is to prove that, for an operator $A\in \mathcal{B}(X)$ supported on $X$, for $K_Y\in \mathbb{L}_Y$ a superoperator supported on $Y$, and for backward time-evolution operator $e^{\L^\dagger t}$, we have
+\begin{align}
+	\norm{  K_Y(e^{\L^\dagger t} A)} \leq C \norm{K_Y}_{\infty} \norm A \frac{t}{r^{\alpha-2}}.
+\end{align}
+To do that, we use a trivial bound
+\begin{align}
+    \norm{ K_Y(e^{\L^\dagger t} A)} \le 2\norm{K_Y}_{\infty} \norm{\Py e^{\L^\dagger t}A},
+\end{align}
+where $\Py$ is the projector onto operators supported on sites at distance $Y$ and beyond.
+We will now represent the operator $A$ by its vectorized form $\oket{A}$, so that $\Py$ acting on $A$ can be viewed as a superoperator acting on the vectorized operator: $\Py(A)=\Py\oket{A}$.
+Also, from here on out, we will represent $\L^\dagger$ by $\L$ for notational convenience.
+
+The quantity that we wish to bound is $\norm{\Py e^{\L t} \oket{A}}$, which can be expanded in a series
+\begin{align}
+	\norm{\Py e^{\L t} \oket{A}} &= \sum_{n=0}^\infty \frac{t^n}{n!}\L^n\oket{A} = \sum_{n=0}^{\infty} \frac{t^n}{n!}\sum_{\beta_1,\beta_2,\dots,\beta_n} \L_{\beta_n}\dots\L_{\beta_2} 	\L_{\beta_1}\oket{A},
+	\label{eq:seriesexpansion}
+\end{align}
+where the $\beta_i$ correspond either to single-site terms or two-body couplings, which we will refer to as ``jumps.''
+
+\subsection{More definitions}
+We need a few more definitions before we can proceed.
+Consider a sequence of jumps $\bm \beta = (\beta_n,\dots,\beta_1)$.
+First, we denote by $\nu(\bm \beta)$ the number of jumps in $\bm \beta$ and $\nu_{q}(\bm \beta)$ the number of order-$q$ jumps in $\bm \beta$.
+By ``order-$q$'' jumps, we mean jumps that are of length at least $2^{q-1}$ and less than $2^q$.
+For example, $\nu_1(\bm \beta)$ is the number of nearest-neighbor jumps in $\bm \beta$.
+$\nu_2(\bm\beta)$ counts the number of jumps of length $2,3$.
+Given a jump $\beta$, $\dist(\beta,y)$ is the minimum distance from the support of $\beta$ to $y$.
+The distance between a sequence of jumps $\bm\beta$ to $y$ is the minimum distance between each jump and $y$.
+We also define a number $N_q$ for each $q$ as follows:
+\begin{align}
+	N_q = \ceil{\frac{\mu}{2^{q\gamma}}\frac{r}{2^q}},\label{eq:Nq1}
+\end{align}
+where $\gamma\in(0,1)$ is a parameter to be chosen later, and where $\mu<2$ is a constant chosen to be small enough that
+\begin{align}
+	\sum_{q = 1}^{\infty} (N_q-1) 2^q \leq \mu r \sum_{q=1}^\infty 2^{-q\gamma} < r.
+\end{align}
+
+
+
+We list the other definitions below (see \cref{fig:def} for a diagram):
+\begin{itemize}
+\item Given a sequence of jumps $\bm \beta$, we define its $q$-forward subsequence according to \cref{def:q-forward}.
+\begin{definition}\label{def:q-forward}
+Given a sequence of jumps $\bm \beta = (\beta_n,\dots,\beta_1)$, its $q$-forward subsequence $\bm \lambda^{(q)}$ is constructed as followed:
+\begin{itemize}
+	\item Set $\bm \lambda^{(q)} = \{\}$ to be an empty sequence and define $\dist(\{\},y) = \dist(x,y)$.
+	\item For $j=1,\dots,m$:
+	\begin{itemize}
+		\item If $\dist(\beta_j,y)<\dist(\bm \lambda^{(q)},y)$ and $\beta_j$ is an order-$q$ jump, add $\beta_j$ to $\bm \lambda^{(q)}$.
+	\end{itemize}
+\end{itemize}
+\end{definition}
+We denote by $\mathcal F$ the map from $\bm \beta$ to its set of $q$-forward subsequences $\Lambda = \{\bm \lambda^{(q)}:q = 1,\dots,r\}$. This map is many-to-one.
+\item If the $q$-forward subsequence $\bm \lambda^{(q)}$ has at least $N_q$ jumps, we construct the irreducible $q$-forward subsequence $\bm \lambda'^{(q)}$ by taking exactly the first $N_q$ jumps in $\bm \lambda^{(q)}$. Otherwise, we say that there is no irreducible $q$-forward subsequences.
+\item
+We denote the map from $\Lambda = \{\bm \lambda^{(q)}\}$ to the set of irreducible $q$-forward subsequences $\Lambda'=\{\bm \lambda'^{(q)}\}$ by $\mathcal T$.
+Note that $\abs{\Lambda'}$ can be less than $\abs{\Lambda}$ because the length of $\bm \lambda^{(q)}$ may be less than $N_q$ for some $q$.
+\item From a set $\Lambda' = \{\bm \lambda'^{(q_1)},\dots,\bm \lambda'^{(q_k)}\}$ of irreducible $q$-forward subsequences, we define $\mathcal I(\Lambda') = \{\bm\beta:\mathcal T(\mathcal F(\bm\beta) ) \supseteq \Lambda'\}$ to be the set of sequences $\bm \beta$ that has $\Lambda'$ in its set of irreducible $q$-forward subsequences.
+\end{itemize}
+
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\node[anchor = south] at (0,0.3){
+\begin{varwidth}{3cm}
+	A sequence of jumps
+\end{varwidth}
+};
+\node[] at (0,0){
+	$\bm \beta$
+};
+\node[] at (0,-0.5){
+
+};
+\node[] at (5,0){
+	$\Lambda = \{\bm \lambda^{(q)}\}$
+};
+\node[anchor = south] at (5,0.3){
+\begin{varwidth}{3cm}
+	$q$-forward subsequences
+\end{varwidth}
+};
+\node[] at (10,0){
+	$\Lambda' = \{\bm \lambda'^{(q)}\}$
+};
+\node[anchor = south] at (10,0.3){
+\begin{varwidth}{3cm}
+	irreducible $q$-forward subsequences
+\end{varwidth}
+};
+\draw[->] (1,0) -- (3.5,0);
+\node[anchor = north] at (2,-0.1){
+	$\mathcal{F}$
+};
+\draw[->] (6.5,0) -- (8.5,0);
+\node[anchor = north] at (7.5,-0.1){
+	$\mathcal{T}$
+};
+% \draw[->] (13.5,-0.4) -- (13.5,-2) -- (8.1,-2) -- (8.1,-0.4);
+% \node[anchor = south] at (10.75,-1.9){
+% 	$\mathcal{M}$
+% };
+\draw[->] (10,-0.4) -- (10,-2) -- (0,-2) -- (0,-0.4);
+\node[anchor = south] at (5,-1.9){
+	$\mathcal{I}$
+};
+\end{tikzpicture}
+\caption{A summary of the definitions regarding sequences and subsequences.}
+\label{fig:def}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proof}
+\Cref{lem:exist-long-q} below guarantees that, for each sequence $\bm \beta$ that contributes to \cref{eq:seriesexpansion}, there exists at least one irreducible $q$-forward subsequence $\bm \lambda'^{(q)}$ for some $q$.
+\begin{lemma}\label{lem:exist-long-q}
+	For each sequence $\bm \beta$,
+	if $\Py \L_{\bm \beta}\oket{A}\neq 0$, then there exists at least one $q$-forward subsequence such that $\nu_q(\bm \lambda^{(q)})\geq N_q$.
+\end{lemma}
+The proof of this lemma is straightforward. If there exists no such $q$, then $\nu_\ell(\bm\lambda^{(q)})\leq N_q-1$ for all $q$.
+By the construction of $\bm \lambda$:
+\begin{align}
+	r \leq \sum_{q = 1}^r \nu_q(\bm\lambda^{(q)}) 2^q
+	\leq \sum_{q = 1}^r (N_q-1) 2^q<r,
+\end{align}
+which is a contradiction.
+
+
+% Next, we need to define $\Gamma(\ell_1,\ell_2,\dots,\ell_k)$---the set of $\bm \beta$ such that its $\ell$-irreducible paths $\bm \lambda^{(\ell)}$ exist for all $\ell = \ell_1,\dots,\ell_k$.
+% Note that these sets are not disjoint, e.g. $\Gamma(1,2)\subset \Gamma(1)$.
+In the following, we use the notation $\chi_q$ to denote whether $\bm \beta$ has an irreducible $q$-forward subsequence:
+\begin{align}
+	\chi_q \L_{\bm \beta} \oket{A} =
+	\begin{cases}
+	\L_{\bm \beta} \oket{A} &\text{if } \exists \bm \lambda'^{(q)} \in \mathcal T(\mathcal F(\bm\beta))),\\
+	0 &\text{otherwise.}
+	\end{cases}
+\end{align}
+We can rewrite the series expansion of \cref{eq:seriesexpansion} as
+\begin{align}
+	\Py e^{\L t}\oket{A} &= \Py \sum_{n=0}^{\infty} \frac{t^n}{n!} \sum_{\bm \beta }\L_{\bm \beta} \oket{A}\\
+	&= \Py \left[1-\prod_{q=1}^\infty(1-\chi_q)\right]\sum_{n=0}^{\infty} \frac{t^n}{n!} \sum_{\bm \beta }\L_{\bm \beta} \oket{A},\label{eq:expandchi}
+\end{align}
+where \cref{lem:exist-long-q} ensures that $1-\prod_{\ell}(1-\chi_\ell) = 1$ for all sequences that contribute to \cref{eq:seriesexpansion}.
+Expanding the product over $\ell$, we will get terms of the form
+\begin{align}
+\mathcal S(q_1,\dots,q_k) &= (-1)^{k+1}\Py \chi_{q_1}\chi_{q_2}\dots\chi_{q_k}\sum_{n=0}^{\infty} \frac{t^n}{n!} \sum_{\bm \beta }\L_{\bm \beta} \oket{A}\\
+&=(-1)^{k+1}\Py \sum_{n=0}^{\infty} \frac{t^n}{n!} \sum_{\bm \lambda'^{(q_1)}} \dots\sum_{\bm \lambda'^{(q_k)}}
+\sum_{\substack{\bm\beta\in\mathcal I(\{\bm\lambda'^{(q_1)},\dots,\bm\lambda'^{(q_k)}\})\\
+\length(\bm\beta) = n
+}}
+\L_{\bm \beta} \oket{A},
+\end{align}
+for some distinct integers $q_1,\dots,q_k$.
+In the last line, we sum over all possible irreducible $q$-forward subsequences $\bm \lambda^{(q)}$, for $q = q_1,\dots,q_k$, then sum over all sequences $\bm \beta$ which contains $\{\bm\lambda'^{(q_1)},\dots,\bm\lambda'^{(q_k)}\}$ in its set of irreducible $q$-forward subsequences.
+
+We will now upper-bound $\norm{\mathcal S(q_1,\dots,q_k)}$.
+First, let $\bm \lambda'$ be a sequence consisting of all jumps in $\bm\lambda'^{(q_1)},\dots,\bm\lambda'^{(q_k)}$ such that the set of irreducible $\ell$-forward subsequences of $\bm \lambda'$ is exactly $\{\bm\lambda'^{(q_1)},\dots,\bm\lambda'^{(q_k)}\}$.
+From $\bm\lambda'$, we construct $\bm \beta$: % similarly to \cref{eq:betamunu}:
+\begin{align}
+	\bm \beta = \left(\beta_{m+1,j_{m+1}},\dots,\beta_{m+1,1}\lambda'_m,\dots,\lambda_2 \beta_{2,j_2},\dots,\beta_{2,1},\lambda'_1,\beta_{1,j_1},\dots,\beta_{1,1}\right),\label{eq:betamunu-power-law}
+\end{align}
+where $(\lambda'_m,\dots,\lambda'_1) = \bm \lambda'$, $j_1,\dots,j_{m+1}$ are nonnegative integers, $\beta_{i,j} \in \Gamma_i$, and the sets $\Gamma_i$ are constructed recursively for $i=1,\dots,m+1$ as follows:
+\begin{itemize}
+	\item $
+	\Gamma_1 =  \{(x',y'):\dist((x',y'),y)<\dist(x,y) \text{ if } (x',y') \text{ is an order-$q$ jump, where $q = q_1,\dots,q_k$}\}.$
+	\item Set $c_q = r$ for all $q = q_1,\dots,q_k$. Each $c_q$ will remember the distance from $y$ to the last length-$q$ jump.
+	For the sake of the proof, let $c_q = \infty$ for all other $q$.
+	\item For $i = 2$ to $m$:
+	\begin{itemize}
+	\item $\Gamma_i = \{(x',y'):\dist((x',y'),y)<c_{q(x',y')}.$
+	\item Update $c_q = \dist(\lambda'_i,y)$, where $q$ is the order of the jump $\lambda'_i$.
+	\end{itemize}
+	\item $\Gamma_{m+1} = \{(x',y')\}$ is the set of all possible jumps.
+\end{itemize}
+The point of this construction is that each sequence $\bm \beta$ appears exactly once.
+We can then rewrite
+\begin{align}
+\mathcal S(q_1,\dots,q_k)
+&=(-1)^{k+1}\Py \sum_{n=0}^{\infty} \frac{t^n}{n!} \sum_{\bm \lambda'^{(q_1)}} \dots\sum_{\bm \lambda'^{(q_k)}}
+\sum_{\substack{\bm\beta\in\mathcal I(\{\bm\lambda'^{(q_1)},\dots,\bm\lambda'^{(q_k)}\})\\
+\length(\bm\beta) = n
+}}
+\L_{\bm \beta} \oket{A},\\
+&=(-1)^{k+1}\Py  \sum_{\bm \lambda'^{(q_1)}} \dots\sum_{\bm \lambda'^{(q_k)}}
+\sum_{\bm\lambda'}
+\sum_{j_{m+1}=0}^\infty
+\dots
+\sum_{j_1=0}^\infty
+\frac{t^{m+\sum_{l=1}^{m}{j_l}}}{(m+\sum_{l=1}^{m}{j_l})!}
+\L_{\Gamma_{m+1}}^{j_{m+1}}\L_{\lambda_{m+1}}\dots\L_{\lambda_{1}}\L_{\Gamma_{1}}^{j_1} \oket{A},\\
+&=(-1)^{k+1}\Py  \sum_{\bm \lambda'^{(q_1)}} \dots\sum_{\bm \lambda'^{(q_k)}}
+\sum_{\bm\lambda'}
+\int_{\Delta^m(t)}dt_1\dots dt_m
+e^{\L_{\Gamma_{m+1}}^{j_{m+1}}(t-t_m)}\L_{\lambda_{m+1}}\dots\L_{\lambda_{1}}e^{\L_{\Gamma_{1}}^{j_1}t_1} \oket{A},
+\end{align}
+where $\Delta^m(t)$ is the simplex defined by $0\leq t_1\leq\dots \leq t_m\leq t$.
+Now, we use the triangle inequality:
+\begin{align}
+\norm{\mathcal S(q_1,\dots,q_k)}&\leq
+\frac{3}{2}  \sum_{\bm \lambda'^{(q_1)}} \dots\sum_{\bm \lambda'^{(q_k)}}
+\sum_{\bm\lambda'}
+\frac{t^m}{m!}
+\frac{1}{q_1^{\alpha N_{q_1}}} \dots \frac{1}{q_k^{\alpha N_{q_k}}}\\
+&\leq\frac{3}{2}  \binom{r2^q}{N_{q_1}}\dots\binom{r2^q}{N_{q_k}}
+\binom{m}{N_{q_1},\dots,N_{q_k}}
+\frac{t^m}{m!}
+\frac{1}{2^{\alpha q_1 N_{q_1}}} \dots \frac{1}{2^{\alpha q_k N_{q_k}}}\\
+&=\frac{3}{2} \prod_{i=1,\dots,k} \left[\binom{r2^q_i}{N_{q_i}}\frac{t^{N_{q_i}}}{N_{q_i}!}
+\frac{1}{2^{\alpha q_i N_{q_i}}}\right],
+\end{align}
+where in the last two lines we use the fact that $m = N_{q_1}+\dots+N_{q_k}$.
+Plugging this bound into \cref{eq:expandchi}, we have
+\begin{align}
+	\norm{\Py e^{\L t}\oket{A}} \leq -1 + \prod_{q} \left[1+\frac{3}{2}\binom{r 2^q}{N_{q}}\frac{t^{N_{q}}}{N_{q}!}
+\frac{1}{q^{\alpha N_{q}}}\right].
+\end{align}
+Now we use $1+x \leq e^x$ to bound
+\begin{align}
+	\norm{\Py e^{\L t}\oket{A}} \leq -1 + \exp\left[\frac{3}{2}\sum_{q} \binom{r 2^q}{N_{q}}\frac{t^{N_{q}}}{N_{q}!}
+	\frac{1}{q^{\alpha N_{q}}}\right].\label{eq:APPF_sumoverq}
+\end{align}
+Let $q_*$ be the largest integer such that $2^{q_*(\gamma+1)}\leq (\mu r)^{1-\gamma}$.
+Note that $\mu r/2^{q(\gamma+1)}>1$ for all $q\leq q_*$.
+% the smallest integer such that $N_q = 1$ for all $q\geq q_*$, i.e.
+% \begin{align}
+% 	N_q = 1 \Rightarrow &\frac{\mu r}{2^{q(\gamma+1)}}\leq 2\\
+% 	\Rightarrow& 2^{q_*}\geq 2^q \geq (\mu r/2)^{\frac{1}{\gamma+1}}.
+% \end{align}
+% We will choose $q_* = \floor{\beta \log{(\mu r)}}$ with $\beta$ being large enough that the above inequality holds.
+We divide the sum in \cref{eq:APPF_sumoverq} into two parts:
+\begin{align}
+	\sum_{q} \binom{r2^q}{N_{q}}\frac{t^{N_{q}}}{N_{q}!}
+	\frac{1}{2^{\alpha q N_{q}}}
+	&
+	\leq \underbrace{\sum_{q=1}^{q_*-1} \binom{r2^q}{N_{q}}\frac{t^{N_{q}}}{N_{q}!}
+	\frac{1}{2^{\alpha q N_{q}}}}_{=S_1}
+	+\underbrace{\sum_{q=q_*}^{r}\frac{rt}{2^{(\alpha-1) q}}}_{=S_2}.\label{eq:twosum}
+\end{align}
+First, we estimate $S_2$:
+\begin{align}
+S_2 \leq \frac{1}{1-2^{-\alpha}}\frac{rt}{2^{q_*(\alpha-1)}}
+\leq \underbrace{\frac{1}{1-2^{-\alpha}} \mu^{(1-\alpha)/(\gamma+1)} }_{=c_3}\frac{t}{r^{\frac{\alpha-1}{\gamma+1}-1}}.
+\end{align}
+% If we want a linear light cone, we need $\frac{\alpha-1}{\gamma+1}-1\geq 1$, or $\gamma\leq \frac{\alpha-3}{2}$.
+Next, we estimate $S_1$.
+Note that $N_q\geq \frac{\mu r}{2^{q(\gamma+1)}}$ for all $q$:
+\begin{align}
+S_1
+&\leq \sum_{q=1}^{q_*-1}\left(\frac{e^2rt}{N^2_q 2^{(\alpha-1) q}}\right)^{N_q}\\
+&\leq\sum_{q=1}^{q_*}\left(\frac{e^2t}{\mu^2 r}2^{q(2\gamma+3-\alpha)}\right)
+^{N_q},\label{eq:boundonS1}
+\end{align}
+where we have used the Stirling's approximation $x!>x^xe^{-x}$.
+When $q\rightarrow 1$, $N_q \propto r$.
+The corresponding term in $S_1$ decays with $r$ at least exponentially as $(t/r)^r$.
+On the other hand, when $q\rightarrow q_*$, $N_q \rightarrow 1$ and the corresponding term in $S_1$ is instead suppressed by $2^{q(2\gamma+3-\alpha)}$ for all $\alpha>3+2\gamma$.
+This limit analysis suggests that we should use two different bounds on $S_1$ for small $q$ and large $q$.
+For that, we define
+\begin{align}
+	q_0 \equiv \floor{\frac{1}{1+\gamma}\log_2(\mu r^\kappa)} \le \frac{1}{1+\gamma}\log_2(\mu r^\kappa)
+\end{align}
+and divide up $S_1$ into two sums over $q\le q_0$ and $q_0 < q \le q_*$:
+\begin{align}
+	S_1 \leq \underbrace{\sum_{q=1}^{q_0-1}\left(\frac{e^2t}{\mu^2 r}2^{q(2\gamma+3-\alpha)}\right)^{N_q}}_{=S_{1a}} + \underbrace{\sum_{q=q_0}^{q_*}\left(\frac{e^2t}{\mu^2 r}2^{q(2\gamma+3-\alpha)}\right)^{N_q}}_{=S_{1b}}.
+\end{align}
+First, we take the sum over $q \le q_0$. We assume that $\alpha > 2\gamma+3$ and $t\le \mu^2r/e^2$, so that the inner summand satisfies
+\begin{align}
+	\left(\frac{e^2t}{\mu^2 r}2^{q(2\gamma+3-\alpha)}\right) \le 1
+\end{align}
+for all $q\le q_0$. Because $N_q$ decreases with $q$, we upper bound
+\begin{align}
+	S_{1a}
+	= \sum_{q=1}^{q_0}\left(\frac{e^2t}{\mu^2 r}2^{q(2\gamma+3-\alpha)}\right)^{N_q}
+	&\le \left(\frac{e^2t}{\mu^2 r}\right)^{N_{q_0}} \sum_{q=1}^{q_0}2^{q(2\gamma+3-\alpha)N_q } \\
+		&\lesssim \left(\frac{e^2t}{\mu^2 r}\right)^\frac{\mu r}{2^{q_0(\gamma+1)}}\\
+		&\le \left(\frac{e^2t}{\mu^2 r}\right)^{r^{1-\kappa}}\\
+		&\le \frac t r e^{-r^{1-\kappa}},
+\end{align}
+where in the last line we further assume $t\le \mu^2r/e^2$.
+This gives the sum over $q \le q_0$ in the term $S_1$.
+To bound the sum over $q_0 < q \le q_*$, we note that $N_{q-1}\geq N_{q} +1$ for all $q<q_*$.
+To prove this, suppose $N_{q-1} = N_q$.
+That means
+\begin{align}
+	&\frac{\mu r}{2^{(q-1)(\gamma+1)}}<N_{q-1} = N_{q} \leq \frac{\mu r}{2^{q(\gamma+1)}} +1\\
+	\Leftrightarrow & 1 > (2^{\gamma+1}-1) \frac{\mu r}{2^{q(\gamma+1)}} > \frac{\mu r}{2^{q(\gamma+1)}},
+\end{align}
+which contradicts with $\mu r/2^{q(\gamma+1)}> 1$ for all $q< q_*$.
+Therefore, $N_{q-1}\geq N_q + 1$ for all $q<q_*$.
+Since $N_{q_*} = 1$, it follows that $N_{q_*-n}\geq n+1>n$ for all $n\geq 1$.
+We make the substitution $n= q_* - q$ to obtain
+\begin{align}
+S_{1b} &= \sum_{q=q_0}^{q_*}\left(\frac{e^2t}{\mu^2 r}2^{q(2\gamma+3-\alpha)}\right)^{N_q} \leq \sum_{n=1}^{q_*-q_0}\left(\frac{e^2t}{\mu^2 r}2^{(q_*-n)(2\gamma+3-\alpha)}\right)^{n},\\
+\end{align}
+again assuming that $\alpha>3+2\gamma$ and $e^2 t/(\mu^2 r)<1$.
+Now, using the fact that $q_*-n \ge q_0$, we have
+\begin{align}
+	2^{(q_*-n)(2\gamma+3-\alpha)}\le 2^{q_0(2\gamma+3-\alpha)} \leq r^{\kappa(2\gamma+3-\alpha)}.
+\end{align}
+Plugging this into the sum yields
+\begin{align}
+\sum_{n=1}^{q_*-q_0}\left(\frac{e^2t}{\mu^2 r}2^{(q_*-n)(2\gamma+3-\alpha)}\right)^{n}
+&\leq\sum_{n=1}^{q_*-q_0}\left(\frac{e^2t}{\mu^2 r}r^{\kappa(2\gamma+3-\alpha)}\right)^{n}\\
+&= \frac{e^2 t}{\mu^2 r^{1-\kappa(2\gamma+3-\alpha)}}\sum_{n=0}^{q_*-q_0-1}\left(\frac{e^2t}{\mu^2 r^{1-\kappa(2\gamma+3-\alpha)}}\right)^{n} \\
+&\leq \frac{e^2 t}{\mu^2 r^{1-\kappa(2\gamma+3-\alpha)}} \frac{1}{1 - \frac{e^2 t}{\mu^2 r^{1-\kappa(2\gamma+3-\alpha)}}}\\
+&\leq \underbrace{2\frac{e^2}{\mu^2}}_{=c_2} \frac{t}{r^{1-\kappa(2\gamma+3-\alpha)}},
+\end{align}
+assuming that $\frac{e^2 t}{\mu^2 r^{1-\kappa(2\gamma+3-\alpha)}}\leq \frac 12$.
+Combining everything, we have
+\begin{align}
+S_1 + S_2 \leq c_1 \left(\frac t r e^{-r^{1-\kappa}}\right) + c_2 \frac t{r^{1-\kappa(2\gamma+3-\alpha)}}+ c_3 \frac{t}{r^{\frac{\alpha-1}{1+\gamma}-1}}.\label{eq:two-terrm-after-sum}
+\end{align}
+We make the simplification that $\kappa = 1-\gamma$, so that
+\begin{align}
+	1-\kappa(2\gamma+3-\alpha) = 1-(1-\gamma)(\alpha-3-2\gamma) = \alpha-2\underbrace{-2\gamma-\gamma\alpha+3\gamma+2\gamma^2}_{=o(1)}. \label{eq:sdasdhnks}
+\end{align}
+In addition, for all $\gamma>0$, there exists a constant $c_\gamma$ that may depend on $\alpha$ such that
+\begin{align}
+	e^{-r^{\gamma}} \leq c_\gamma \frac{1}{r^{\alpha-3}}
+\end{align}
+for all $r>0$.
+Therefore,
+\begin{align}
+	\frac{t}{r} e^{-r^{\gamma}} \leq c_\gamma \frac{t}{r^{\alpha-2}}.\label{eq:dskads}
+\end{align}
+Substituting \cref{eq:dskads,eq:sdasdhnks} into \cref{eq:two-terrm-after-sum} and letting $c = c_1 c_\gamma + c_2+c_3$, we have the desired bound:
+\begin{align}
+	\norm{\Py e^{\L t} \oket{A}} \le c \frac{t}{r^{\alpha-2-o(1)}},
+\end{align}
+which is exactly \cref{eq:chen-lucas-open-bound} in the main text.

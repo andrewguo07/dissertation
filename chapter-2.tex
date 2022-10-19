@@ -1,14 +1,17 @@
+%!TEX root = body.tex
 \chapter{Signaling and scrambling with strongly long-range interactions}
+\label{ch:vlr}
 In non-relativistic quantum mechanics, Lieb-Robinson bounds provide a notion of causality \cite{LR}, limiting the speed of information propagation (or signaling) to a finite value in lattice systems with short-range interactions. This bounded signaling speed has strong implications for quantum information and condensed matter physics, leading to entanglement area laws \cite{Hastings07} and the existence of topological order \cite{BravyiHM10}.
-\red{However, it remains an open question whether the signaling speed must be finite if interactions are long-ranged and decay as an inverse power-law $1/r^{\al}$ in the inter-particle distance $r$.}
+However, it has remained an open question until recently as to whether the signaling speed must be finite if interactions are long-ranged and decay as an inverse power-law $1/r^{\al}$ in the inter-particle distance $r$.
 Such power-law interacting systems arise in experimental platforms for quantum computation and quantum simulation, including Rydberg atoms ~\cite{Saffman10}, trapped ions~\cite{Britton12}, polar molecules~\cite{Yan13}, defect centers in solids~\cite{Yao12}, and atoms trapped along photonic crystals~\cite{Douglas15}.
 % The lack of a bounded signaling speed in these systems makes it challenging to understand and predict their dynamics.
-For $D$-dimensional power-law interacting systems with $\al$ greater than $2D+1$, a finite signaling speed has been shown \cite{Chen2019,kuwaharaStrictlyLinearLight2020}.
+For $D$-dimensional power-law interacting systems with $\al$ greater than $2D+1$, a finite signaling speed has recently been shown \cite{Chen2019,kuwaharaStrictlyLinearLight2020} and a tight set of bounds proven (up to subpolynomial factors) for all $\al > D$.
+However, for $\al \le D$, the fate of causality is far from settled.
 
 % At long distances (or times), recent developments show that the signaling speed will diverge at most polynomially in time for $\al >2D$ \cite{Foss-Feig15, Tran18}, ruling out the exponential divergence suggested by earlier results \cite{HK}.
 % For $\al\le 2D$, which is the case for most experimental long-range interacting systems, an exponentially growing signaling speed has yet to be ruled out, making the fate of causality far from settled.
 
-In this work, we focus on the regime of \emph{strongly long-range} interacting systems, where interaction energy per site diverges, thus implying $\al\le D$ \cite{Kastner11,Kastner12, Storch15, Kastner17}.
+In this work, we focus on this regime of \emph{strongly long-range} interacting systems, where interaction energy per site diverges, thus implying $\al\le D$ \cite{Kastner11,Kastner12, Storch15, Kastner17}.
 Note that even if one normalizes the interaction strength to make energy \emph{extensive} (i.e., proportional to the number of lattice sites), these systems are still fundamentally different from those with $\al >D$ (as energy is in general no longer additive for subsystems \cite{Dauxois}).
 To avoid confusion, we will not perform any normalization of interaction strength throughout this paper, as such normalization can be performed later by rescaling time  without changing the physics implied by our results \cite{Storch15}.
 

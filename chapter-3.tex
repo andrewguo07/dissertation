@@ -1,4 +1,5 @@
 \chapter{Implementing a fast unbounded quantum fanout gate using power-law interactions}
+\label{ch:qfo}
 In the circuit model for quantum computation, the depth of a quantum circuit is given by the number of layers of non-overlapping quantum gates it contains.
 In typical quantum systems, coherence times are a limitation, so low-depth circuits prioritized for the regime of noisy intermediate-scale quantum computers are more desirable \cite{Preskill2018}.
 Various proposed models of quantum computation are equivalent up to polynomial overhead, making the definition of the complexity class $\BQP$ insensitive to the model of computation \cite{Bernstein1993,Raussendorf2001,Raussendorf2003,Hoyer2005}.
@@ -34,7 +35,7 @@ As we will show, it is also possible to leverage the power of these interactions
     However, those methods lead to gate durations that scale superlinearly in the system size in order to achieve a certain value of state fidelity and, as such, do not yield an asymptotic speed-up.}.
 
 In this Letter, we propose a protocol for implementing the unbounded fanout gate quickly using engineered Hamiltonians with power-law interactions.
-As an application of this protocol, we show that simulating strongly long-range systems with $\al$\,$\le$\,$2D$ for logarithmic time or longer is classically intractable, if factoring is classically hard.
+As an application of this protocol, we show that simulating long-range systems with $\al$\,$\le$\,$2D$ for polylogarithmic time or longer is classically intractable, if factoring is classically hard.
 As a complement to our upper bounds on the fanout time, we also develop a technique that allows us to prove the tightest-known lower bounds for the time required to implement the QFT and unbounded fanout in a general lattice architecture.
 
 \sect{Protocol for fast fanout using long-range interactions}To perform a fanout gate on $n$ logical qubits, we
@@ -124,20 +125,20 @@ This could be done using a gate based on %diagonal
 van der Waals interactions ($\al = 6$) to implement the short-range $\textsc{CNot}$ gates between data and ancilla qubits, and then rotating into a new basis in order to implement the long-range broadcast interaction using dipole-dipole interactions ($\al = 3$).
 We provide more discussion on the implementation of the protocol in the Supplemental Material \cite{SM}.
 
-\sect{Intractability of classical simulation of strongly long-range systems}As
-a corollary, the protocol shows that strongly long-range interacting systems with $\al$\,$<$\,$2D$ evolving for time polylogarithmic in $n$ or longer are difficult to simulate classically in the worst case.
+\sect{Intractability of classical simulation of long-range systems with $\al$\,$<$\,$2D$}As
+a corollary, the protocol shows that long-range interacting systems with $\al$\,$<$\,$2D$ evolving for time polylogarithmic in $n$ or longer are difficult to simulate classically in the worst case.
 % By this we mean that in order to approximately sample from the time-evolved state to within constant total-variation-distance error $\varepsilon$, a classical computer would require time at least superpolynomial in the system size \cite{note_constanterror}.
 The argument operates by a complexity-theoretic reduction from integer factoring, a problem that is assumed to be difficult for classical computers with the ability to use random bits (\textsc{Factoring} $\notin$\,$\BPP$).
-This assumption suggests that the simulation of strongly long-range systems could provide an avenue towards a potentially useful experimental demonstration of quantum computational advantage.
+This assumption suggests that the simulation of long-range systems could provide an avenue towards a potentially useful experimental demonstration of quantum computational advantage.
 
 The argument proceeds as follows.
 The time required to implement the fanout gate using \cref{alg:fastfanout} is $\O{\polylog(n)}$ for $\al$\,$<$\,$2D$.
 It is possible to implement Shor's order-finding algorithm in time $\O{t_\mathrm{FO}}$ using a small amount of classical pre-processing (polynomial in $n$) \cite{Cleve2000,Hoyer2005}.
 Using the ability to sample from the output of the order-finding algorithm to error $\varepsilon$\,$<$\,$0.4$\,$<$\,$4/\pi^2$, classically efficient post-processing can output a factor of an $n$-bit integer with probability $\W{1}$ \cite{Shor1997}.
-Therefore, if it were possible to efficiently sample from the output distribution in strongly long-range systems for evolution-time $t$\,$=$\,$\mathcal{O}(\log n)$, then it would be possible to factor $n$-bit integers efficiently as well.
+Therefore, if it were possible to efficiently sample from the output distribution in long-range systems with $\al$\,$<$\,$2D$ for evolution-time $t$\,$=$\,$\mathcal{O}(\log n)$, then it would be possible to factor $n$-bit integers efficiently as well.
 The best classical algorithm currently known for factoring an $n$-bit integer takes runtime $\exp[\mathcal{O}(\sqrt{n \log n})]$ \cite{Lenstra1992} and the problem is widely believed to be classically intractable.
 This stands in contrast to systems with finite-range interactions in 1D, for which efficient classical simulation is possible up to any time satisfying $t$\,$\leq$\,$\O{\log n}$ \cite{Osborne2006}.
-Under the complexity assumption mentioned above (\textsc{Factoring} $\notin$\,$\BPP$), we have shown that this result is not fully generalizable to strongly long-range interacting systems \footnote{We note that a similar result could have been achieved using the fact that constant-depth quantum circuits with two fanouts are not strongly classically simulable unless $P = PP$ \cite{Takahashi2014}.}.
+Under the complexity assumption mentioned above (\textsc{Factoring} $\notin$\,$\BPP$), we have shown that this result is not fully generalizable to long-range interacting systems with $\al$\,$<$\,$2D$\footnote{We note that a similar result could have been achieved using the fact that constant-depth quantum circuits with two fanouts are not classically simulable unless $P = PP$ \cite{Takahashi2014}.}.
 
 
 %%%%%%Lower bounds on the time required to implement QFT and fanout%%%%%%%
@@ -153,7 +154,7 @@ This result strengthens and generalizes Maslov's bound to higher dimensions and 
 In addition, we show that the same lower bound applies even to circuits that perform the QFT approximately.
 
 Our $\W {n^{1/D}}$ lower bound holds for any lattice system with finite velocities of information spreading, which include short-range interactions (i.e., finite-ranged or exponentially decaying) and power-law interactions with $\al$\,$>$\,$2$ in one dimension or $\alpha$\,$>$\,$2D$\,$+$\,$1$ for $D$\,$>$\,$1$ \cite{Lieb1972,Chen2019,kuwaharaStrictlyLinearLight2020}.
-Combined with our results above, this implies that systems with strongly long-range interactions can implement the QFT and fanout asymptotically faster than more weakly interacting systems.
+Combined with our results above, this implies that systems with long-range interactions with $\al$\,$<$\,$2D$ can implement the QFT and fanout asymptotically faster than more weakly interacting systems.
 
 The intuitive idea behind our proof is that the QFT unitary can spread out operators in a certain precise sense, a task that can be bounded by the ``Frobenius-norm light cone'' of Ref.\,\cite{Tran2020hierarchylinearlightcones}.
 The fact that this light cone imposes a finite speed limit on information propagation in short-range interacting systems implies that the minimum time $t_2(r)$ required for operator-spreading is proportional to the distance between qubits $r$.
@@ -248,7 +249,7 @@ In the Supplemental Material, we show that the operator $\tilde {U}_\mathrm{QFT}
 summary, we have developed a fast protocol for the unbounded fanout gate using power-law interactions.
 For $\al$\,$\le$\,$2D$, the protocol can perform the gate parametrically faster than is possible with short-range interactions.
 In particular, for experimentally realizable dipole-dipole interactions with $\al$\,$=$\,$3$ in two and three dimensions, as well as van der Waals interactions with $\al$\,$=$\,$6$ in three dimensions, the fast fanout protocol allows the quantum Fourier transform and Shor's algorithm to be performed in time that scales subpolynomially in the number of qubits.
-As a corollary, we showed that the classical simulation of strongly long-range systems with $\al$\,$<$\,$2D$ for time $t$\,$=$\,$\O{\polylog(n)}$ is at least as difficult as integer factorization, which is believed to be intractable in polynomial time classically.
+As a corollary, we showed that the classical simulation of long-range systems with $\al$\,$<$\,$2D$ for time $t$\,$=$\,$\O{\polylog(n)}$ is at least as difficult as integer factorization, which is believed to be intractable in polynomial time classically.
 
 To benchmark our protocol, we developed a new and general approach for lower-bounding the time required to perform a given quantum algorithm that is independent of its implementation as a quantum circuit.
 In particular, we derive a $\W{n^{1/D}}$ lower bound on the time required to implement quantum fanout—--as well as the exact and approximate QFTs---for all systems constrained by a linear light cone.
