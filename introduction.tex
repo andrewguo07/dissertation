@@ -12,8 +12,8 @@ The first bounds on these rates were shown by Elliot Lieb and Derek Robinson in 
 Since then, much progress has been made on sharpening these bounds \cite{ChenLucas2021graphtheory,WangHazzard2020} and proving them for specific classes of systems \cite{Tran2019a,Chen2019,kuwaharaStrictlyLinearLight2020,Tran2021b}.
 In addition to bounding the rate of entanglement generation, these bounds are also connected to a diverse array of phenomena, including the decay of correlations in the ground state \cite{Hastings2006}, generation of topological order \cite{Bravyi2006, Bravyi2010}, efficiency of classical/quantum simulation \cite{Osborne2006,Tran2019a}, hardness of bosonic sampling tasks \cite{Deshpande2018}, heating rates in periodically driven Floquet systems \cite{Abanin2015,Tran2019b}, and signatures of quantum chaos \cite{Lashkari2013,Guo2019}.
 
-The ability of quantum computers to generate entanglement is central to their ability to achieve speed-ups in problems that are intractable for classical computers.
-Solving hard problems quickly has been the selling point of quantum computers since the 1980s, when Feynman first conceived of a device that could simulate the fundamental laws of nature. %\cite{Feynman}.
+The ability of quantum computers to generate entanglement is central to their ability to achieve speed-ups in problems that are believed to be intractable for classical computers.
+Solving hard problems quickly has been the selling point of quantum computers since 1994, when Peter Shor discovered his algorithm for fast integer factorization \cite{Shor1997}.
 While in practice the computational speed of a quantum computer is inherently determined by parameters of the hardware that realizes the computer, the ``software'' can also play an important role.
 In particular, the choices of algorithms and protocols used to perform the various gates and subroutines in the quantum circuit can affect the asymptotic runtimes.
 % These protocols are highly dependent on the mapping between the circuit-level system and the system-level hardware.  the quantum circuits, which can affect their asymptotic runtimes.
@@ -21,26 +21,66 @@ In particular, the choices of algorithms and protocols used to perform the vario
 It can therefore be advantageous to study the theoretically optimal speeds of entanglement generation in more abstract models that are universal to all quantum computers, regardless of the underlying hardware.
 % As such, it's important to study the theoretically optimal rates at which entanglement can be generated in these systems---to ensure that the computation takes the best advantage of the limited resources.
 
-And in terms of the hardware, modern-day quantum computers are indeed quite limited. They contain small numbers of qubits that decohere quickly. Furthermore, many of the prevalent models also rely on restricted qubit layouts such as a 2D planar grid architecture [cite SC qubit literature], whereas the standard circuit model of quantum computing assumes one may apply single-qubit and two-qubit gates on arbitrary non-overlapping subsets of the qubits.
+And in terms of the hardware, today's quantum computers are indeed quite limited. They contain small numbers of qubits that decohere quickly. Furthermore, many of the prevalent models also rely on restricted qubit layouts such as a 2D planar grid architecture \cite{Arute2019}, whereas the standard circuit model of quantum computing assumes one may apply single-qubit and two-qubit gates on arbitrary non-overlapping subsets of the qubits.
 Since this assumption of being able to directly apply interactions between two arbitrarily distant qubits does not hold in practice for large quantum computing architectures \cite{Monroe2014,Linke2017,Bapat2018,Childs2019c,Schoute2022}, it leads to further overheads when mapping circuits to these restricted connectivities.
 These overheads can affect the asymptotic scaling of the quantum algorithms and possibly negate their quantum advantages.
 As such, it motivates the need to study both novel architectures as well as new ways of generating entanglement quickly.
 
-In terms of novel architectures, there exist candidate systems for quantum computing that possess longer-range interactions.
+In terms of novel architectures for quantum computing, systems that possess longer-range interactions provide promising candidates.
 In particular, power-law interactions---those that decay as a power-law $1/r^\alpha$ in the distance  $r$ between particles, for some $\alpha > 0$---provide a natural way of augmenting the power of quantum systems.
-These not-so-local interactions are native to many experimental quantum systems and include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
-Such systems and have attracted interest due to their ability to act as quantum sensors and clocks, in addition to their potential as resources for faster quantum information processing.
+These not-so-local interactions are native to many experimental quantum systems and include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, dipole-dipole interactions between polar molecules~\cite{Yan2013}, defect centers in diamond~\cite{Yao2012,Weimer2012}, and magnetic atoms~\cite{Fraxanet2022}.
+Such systems have attracted interest due to their ability to act as quantum sensors \cite{Foss-Feig15} and clocks, in addition to their potential as resources for faster quantum information processing.
 
-Recently, Refs.~\cite{Eldredge2017,Guo2020,Tran2021a,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
-As we will show in Section 3, it is also possible to leverage the power of these interactions to implement quantum gates asymptotically faster than is possible with finite-range interactions.
-Furthermore, bounds on the rate of transferring quantum states or engineering many-body entangled states can allow one to arrive at new tools for lower-bounding the runtimes of quantum algorithms.
+Recently, Refs.~\cite{kuwaharaStrictlyLinearLight2020,Eldredge2017,Guo2020,Tran2021a} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
+As we will show in \cref{ch:qfo}, it is also possible to leverage the power of these interactions to implement quantum gates asymptotically faster than is possible with finite-range interactions.
+Furthermore, the Lieb-Robinson bounds discussed earlier that bound the rate of transferring quantum states or engineering many-body entangled states can also lead to new tools for lower-bounding the runtimes of quantum algorithms.
 % And using many-body Hamiltonians, it may be possible to engineer protocols to transfer quantum states quickly---which can be used for quantum routing---or to produce many-body entangled states quickly.
 % As we show in this thesis, these entangled states can be used as resources for performing certain multiqubit quantum gates quickly.
-These two applications combined demonstrate the power of many-body physics to lead to enhancements in a physicist's toolbox for performing quantum computation.
+These two applications combined demonstrate the power of many-body physics to enhance the computational toolkit for quantum information scientists.
 
 \red{more specific section introductions here.}
-In Section \cref{ch:vlr}, we provide one such demonstration of this synthesis of perspectives. We provide for systems with small $\al$ ($\al < D$) a set of matching protocols as well as bounds. For systems that can be mapped to free bosons or fermions with $1/r^{\alpha}$ hopping strength, we prove a Lieb-Robinson-type bound of $t \gtrsim N^{\alpha/D}/\sqrt{N}$. Notably, our free-particle bound is tight for $\alpha\le D/2$, as we show that it can be saturated by a new quantum state transfer protocol. We also prove a bound for many-site signaling (from one site to an extensive part of the system) that can be saturated. This bound leads to a bound on scrambling of $t_\text{sc}\gtrsim N^{\alpha/D}/N$, which generalizes the result in Ref.~\cite{Lashkari13} of $t_\text{sc} \gtrsim 1/N$ to all $\alpha<D$.
+% In \cref{ch:vlr}, we provide one such demonstration of this synthesis of perspectives. We provide a set of matching upper and lower bounds for the time it takes to transfer quantum states in systems that can be mapped to free bosons or fermions hopping on a $d$-dimensional lattice with $1/r^{\alpha}$ hopping strength. Specifically, for systems with $N$ lattice sites, we prove a Lieb-Robinson-type bound of on the time required to transfer a single free boson/fermion $t \gtrsim N^{\alpha/d}/\sqrt{N}$ for $\al < d/2$ and show that it can be saturated by a new quantum state transfer protocol. We also prove a bound for many-site signaling (from one site to an extensive part of the system) that can be saturated. This bound leads to a bound on scrambling of $t_\text{sc}\gtrsim N^{\alpha/d}/N$, which generalizes the result in Ref.~\cite{Lashkari13} of $t_\text{sc} \gtrsim 1/N$ to all $\alpha<d$.
 
-In \cref{ch:qfo}, we propose a method to engineer power-law interacting Hamiltonians to quickly generate a multiqubit quantum gate known as the unbounded fanout gate. In particular, we show that it is able to achieve asymptotic speed-ups over short-range systems for all $\al \le 2d+1$. As an application of our protocol, we show that simulating long-range systems with $\al \le 2D$ for polylogarithmic times or longer is classically intractable, if factoring is classically hard. As a complement to our upper bounds on the fanout time, we also develop a technique that allows us to prove the tightest-known lower bounds for the time required to implement the QFT and unbounded fanout in a general lattice architecture.
+In \cref{ch:vlr}, we provide one such demonstration of this synthesis of perspectives. We provide a set of matching upper and lower bounds for the time it takes to transfer quantum states in systems that can be mapped to free bosons or fermions hopping on a $d$-dimensional lattice with $1/r^{\alpha}$ hopping strength. Specifically, for strongly long-range systems with $\al < d/2$, we prove a Lieb-Robinson-type bound on the time required to transfer a single free boson/fermion and show that it can be saturated by a new quantum state transfer protocol. We also prove a bound for many-site signaling (from one site to an extensive part of the system) that can be saturated. This bound leads to a bound on the time it takes for the system to scramble quantum information, which generalizes the result in Ref.~\cite{Lashkari13} from $\al = 0$ to all $\alpha<d$.
 
-In \cref{ch:occ}, we prove Lieb-Robinson-type bounds on the dynamics of information generation in open systems with long-range interactions. In addition to bounding the dynamics, we use these  bounds to constrain the entanglement structure of these systems in the limit of infinitely long evolution times---i.e. of their ``steady states.'' In particular, we prove that correlations decay polynomially in space in these steady states. This may serve as a first step towards establishing an area-law scaling of entanglement for these systems, similar to what was done in Ref.~\cite{Gong2017} for the closed case. % better motivation here of why area-law is important!  
+In \cref{ch:qfo}, we propose a method to engineer power-law interacting Hamiltonians to quickly generate a multiqubit quantum gate known as the unbounded fanout gate. In particular, we show that it is able to achieve asymptotic speed-ups over short-range systems for all $\al \le 2d+1$. As an application of our protocol, we show that simulating long-range systems with $\al \le 2d$ for polylogarithmic times or longer is classically intractable, if factoring is classically hard. As a complement to our upper bounds on the fanout time, we also develop a technique that allows us to prove the tightest-known lower bounds for the time required to implement the QFT and unbounded fanout in a general lattice architecture.
+
+In general, experimental systems cannot be taken in isolation, but are rather open to the environment, and can suffer noise and decoherence.
+They can be modeled instead with non-unitary ``open-system'' dynamics.
+In \cref{ch:occ}, we consider the dynamics of information generation in open systems with long-range interactions. We prove Lieb-Robinson-type bounds on the dynamics of systems coupled to Markovian baths and use these bounds to constrain the entanglement structure of these systems in the limit of infinitely long evolution times---i.e. of their ``steady states.'' In particular, we prove that correlations decay polynomially in space in these steady states. This may serve as a first step towards establishing an area-law scaling of entanglement for these systems, similar to what was done in Ref.~\cite{Gong2017} for the closed case. % better motivation here of why area-law is important!
+
+\newpage
+\section*{Citations to Previously Published Work}
+Most of the work appearing in this thesis is either published or has appeared on the preprint server arXiv. We mention these here.
+
+\begin{itemize}
+    \item Chapter 2: ``Signaling and scrambling with strongly long-range interactions''
+    A. Y. Guo, M. C. Tran, A. M. Childs, A. V. Gorshkov, and Z-X. Gong, Phys. Rev. A 102, 010401 (2020).
+
+    Further work related to Lieb-Robinson bounds and state transfer in power-law systems appeared in the following works:
+    \begin{itemize}
+        \item ``Locality and digital quantum simulation of power-law interactions,'' M. C. Tran, A. Y. Guo, Y. Su, J. R. Garrison, Z. Eldredge, M. Foss-Feig, A. M. Childs, A. V. Gorshkov, Phys. Rev. X 9, 031006 (2019).
+        \item ``Locality and Heating in Periodically Driven, Power-law Interacting Systems,'' M. C. Tran, A. Ehrenberg, A. Y. Guo, P. Titum, D. A. Abanin, A. V. Gorshkov, Phys. Rev. A 100, 052103 (2019)
+        \item ``Hierarchy of Linear Light Cones with Long-Range Interactions'', M. C. Tran, C.-F. Chen, A. Ehrenberg, A. Y. Guo, A. Deshpande, Y. Hong, Z.-X. Gong, A. V. Gorshkov, and A. Lucas, Phys. Rev. X 10, 031009 (2020).
+        \item ``Optimal State Transfer and Entanglement Generation in Power-law Interacting Systems,'' M. C. Tran, A. Y. Guo, A. Deshpande, A. Lucas, A. V. Gorshkov, Phys. Rev. X 11, 031016 (2021).
+        \item ``The Lieb-Robinson light cone for power-law interactions.'' M. C. Tran, A. Y. Guo, C. L. Baldwin, A.Ehrenberg, A. V. Gorshkov, A. Lucas, Phys. Rev. Lett. 127.160401 (2021)
+        \item ``Disordered Lieb-Robinson bounds in one dimension.'' C. L. Baldwin, A. Ehrenberg, A. Y. Guo, A. V. Gorshkov, arXiv:2208.05509
+    \end{itemize}
+
+    Further work related to scrambling in power-law systems appeared in the following works:
+    \begin{itemize}
+        \item ``The operator Lévy flight: light cones in chaotic long-range interacting systems.'' T. Zhou, S. Xu, X. Chen, A. Y. Guo, and B. Swingle, Phys. Rev. Lett. 124, 180601 (2020).
+        \item ``Hydrodynamic theory of scrambling in chaotic long-range interacting systems,'' T. Zhou, A. Y. Guo, S. Xu, X. Chen, and B. Swingle, arXiv: 2208.01649
+    \end{itemize}
+
+    \item Chapter 3: ``Implementing a fast unbounded quantum fanout gate using power-law interactions.'' A. Y. Guo, A. Deshpande, S.-K. Chu, Z. Eldredge, P. Bienias, D.Devulapalli, Y. Su, A. M. Childs, and A. V. Gorshkov, arXiv: 2007.00662
+
+    \item Chapter 4: ``Clustering of steady-state correlations for open systems with long-range interactions.'' A. Y. Guo*, S. Lieu*, M. C. Tran, A. V. Gorshkov, arXiv: 2110.15368 *co-first-authors
+\end{itemize}
+%
+%
+% See also
+%
+%
+%
+% vector is stack-allocated, but elements are heap-allocated (???)

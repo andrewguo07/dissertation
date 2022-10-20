@@ -21,12 +21,12 @@ One may also consider the Hamiltonian model, in which one may apply single-qubit
 In particular, in the Hamiltonian model with all-to-all unit-strength interactions, one can implement the fanout gate in constant time \cite{Fenner2003,Fenner2004}.
 However, the assumption of being able to directly apply interactions between two arbitrarily distant qubits does not hold in practice for large quantum computing architectures \cite{Monroe2014,Linke2017,Bapat2018,Childs2019c}.
 Mapping these circuits to restricted architectures inevitably leads to overheads and potentially even different asymptotic scaling.
-In $D$-dimensional nearest-neighbor architectures, for example, the unbounded fanout gate can only be implemented unitarily in depth $\Th{n^{1/D}}$ \cite{Rosenbaum2013}.
+In $d$-dimensional nearest-neighbor architectures, for example, the unbounded fanout gate can only be implemented unitarily in depth $\Th{n^{1/d}}$ \cite{Rosenbaum2013}.
 And while there exist protocols that can implement the fanout gate in constant depth on these architectures \cite{Pham2013}, these proposals require intermediate measurements along with classical control---a resource that may be inaccessible in certain near-term experimental systems \cite{Arute2019}.
 The overheads resulting from such physical restrictions could therefore limit the potential asymptotic speed-up from a fast quantum fanout.
 
 Systems with power-law interactions, however, present an opportunity for realizing these speed-ups.
-Specifically, for a lattice of qubits in $D$ dimensions, the interaction strengths between pairs of qubits separated by a distance $r$ are weighted by a power-law decaying function $1/r^\alpha$.
+Specifically, for a lattice of qubits in $d$ dimensions, the interaction strengths between pairs of qubits separated by a distance $r$ are weighted by a power-law decaying function $1/r^\alpha$.
 These long-range interactions are native to many experimental quantum systems and have attracted interest as potential resources for faster quantum information processing. Examples of long-range interactions include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
 Previous works have explored the acceleration of quantum information processing using strong and tunable power-law interactions between Rydberg states~\cite{Isenhower2011,Molmer2011,Petrosyan2017,Gulliksen2015,Muller2009,Young2020,Levine2019}, which can implement $k$-local gates that control or target simultaneously $k \gg 10$ qubits.
 Those gates still have a finite spatial range and can therefore only give a constant-factor speed-up over nearest-neighbor architectures.
@@ -35,11 +35,12 @@ As we will show, it is also possible to leverage the power of these interactions
     However, those methods lead to gate durations that scale superlinearly in the system size in order to achieve a certain value of state fidelity and, as such, do not yield an asymptotic speed-up.}.
 
 In this Letter, we propose a protocol for implementing the unbounded fanout gate quickly using engineered Hamiltonians with power-law interactions.
-As an application of this protocol, we show that simulating long-range systems with $\al$\,$\le$\,$2D$ for polylogarithmic time or longer is classically intractable, if factoring is classically hard.
+As an application of this protocol, we show that simulating long-range systems with $\al$\,$\le$\,$2d$ for polylogarithmic time or longer is classically intractable, if factoring is classically hard.
 As a complement to our upper bounds on the fanout time, we also develop a technique that allows us to prove the tightest-known lower bounds for the time required to implement the QFT and unbounded fanout in a general lattice architecture.
 
-\sect{Protocol for fast fanout using long-range interactions}To perform a fanout gate on $n$ logical qubits, we
-employ as subroutines modified versions of the state transfer protocols from Refs.~\cite{Eldredge2017} and \cite{Tran2021a} to generate a many-body entangled state in $\O{\polylog(n)}$ time using long-range interactions with $\al$\,$<$\,$2D$.
+\section{Protocol for fast fanout using long-range interactions}
+To perform a fanout gate on $n$ logical qubits, we
+employ as subroutines modified versions of the state transfer protocols from Refs.~\cite{Eldredge2017} and \cite{Tran2021a} to generate a many-body entangled state in $\O{\polylog(n)}$ time using long-range interactions with $\al$\,$<$\,$2d$.
 
 As an intermediate step, both state-transfer protocols ``broadcast'' a single-qubit state into the corresponding Greenberger–Horne–Zeilinger (GHZ)-like state:
 \begin{equation}
@@ -52,19 +53,19 @@ The \textsc{CNot} gate from qubit $i$ to qubit $j$ can be implemented by a Hamil
 Applying a Hamiltonian $H(t)$\,$=$\,$\sum_{ij} H_{ij}(t)$, which variously turns on/off interactions between pairs of qubits at different times, allows one to implement the broadcast in \cref{eq:longrangebroadcast}.
 
 By using Hamiltonians with long-range interactions $h_{ij}$ satisfying $\norm{h_{ij}}$\,$\le$\,$1/r_{ij}^\al$, it is possible to implement the broadcast operation asymptotically faster than with short-range interactions---a statement that we will prove rigorously later in the text.
-For a system of $n$ qubits, Refs.~\cite{Eldredge2017} and \cite{Tran2021a} showed that this broadcast time depends on the power-law exponent $\al$ and the dimension of the system $D$ as follows:
+For a system of $n$ qubits, Refs.~\cite{Eldredge2017} and \cite{Tran2021a} showed that this broadcast time depends on the power-law exponent $\al$ and the dimension of the system $d$ as follows:
 \begin{equation}
 \label{eq:statetransfertimes_new}
 	\tghz =
   \begin{cases}
-    \O{n^0} & \alpha < D
-    \\ \O{\log n} & \alpha = D
-    \\ \O{\log^{\kappa_\alpha} n }& \alpha \in (D,2D)
-    \\ \O{e^{\gamma\sqrt{\log n}}}& \al = 2D
-    \\ \O{n^{\min(\al/D - 2,1)}} & \alpha > 2D,
+    \O{n^0} & \alpha < d
+    \\ \O{\log n} & \alpha = d
+    \\ \O{\log^{\kappa_\alpha} n }& \alpha \in (d,2d)
+    \\ \O{e^{\gamma\sqrt{\log n}}}& \al = 2d
+    \\ \O{n^{\min(\al/d - 2,1)}} & \alpha > 2d,
   \end{cases}
 \end{equation}
-for constants $\gamma = 3\sqrt{d}$ and $\kappa_\alpha = \log 4/\log(2D/\alpha)$.
+for constants $\gamma = 3\sqrt{d}$ and $\kappa_\alpha = \log 4/\log(2d/\alpha)$.
 We term the broadcast time $t_{\text{GHZ}}$, since it corresponds to the GHZ-state-construction time when $\psi_0$\,$=$\,$\psi_1$\,$=1/\sqrt{2}$.
 This long-range broadcast is not the same as fanout because it requires that all intermediary qubits (besides the first qubit) be initialized in the $\ket{0}$ state.
 However, as we now show, it is possible to adapt the broadcast protocol to implement the fanout gate in time $\tghz$ using $n$ ancillary qubits.
@@ -81,7 +82,7 @@ However, as we now show, it is possible to adapt the broadcast protocol to imple
   \label{fig:broadcast}
 \end{figure}
 
-Consider a system of $n$ data qubits arranged on a $D$-dimensional lattice.
+Consider a system of $n$ data qubits arranged on a $d$-dimensional lattice.
 Furthermore, assume there are $n$ ancillary qubits, each located adjacent to one of the original qubits.
 We denote the qubits as $\ket{d_1}, \ket{d_2}, \dots, \ket{d_n}$ and $\ket{a_1}, \ket{a_2}, \dots, \ket{a_n}$ for data and ancilla, respectively.
 Suppose we want to perform fanout with $\ket{d_1}$ as control, and that all ancillae are guaranteed to be in state $\ket{0}$.
@@ -89,7 +90,7 @@ Then the sequence of operations in \cref{alg:fastfanout} (also depicted graphica
 
 In addition to accomplishing fanout, this protocol returns the ancillary qubits to the $\ket{0}$ state.
 Modulo the $\O{n}$ short-range operations that can be done in parallel in a single time step, the protocol requires time $2 t_\mathrm{GHZ}$.
-Hence, it can implement the fanout gate in time that is constant for $\alpha$\,$<$\,$D$, polylogarithmic for $D$\,$\le$\,$\alpha$\,$<$\,$2D$, and polynomial for $\alpha$\,$>$\,$2D$.
+Hence, it can implement the fanout gate in time that is constant for $\alpha$\,$<$\,$d$, polylogarithmic for $d$\,$\le$\,$\alpha$\,$<$\,$2d$, and polynomial for $\alpha$\,$>$\,$2d$.
 
 \begin{algorithm}[H]
 % \renewcommand{\thealgorithm}{}
@@ -114,7 +115,7 @@ Hence, it can implement the fanout gate in time that is constant for $\alpha$\,$
 We briefly comment on the constant-depth implementation of the QFT and Shor's algorithm using the unbounded fanout gate.
 An $n$-qubit QFT circuit can be performed with $\O{n\log n}$ gates to $1/\text{poly}(n)$ precision \cite{Coppersmith94}.
 Using unbounded fanout, the circuit can be reduced to constant depth with $\O{n\log n}$ ancillary qubits \cite{Hoyer2005}.
-We note that including these ancillae in the lattice would not change the asymptotic scaling of our protocol for $\al$\,$<$\,$2D$, since $\tghz$ is $\O{\polylog(n)}$ in this regime.
+We note that including these ancillae in the lattice would not change the asymptotic scaling of our protocol for $\al$\,$<$\,$2d$, since $\tghz$ is $\O{\polylog(n)}$ in this regime.
 
 We also remark on the potential ways of performing the fast fanout gate experimentally.
 One method would be to use two different qubit realizations for the data and ancillary qubits,  with the former interfacing with the latter through local interactions.
@@ -125,48 +126,49 @@ This could be done using a gate based on %diagonal
 van der Waals interactions ($\al = 6$) to implement the short-range $\textsc{CNot}$ gates between data and ancilla qubits, and then rotating into a new basis in order to implement the long-range broadcast interaction using dipole-dipole interactions ($\al = 3$).
 We provide more discussion on the implementation of the protocol in the Supplemental Material \cite{SM}.
 
-\sect{Intractability of classical simulation of long-range systems with $\al$\,$<$\,$2D$}As
-a corollary, the protocol shows that long-range interacting systems with $\al$\,$<$\,$2D$ evolving for time polylogarithmic in $n$ or longer are difficult to simulate classically in the worst case.
+\section{Intractability of classical simulation of long-range systems with $\al$\,$<$\,$2d$}
+As a corollary, the protocol shows that long-range interacting systems with $\al$\,$<$\,$2d$ evolving for time polylogarithmic in $n$ or longer are difficult to simulate classically in the worst case.
 % By this we mean that in order to approximately sample from the time-evolved state to within constant total-variation-distance error $\varepsilon$, a classical computer would require time at least superpolynomial in the system size \cite{note_constanterror}.
 The argument operates by a complexity-theoretic reduction from integer factoring, a problem that is assumed to be difficult for classical computers with the ability to use random bits (\textsc{Factoring} $\notin$\,$\BPP$).
 This assumption suggests that the simulation of long-range systems could provide an avenue towards a potentially useful experimental demonstration of quantum computational advantage.
 
 The argument proceeds as follows.
-The time required to implement the fanout gate using \cref{alg:fastfanout} is $\O{\polylog(n)}$ for $\al$\,$<$\,$2D$.
+The time required to implement the fanout gate using \cref{alg:fastfanout} is $\O{\polylog(n)}$ for $\al$\,$<$\,$2d$.
 It is possible to implement Shor's order-finding algorithm in time $\O{t_\mathrm{FO}}$ using a small amount of classical pre-processing (polynomial in $n$) \cite{Cleve2000,Hoyer2005}.
 Using the ability to sample from the output of the order-finding algorithm to error $\varepsilon$\,$<$\,$0.4$\,$<$\,$4/\pi^2$, classically efficient post-processing can output a factor of an $n$-bit integer with probability $\W{1}$ \cite{Shor1997}.
-Therefore, if it were possible to efficiently sample from the output distribution in long-range systems with $\al$\,$<$\,$2D$ for evolution-time $t$\,$=$\,$\mathcal{O}(\log n)$, then it would be possible to factor $n$-bit integers efficiently as well.
+Therefore, if it were possible to efficiently sample from the output distribution in long-range systems with $\al$\,$<$\,$2d$ for evolution-time $t$\,$=$\,$\mathcal{O}(\log n)$, then it would be possible to factor $n$-bit integers efficiently as well.
 The best classical algorithm currently known for factoring an $n$-bit integer takes runtime $\exp[\mathcal{O}(\sqrt{n \log n})]$ \cite{Lenstra1992} and the problem is widely believed to be classically intractable.
 This stands in contrast to systems with finite-range interactions in 1D, for which efficient classical simulation is possible up to any time satisfying $t$\,$\leq$\,$\O{\log n}$ \cite{Osborne2006}.
-Under the complexity assumption mentioned above (\textsc{Factoring} $\notin$\,$\BPP$), we have shown that this result is not fully generalizable to long-range interacting systems with $\al$\,$<$\,$2D$\footnote{We note that a similar result could have been achieved using the fact that constant-depth quantum circuits with two fanouts are not classically simulable unless $P = PP$ \cite{Takahashi2014}.}.
+Under the complexity assumption mentioned above (\textsc{Factoring} $\notin$\,$\BPP$), we have shown that this result is not fully generalizable to long-range interacting systems with $\al$\,$<$\,$2d$\footnote{We note that a similar result could have been achieved using the fact that constant-depth quantum circuits with two fanouts are not classically simulable unless $P = PP$ \cite{Takahashi2014}.}.
 
 
 %%%%%%Lower bounds on the time required to implement QFT and fanout%%%%%%%
 
-\sect{Lower bounds on the time required to implement QFT and fanout}In previous sections, we found upper bounds to the time required to implement fanout---and by corollary, the QFT.
+\section{Lower bounds on the time required to implement QFT and fanout}
+In previous sections, we found upper bounds to the time required to implement fanout---and by corollary, the QFT.
 As a way to benchmark our long-range protocol, we now proceed to discuss lower bounds for implementing fanout and the QFT.
-Recall that the protocol in \cref{alg:fastfanout} can implement fanout in time $\tghz$, which scales as $\O{\polylog(n)}$ for long-range systems with $\alpha$\,$<$\,$2D$.
+Recall that the protocol in \cref{alg:fastfanout} can implement fanout in time $\tghz$, which scales as $\O{\polylog(n)}$ for long-range systems with $\alpha$\,$<$\,$2d$.
 In this section, we show that such fast asymptotic runtimes cannot be achieved in architectures with strict locality constraints.
 
 In Ref.\,\cite{Maslov2007}, Maslov showed that a specific way of implementing the QFT requires $\W n$ depth on the 1D  nearest-neighbor architecture, though this does not rule out other QFT implementations with potentially sublinear depth.
-Here, we devise a technique that yields a lower bound of $\W {n^{1/D}}$ for the time required to perform a QFT in the Hamiltonian model.
+Here, we devise a technique that yields a lower bound of $\W {n^{1/d}}$ for the time required to perform a QFT in the Hamiltonian model.
 This result strengthens and generalizes Maslov's bound to higher dimensions and to the Hamiltonian model.
 In addition, we show that the same lower bound applies even to circuits that perform the QFT approximately.
 
-Our $\W {n^{1/D}}$ lower bound holds for any lattice system with finite velocities of information spreading, which include short-range interactions (i.e., finite-ranged or exponentially decaying) and power-law interactions with $\al$\,$>$\,$2$ in one dimension or $\alpha$\,$>$\,$2D$\,$+$\,$1$ for $D$\,$>$\,$1$ \cite{Lieb1972,Chen2019,kuwaharaStrictlyLinearLight2020}.
-Combined with our results above, this implies that systems with long-range interactions with $\al$\,$<$\,$2D$ can implement the QFT and fanout asymptotically faster than more weakly interacting systems.
+Our $\W {n^{1/d}}$ lower bound holds for any lattice system with finite velocities of information spreading, which include short-range interactions (i.e., finite-ranged or exponentially decaying) and power-law interactions with $\al$\,$>$\,$2$ in one dimension or $\alpha$\,$>$\,$2d$\,$+$\,$1$ for $d$\,$>$\,$1$ \cite{Lieb1972,Chen2019,kuwaharaStrictlyLinearLight2020}.
+Combined with our results above, this implies that systems with long-range interactions with $\al$\,$<$\,$2d$ can implement the QFT and fanout asymptotically faster than more weakly interacting systems.
 
 The intuitive idea behind our proof is that the QFT unitary can spread out operators in a certain precise sense, a task that can be bounded by the ``Frobenius-norm light cone'' of Ref.\,\cite{Tran2020hierarchylinearlightcones}.
 The fact that this light cone imposes a finite speed limit on information propagation in short-range interacting systems implies that the minimum time $t_2(r)$ required for operator-spreading is proportional to the distance between qubits $r$.
-This constrains the implementation time for the QFT, denoted $t_\mathrm{QFT}$, by $\W {n^{1/D}}$, from which the circuit-depth lower bound follows.
+This constrains the implementation time for the QFT, denoted $t_\mathrm{QFT}$, by $\W {n^{1/d}}$, from which the circuit-depth lower bound follows.
 The same Frobenius-norm bound also constrains the time required to implement the approximate QFT (AQFT).
 
 We consider the $4^n$-dimensional vector space of $n$-qubit operators for which the set of Pauli operators $\{I,X,Y,Z\}^{\otimes n}$ forms a basis.
 We quantify operator spreading outside a region of radius $r$ as follows.
 Taking an operator $|O)$ initially supported on site 1, we measure the weight of its time-evolved version, $|O(t))$, on sites at distance $r$ (and beyond) using a \emph{projection} operator $\mathcal{Q}_{r}$, which projects onto strings of Pauli operators that act nontrivially on at least one site at distance $r$ or greater.
-We measure the weight of this projected operator $|O_r)$\,$\coloneqq$\,$\mathcal{Q}_{r}|O(t))$ via the (squared) normalized Frobenius norm $\norm{O_r}_F^2$\,$\coloneqq$\,$\Tr(O_r^\dag O_r)/2^n$, which coincides with the Euclidean norm over the operator space, $(O_r|O_r)$ \footnote{See Ref.\,\cite{Tran2020} for a more precise definition.
-    We note that our projector $\mathcal{Q}_r$ is a variation on the $\mathbb{Q}_r$ used in {Ref.\,\cite{Tran2020}}.
-    Specifically, for $D=1$, they are related via $\mathcal{Q}_r = \sum_{x:\,|x|\ge r} \mathbb{Q}_x$.}.
+We measure the weight of this projected operator $|O_r)$\,$\coloneqq$\,$\mathcal{Q}_{r}|O(t))$ via the (squared) normalized Frobenius norm $\norm{O_r}_F^2$\,$\coloneqq$\,$\Tr(O_r^\dag O_r)/2^n$, which coincides with the Euclidean norm over the operator space, $(O_r|O_r)$ \footnote{See Ref.\,\cite{Tran2020a} for a more precise definition.
+    We note that our projector $\mathcal{Q}_r$ is a variation on the $\mathbb{Q}_r$ used in {Ref.\,\cite{Tran2020a}}.
+    Specifically, for $d=1$, they are related via $\mathcal{Q}_r = \sum_{x:\,|x|\ge r} \mathbb{Q}_x$.}.
 We define $t_2(r)$ to be the minimal time after which $\norm{O_r}_F^2$ is able to achieve a predetermined constant value \cite{Tran2020hierarchylinearlightcones}.
 % on sites at distance $r$ or beyond. \cite{note_t2r}.
 
@@ -175,7 +177,7 @@ which implies that $t_\mathrm{QFT}$\,$\geq$\,$t_2(r)$.
 Recall that the QFT operator on $n$ qubits is defined as $U_\mathrm{QFT} \coloneqq \sum_{y,z=0}^{2^n-1} \ketbra{y}{z} {\omega^{yz}}/{\sqrt{2^n}}$, where $\ket{y}$ $(\ket{z})$ is an $n$-qubit state that encodes the binary representation of $y$ ($z$) and $\omega = e^{2\pi i/2^n}$.
 Then the following lemma holds:
 \begin{lemma*} \label{lem_qft_weight}
-Let $U_\mathrm{QFT}$ be the QFT operator on $n$ qubits arranged in a $D$-dimensional lattice such that the first and $n$-th qubits are located a distance $r$\,$=$\,$\Theta(n^{1/D})$ apart.
+Let $U_\mathrm{QFT}$ be the QFT operator on $n$ qubits arranged in a $d$-dimensional lattice such that the first and $n$-th qubits are located a distance $r$\,$=$\,$\Theta(n^{1/d})$ apart.
 Then $U_\mathrm{QFT}^\dag Z_1 U_\mathrm{QFT}$\,$=:$\,$Z_1' $ is an operator with at least constant weight at distance $r$.
 \end{lemma*}
 
@@ -185,7 +187,7 @@ This leads directly to the following theorem:
 %
 % \begin{proof}
 % We explicitly compute the weight of the operator $Z_1'$ on site $n$.
-% Define $\omega$\,$:=$\,$e^{2\pi i/2^n}$.
+% define $\omega$\,$:=$\,$e^{2\pi i/2^n}$.
 % The QFT operation on $n$ qubits is defined as $\sum_{y,z=0}^{2^n-1} \ketbra{y}{z} {\omega^{yz}}/{\sqrt{2^n}}$, where we interpret the bit string $y_1, y_2, \ldots, y_n$ as a binary representation of a number $y$\,$\in$\,$\{0,1,\ldots, 2^n -1\}$ in the canonical ordering, i.e.\ $y$\,$=$\,$y_1 2^{n-1}$\,$+$\,$y_2 2^{n-2}$\,$+$\,$\cdots$\,$+$\,$y_n$.
 % The inverse of the QFT is obtained simply by taking $\omega$\,$\rightarrow$\,$\omega^{-1}$.
 % First, we compute
@@ -208,17 +210,17 @@ This leads directly to the following theorem:
 
 %
 \begin{theorem*}  \label{thm:QFTlowerbounds}
-  For systems with finite-range or exponentially-decaying interactions in $D$ dimensions, the time required to implement the QFT unitary is lower bounded by $t_\mathrm{QFT}$\,$= $\,$\W{r}$, where $r$\,$=$\,$\Theta(n^{1/D})$ is the distance between the first and $n$-th qubits.
+  For systems with finite-range or exponentially-decaying interactions in $d$ dimensions, the time required to implement the QFT unitary is lower bounded by $t_\mathrm{QFT}$\,$= $\,$\W{r}$, where $r$\,$=$\,$\Theta(n^{1/d})$ is the distance between the first and $n$-th qubits.
 
   For systems with long-range interactions, the Lieb-Robinson light cone gives the following bounds \cite{kuwaharaStrictlyLinearLight2020,Tran2019a,Hastings2006,Tran2021b}:
   \begin{align}
   \label{eq:LRlowerbounds}
    t_\mathrm{QFT} =
    \begin{cases}
-      \W{1}, & \al = D
-      \\ \W{\log r}, & \alpha \in (D,2D]
-      \\ \W{r^{\alpha-2D}}, & \alpha \in (2D,2D+1]
-      \\ \W{r}, & \alpha > 2D + 1.
+      \W{1}, & \al = d
+      \\ \W{\log r}, & \alpha \in (d,2d]
+      \\ \W{r^{\alpha-2d}}, & \alpha \in (2d,2d+1]
+      \\ \W{r}, & \alpha > 2d + 1.
     \end{cases}
   \end{align}
   The Frobenius light cone gives the following (tighter) bounds \cite{Kuwahara2021,Chen2021Frobenius}:
@@ -226,9 +228,9 @@ This leads directly to the following theorem:
   \label{eq:Froblowerbounds}
    t_\mathrm{QFT} =
    \begin{cases}
-      \W{r^{\frac{2\al-2D}{2\alpha-D+1}}}, & \al \in (D,2D]
-      \\ \W{r^{\alpha -1}}, & \alpha \in (1,2], D=1
-      \\ \W{r}, & \alpha > 2, D=1.
+      \W{r^{\frac{2\al-2d}{2\alpha-d+1}}}, & \al \in (d,2d]
+      \\ \W{r^{\alpha -1}}, & \alpha \in (1,2], d=1
+      \\ \W{r}, & \alpha > 2, d=1.
    \end{cases}
   \end{align}
 \end{theorem*}
@@ -245,20 +247,21 @@ For the AQFT, the lower bound follows in a similar fashion.
 The circuit that implements the QFT approximately with error $\varepsilon$ can be represented by a unitary $\tilde{U}_\mathrm{QFT}$ such that $\|U_\mathrm{QFT}-\tilde {U}_\mathrm{QFT}\|\leq \varepsilon$ \cite{Cleve2000}.
 In the Supplemental Material, we show that the operator $\tilde {U}_\mathrm{QFT}^\dag Z_1 \tilde {U}_\mathrm{QFT}$ also has large support on sites beyond distance $r$ as well, implying that the lower bounds in \cref{eq:LRlowerbounds,eq:Froblowerbounds} also hold for the AQFT.
 
-\sect{Conclusions and Outlook}In
+\section{Conclusions and Outlook}
+In
 summary, we have developed a fast protocol for the unbounded fanout gate using power-law interactions.
-For $\al$\,$\le$\,$2D$, the protocol can perform the gate parametrically faster than is possible with short-range interactions.
+For $\al$\,$\le$\,$2d$, the protocol can perform the gate parametrically faster than is possible with short-range interactions.
 In particular, for experimentally realizable dipole-dipole interactions with $\al$\,$=$\,$3$ in two and three dimensions, as well as van der Waals interactions with $\al$\,$=$\,$6$ in three dimensions, the fast fanout protocol allows the quantum Fourier transform and Shor's algorithm to be performed in time that scales subpolynomially in the number of qubits.
-As a corollary, we showed that the classical simulation of long-range systems with $\al$\,$<$\,$2D$ for time $t$\,$=$\,$\O{\polylog(n)}$ is at least as difficult as integer factorization, which is believed to be intractable in polynomial time classically.
+As a corollary, we showed that the classical simulation of long-range systems with $\al$\,$<$\,$2d$ for time $t$\,$=$\,$\O{\polylog(n)}$ is at least as difficult as integer factorization, which is believed to be intractable in polynomial time classically.
 
 To benchmark our protocol, we developed a new and general approach for lower-bounding the time required to perform a given quantum algorithm that is independent of its implementation as a quantum circuit.
-In particular, we derive a $\W{n^{1/D}}$ lower bound on the time required to implement quantum fanout—--as well as the exact and approximate QFTs---for all systems constrained by a linear light cone.
+In particular, we derive a $\W{n^{1/d}}$ lower bound on the time required to implement quantum fanout—--as well as the exact and approximate QFTs---for all systems constrained by a linear light cone.
 In doing so, we used the state-of-the-art Frobenius bounds from \cite{Tran2020hierarchylinearlightcones,Kuwahara2021,Chen2021Frobenius}, which have been shown to be tighter than the Lieb-Robinson bound in the regimes of $\al$ in which they hold.
-While the Lieb-Robinson bound has been shown to be saturable for all $\al$\,$\ge$\,$D$ (up to logarithmic factors), the corresponding result for the Frobenius bound remains unknown.
-For higher dimensions, the conjectured Frobenius light cone is $t$\,$=$\,$\W{r^{\alpha-D}}$ for $D$\,$<$\,$\al$\,$<$\,$D+1$ \cite{Chen2021Frobenius}.
+While the Lieb-Robinson bound has been shown to be saturable for all $\al$\,$\ge$\,$d$ (up to logarithmic factors), the corresponding result for the Frobenius bound remains unknown.
+For higher dimensions, the conjectured Frobenius light cone is $t$\,$=$\,$\W{r^{\alpha-d}}$ for $d$\,$<$\,$\al$\,$<$\,$d+1$ \cite{Chen2021Frobenius}.
 If this generalization of the Frobenius bound were to hold, our lower bounds on the circuit complexity of QFT and fanout would immediately generalize.
 
-As a final remark, we have derived our lower bounds on $t_\textrm{QFT}$ under the assumption that the first and last qubits of the QFT are separated by a distance of $r$\,$=$\,$\Theta(n^{1/D})$.
+As a final remark, we have derived our lower bounds on $t_\textrm{QFT}$ under the assumption that the first and last qubits of the QFT are separated by a distance of $r$\,$=$\,$\Theta(n^{1/d})$.
 However, other mappings of computational qubits to lattice qubits could potentially lead to faster implementations.
 For example, consider the mapping onto a one-dimensional chain of qubits wherein the second half of the chain is interleaved in reverse order with the first half \footnote{Specifically, for even $n$, this mapping is defined by $q_i\mapsto q_{2i-1}$ for $i \le n/2$ and $q_i\mapsto q_{2(n-i+1)}$ for $i > n/2$.}.
 Applying the QFT to a product state in this layout results in a state with two-qubit correlations that decay exponentially in the distance between the qubits.

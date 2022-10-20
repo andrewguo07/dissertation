@@ -1,18 +1,18 @@
-\chapter{My Appendix}
+\chapter{Supplemental Material for Chapter 1}
 
-In \cref{sec:generalbound} of this Supplemental Material, we provide a detailed proof of the general Lieb-Robinson-type bound for long-range interactions with $\al\le D$ mentioned in Eq.~(15) of the main text. The bound has a closed-form expression that can be used to lower bound the signaling time [see Eq.~(16)] for $\al \le D$.
+In \cref{sec:generalbound}, we provide a detailed proof of the general Lieb-Robinson-type bound for long-range interactions with $\al\le d$ mentioned in \cref{eq:newbound}. The bound has a closed-form expression that can be used to lower bound the signaling time [see \cref{eq:tsi}] for $\al \le d$.
 
-In \cref{sec:exactsumbound}, we derive a second general Lieb-Robinson-type bound that is the tightest one can get from the Lieb-Robinson series mentioned in Eq.~(13), although it lacks a closed-form analytic expression.
-We show numerically that the signaling time obtained from this bound has the same scaling as a function of system size $N$ as the bound in Eq.~(15) of the main text when $N$ is sufficiently large.
-Therefore, the bound presented in the main text is\dash in a broad sense\dash the best one can obtain without developing new techniques beyond those used in deriving the traditional Lieb-Robinson series.
+In \cref{sec:exactsumbound}, we derive a second general Lieb-Robinson-type bound that is the tightest one can get from the Lieb-Robinson series mentioned in \cref{eq:HKseries1}, although it lacks a closed-form analytic expression.
+We show numerically that the signaling time obtained from this bound has the same scaling as a function of system size $N$ as the bound in \cref{eq:newbound} when $N$ is sufficiently large.
+Therefore, the bound presented in \cref{eq:newbound} is\dash in a broad sense\dash the best one can obtain without developing new techniques beyond those used in deriving the traditional Lieb-Robinson series.
 
-\section{Proving the general Lieb-Robinson-type bound for \texorpdfstring{$\al \le D$}{α <= D}}
+\section{Proving the general Lieb-Robinson-type bound for \texorpdfstring{$\al \le d$}{α <= d}}
 \label{sec:generalbound}
-Before we present the proof of the general Lieb-Robinson-type bound given in Eq.~(15) of the main text, let us summarize in \cref{sec:math} some mathematical preliminaries useful for the proof.
+Before we present the proof of the general Lieb-Robinson-type bound given in \cref{eq:newbound}, let us summarize in \cref{sec:math} some mathematical preliminaries useful for the proof.
 
 \subsection{Mathematical preliminaries}
 \label{sec:math}
-In this section, we elaborate on the scaling of the on-site hop parameter $J_{ii}$ defined after Eq.~(14).
+In this section, we elaborate on the scaling of the on-site hop parameter $J_{ii}$ defined after \cref{eq:hoppingterms}.
 We define the quantity $\lambda = \max_{i\in\Lambda} J_{ii}$, which for power-law interactions has strength
 \begin{equation}
 	\label{eq:self-hop}
@@ -22,44 +22,44 @@ If the lattice $\Lam$ is a square lattice with unit spacings, then $\lambda$ sca
 \begin{equation}
         \label{eq:lamdef2}
 	\lam = \begin{cases}
-        \Th{N^{1-\al/D}} & \text{for }0\le\al<D,\\
-        \Th{\log N} & \text{for }\al=D,\\
-        \Th 1 & \text{for }\al>D.
+        \Th{N^{1-\al/d}} & \text{for }0\le\al<d,\\
+        \Th{\log N} & \text{for }\al=d,\\
+        \Th 1 & \text{for }\al>d.
 \end{cases}
 \end{equation}
 In general, the scaling of $\lam$ as a function of $N$ in \cref{eq:lamdef2} holds asymptotically for large regular lattices \cite{Storch15}.
 
-For $\al \le D$, we note that $\lam$ diverges in the thermodynamic limit.
+For $\al \le d$, we note that $\lam$ diverges in the thermodynamic limit.
 For some applications, it is preferred to apply a normalizing factor of $1/\lam$ (due to Kac \cite{Kac63}) to the Hamiltonian to ensure the system energy is extensive. Since experimental systems (such as those with dipolar interactions in 3D) do not necessarily have extensive energy, we would prefer not to apply the Kac normalization. The light cone contours for Kac-normalized Hamiltonians follow straightforwardly from our results upon rescaling the time by a factor of $\lambda$.
 
 In the rest of this subsection, we justify the dependence of $\lambda$ on $N$ and $\al$ as shown in \cref{eq:lamdef2}.
-We assume that the lattice $\Lam$ is $D$-dimensional with $N = L^D$ sites.
+We assume that the lattice $\Lam$ is $d$-dimensional with $N = L^d$ sites.
 Without loss of generality, let $i$ be the site located at the origin and define $r_j \equiv r_{ij} \ge 1$.
-For $0\le \al < D$, we bound \cref{eq:self-hop} above by an integral:
+For $0\le \al < d$, we bound \cref{eq:self-hop} above by an integral:
 \begin{align}
-	\sum_{j\in\Lam} \frac{1}{r_{j}^{\al}} &\le \int_{\vec{r}\in \mathbb{R}^D} \frac{d^D\vec{r}}{\|\vec{r}\|^\al}
-	= \frac{2\pi^{\frac D 2}}{\Gamma(\frac D2)} \int_0^L \frac{dr}{r^{\al-D+1}}  = \frac{\omega_D}{D-\al}L^{D-\al},
+	\sum_{j\in\Lam} \frac{1}{r_{j}^{\al}} &\le \int_{\vec{r}\in \mathbb{R}^d} \frac{d^d\vec{r}}{\|\vec{r}\|^\al}
+	= \frac{2\pi^{\frac d 2}}{\Gamma(\frac d2)} \int_0^L \frac{dr}{r^{\al-d+1}}  = \frac{\omega_d}{d-\al}L^{d-\al},
 \end{align}
-where $\omega_D\equiv 2\pi^{\frac D 2}\big/\Gamma(\frac{D}{2})$ is the hyper-surface area of a unit $D$-sphere and $\Gamma(\cdot)$ is the Gamma function.  It follows that $\lam = \O{ N^{1-\al/D}}$  for $\al<D$.
-The asymptotic lower bound $\lam = \W{N^{1-\al/D}}$ follows from setting $\|\vec r\| \rightarrow \|\vec r\| +\sqrt D$ and integrating from $r=1$ to $r=\infty$.
+where $\omega_d\equiv 2\pi^{\frac d 2}\big/\Gamma(\frac{d}{2})$ is the hyper-surface area of a unit $d$-sphere and $\Gamma(\cdot)$ is the Gamma function.  It follows that $\lam = \O{ N^{1-\al/d}}$  for $\al<d$.
+The asymptotic lower bound $\lam = \W{N^{1-\al/d}}$ follows from setting $\|\vec r\| \rightarrow \|\vec r\| +\sqrt d$ and integrating from $r=1$ to $r=\infty$.
 
-For $\al = D$, we perform the same calculation, taking care to avoid integrating over the origin:
+For $\al = d$, we perform the same calculation, taking care to avoid integrating over the origin:
 \begin{align}
-	\sum_{j\in\Lam} \frac{1}{r_{j}^{\al}} &\le  \int_{\|\vec{r}\| \ge 1} \frac{d^D\vec{r}}{\|\vec{r}\|^D} + \sum_{j \in \Lam} \theta \left( 1+\sqrt{D} - r_j\right)
-    \\ & \le  \omega_D \int_1^L \frac{dr}{r} + \frac{\omega_D\left(1+\sqrt D+\frac12\right)^D}{\omega_D\left(\frac12\right)^D}
-    \\ &= \frac {\omega_D}D \log(N) + \left(2\sqrt D+3\right)^D,
+	\sum_{j\in\Lam} \frac{1}{r_{j}^{\al}} &\le  \int_{\|\vec{r}\| \ge 1} \frac{d^d\vec{r}}{\|\vec{r}\|^d} + \sum_{j \in \Lam} \theta \left( 1+\sqrt{d} - r_j\right)
+    \\ & \le  \omega_d \int_1^L \frac{dr}{r} + \frac{\omega_d\left(1+\sqrt d+\frac12\right)^d}{\omega_d\left(\frac12\right)^d}
+    \\ &= \frac {\omega_d}d \log(N) + \left(2\sqrt d+3\right)^d,
 \end{align}
-where $\theta(\cdot)$ denotes the Heaviside step function. So, at the critical point $\al=D$, we have $\lam = \O{ \log(N)}$.
+where $\theta(\cdot)$ denotes the Heaviside step function. So, at the critical point $\al=d$, we have $\lam = \O{ \log(N)}$.
 The lower bound $\lam = \W{\log(N)}$ holds in a similar fashion.
 
-For $\al > D$, the sum in \cref{eq:self-hop} converges, so $\lam$ can be bounded by a constant independent of $N$.
+For $\al > d$, the sum in \cref{eq:self-hop} converges, so $\lam$ can be bounded by a constant independent of $N$.
 Thus, we have verified the asymptotic scaling of the on-site parameter $\lam$ for the three cases listed in  \cref{eq:lamdef2}.
 
-\subsection{Proof of the bound in Eq.~(15)}
+\subsection{Proof of the bound in \cref{eq:newbound}}
 \label{sec:newbound}
 
-In this section, we provide a simple proof of Eq.~(15) for long-range interactions.
-First, let us recall the Lieb-Robinson series from Eq.~(13) of the main text.
+In this section, we provide a simple proof of \cref{eq:newbound} for long-range interactions.
+First, let us recall the Lieb-Robinson series from \cref{eq:HKseries1}.
 \begin{align}
 	\label{eq:HKseries2}
 		\|[A(t),B]\| &\le 2\|A\|\|B\||X||Y|\sum_{k=1}^{\infty}\frac{(2t)^{k}}{k!} \J^k(X,Y), \\
@@ -108,12 +108,12 @@ Inserting this bound for $\mathcal{J}^{k}(r_{XY})$ into \cref{eq:HKseries2} give
 	\|[A(t),B]\| &\le 2\|A\|\|B\||X||Y|\sum_{k=1}^{\infty}\frac{(2t)^{k}}{k!} \J^k(X,Y) \\
     &\le 2\|A\|\|B\||X||Y|\sum_{k=1}^{\infty}\frac{(2t)^{k}}{k!} \frac{(\lambda(1+p))^{k}}{\lambda pr_{XY}^{\al}}\\
     &= 2\|A\|\|B\||X||Y| \left(\frac{e^{2\lam t(1+p)}-1}{\lambda pr_{XY}^{\al}}\right) \\
-    &= 2\|A\|\|B\||X||Y|\left(\frac{e^{\Theta(N^{1-\al/D})t}-1}{\Theta(N^{1-\al/D})r_{XY}^\al}\right), \label{eq:newbound2}
+    &= 2\|A\|\|B\||X||Y|\left(\frac{e^{\Theta(N^{1-\al/d})t}-1}{\Theta(N^{1-\al/d})r_{XY}^\al}\right), \label{eq:newbound2}
 \end{align}
-which reproduces Eq.~(15) in the main text.
+which reproduces \cref{eq:newbound}.
 
 
-\section{Second general Lieb-Robinson-type bound for \texorpdfstring{$\al \le D$}{α <= D}}
+\section{Second general Lieb-Robinson-type bound for \texorpdfstring{$\al \le d$}{α <= d}}
 \label{sec:exactsumbound}
 The above derivation of the bound in \cref{eq:newbound2} requires the use of the reproducibility condition~[\cref{eq:repcon}], which can make the bound loose compared to the Lieb-Robinson series in \cref{eq:HKseries2}. In this section, we will exactly sum the series in \cref{eq:HKseries2} and compare the resulting bound to that of \cref{eq:newbound2}. We will show by numerical analysis that\dash although the bound obtained directly from the Lieb-Robinson series is tighter than the one \cref{eq:newbound2}\dash it largely shares the same scaling behavior when the number of sites $N$ is large.
 
@@ -163,6 +163,7 @@ The exact summation bound leads to the same scaling for small $r$, but not for l
 While this comparison leaves room for potential tightening of the bound in \cref{eq:newbound2} for large $r$, generic improvement of the bound for all $r$ seems unlikely.
 
 \begin{figure}[h]
+\centering
 	\includegraphics[width=.5\linewidth]{figures/Rdep.png}
     \caption{A comparison between the exact summation bound [\cref{eq:exactbound}] and the analytical bound [\cref{eq:newbound2}] sites as a function of the distance $r$ between operators $A$ and $B$. The specific plot assumes a 1D periodic lattice with $N = 10^6$, $\al = 0.5$, $t = 1/\lam$, and $r=1,2,\cdots,N/2$.}
     \label{Fig_Rdep}
@@ -173,10 +174,10 @@ If the two bounds agree with each other at both $r=1$ and $r=N/2$ in the large $
 
 For $\al < 1$, the analytical bound gives the following signaling time (upon setting $\|[A(t),B]\|= 1$) as function of $r$ and $N$:
 \begin{equation}
-	\label{eq:contour_al<D}
+	\label{eq:contour_al<d}
 	t_\text{si}(r,N) =\W{\frac{\log(N^{1-\al}r^{\al})}{N^{1-\al}}}.
 \end{equation}
-Choosing either $r=1$ or $r=N$ leads to $t_\text{si}=\Omega(N^{\al-1}\log(N))$, consistent with Eq.~(16) of the main text. For the exact summation bound, we numerically compute $t_\text{si}$ by finding the value of $t$ that makes $\|[A(t),B]\| = 1$ over a range of $N$ from $10^4$ to $10^6$ for both $r = 1$ and $r = N/2$. We then fit $t$ as a function of $N$ to the function $a N^\gamma \log(N)$.
+Choosing either $r=1$ or $r=N$ leads to $t_\text{si}=\Omega(N^{\al-1}\log(N))$, consistent with \cref{eq:tsi}. For the exact summation bound, we numerically compute $t_\text{si}$ by finding the value of $t$ that makes $\|[A(t),B]\| = 1$ over a range of $N$ from $10^4$ to $10^6$ for both $r = 1$ and $r = N/2$. We then fit $t$ as a function of $N$ to the function $a N^\gamma \log(N)$.
 \begin{figure*}[h]
 	\subfigure[~$r = 1$]{
 	\includegraphics[width=.45\textwidth]{figures/beta_0.pdf}
@@ -184,9 +185,9 @@ Choosing either $r=1$ or $r=N$ leads to $t_\text{si}=\Omega(N^{\al-1}\log(N))$, 
     \subfigure[~$r = N/2$]{
     \includegraphics[width=.455\textwidth]{figures/beta_1.pdf}}
 	\caption{The fitted exponent $\gamma$ in the signaling time scaling obtained from the exact summation bound in \cref{eq:exactbound} at $r=1$ (a) and $r=N/2$ (b) for $a\in [0,1]$. The error bars reflect the 95\% confidence intervals for the fit.}
-        \label{Fig_al<D}
+        \label{Fig_al<d}
 \end{figure*}
-In \cref{Fig_al<D}, we plot the fitted exponent $\gamma(\al)$ as a function of $\al$. We observe that $\gamma(\al)$ scales approximately as $\al-1$ as long as $\al$ is not close to 1 for both $r=1$ and $r=N$, showing that both bounds lead to approximately the same scaling of signaling time in $N$.
+In \cref{Fig_al<d}, we plot the fitted exponent $\gamma(\al)$ as a function of $\al$. We observe that $\gamma(\al)$ scales approximately as $\al-1$ as long as $\al$ is not close to 1 for both $r=1$ and $r=N$, showing that both bounds lead to approximately the same scaling of signaling time in $N$.
 
 When $\al\rightarrow 1$, $\gamma(\al)$ deviates from $\al-1$ noticeably. We attribute such deviation to finite-$N$ effects in our numerical evaluation of the exact summation bound. In particular, we notice that as $\al\rightarrow 1$, $\lambda$ (which plays an important role in both bounds) is not well-approximated by $N^{\al-1}$ for insufficiently large enough $N$. For such values of $N$, $\lambda$ is better approximated by $\log(N)$.
 
@@ -194,4 +195,4 @@ To give further clarification, we perform a comparison of the two bounds exactly
 \begin{equation}
 	t_\text{si}(r,N) = \W{\frac{\log(r\log N)}{\log N}}.\label{eq:scalinga1}
 \end{equation}
-We then fit the signaling time obtained from the exact summation bound at $\al=1$ using the above scaling function and find very good agreement between the two bounds. For example, at $r=1$ the signaling time from the exact summation bound can be fitted by the function $ a\:\log(N)^b\:\log\log(N)^c$ with $b=-1.0$ and $c=0.95$, which agrees with the scaling of $\log\log(N)/\log(N)$ provided by \cref{eq:scalinga1}. As a result, we expect the signaling time bounds given by both bounds to have the same scaling in $N$ when the system size is large enough for all $\al\le D$.
+We then fit the signaling time obtained from the exact summation bound at $\al=1$ using the above scaling function and find very good agreement between the two bounds. For example, at $r=1$ the signaling time from the exact summation bound can be fitted by the function $ a\:\log(N)^b\:\log\log(N)^c$ with $b=-1.0$ and $c=0.95$, which agrees with the scaling of $\log\log(N)/\log(N)$ provided by \cref{eq:scalinga1}. As a result, we expect the signaling time bounds given by both bounds to have the same scaling in $N$ when the system size is large enough for all $\al\le d$.

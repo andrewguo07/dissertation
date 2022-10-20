@@ -1,0 +1,167 @@
+\chapter{Supplemental Material for Chapter 2}
+
+In \cref{sec:I,sec:II}, we present the mathematical proofs of results stated in \cref{ch:qfo}.
+In \cref{sec:III}, we present a roadmap towards experimentally implementing the broadcast protocols in Refs.~\cite{Eldredge2017} and \cite{Tran2021a} using dipolar interactions in a system of Rydberg atoms.
+Finally, in \cref{sec:IV}, we provide a summary of the analysis in Ref.~\cite{Eldredge2017} of various noise and decoherence mechanisms due to the fragility of the GHZ state and susceptibility to single-qubit errors.
+
+\section{Proof of Lemma 1}
+\label{sec:I}
+In this section, we provide the proof that the QFT unitary spreads operators and is thereby constrained by the Frobenius and Lieb-Robinson bounds.
+
+\begin{lemma} \label{lem_qft_weight}
+Let $U_\mathrm{QFT}$ be the QFT operator on $n$ qubits arranged in $d$ dimensions such that the first and $n$th qubits are a distance $r$\,$=$\,$\Theta(n^{1/d})$ apart.
+Then $U_\mathrm{QFT}^\dag Z_1 U_\mathrm{QFT}$\,$=:$\,$Z_1' $ is an operator with at least constant weight at distance $r$.
+\end{lemma}
+
+\begin{proof}
+We explicitly compute the weight of the operator $Z_1'$ on site $n$.
+Define $\omega$\,$:=$\,$e^{2\pi i/2^n}$.
+The QFT operation on $n$ qubits is defined as $\sum_{y,z=0}^{2^n-1} \ketbra{y}{z} {\omega^{yz}}/{\sqrt{2^n}}$, where we interpret the bit string $y_1, y_2, \ldots, y_n$ as a binary representation of a number $y$\,$\in$\,$\{0,1,\ldots, 2^n -1\}$ in the canonical ordering, i.e.\ $y$\,$=$\,$y_1 2^{n-1}$\,$+$\,$y_2 2^{n-2}$\,$+$\,$\cdots$\,$+$\,$y_n$.
+The inverse of the QFT is obtained simply by taking $\omega$\,$\rightarrow$\,$\omega^{-1}$.
+First, we compute
+\begin{align}
+Z_1' &= \sum_{x,y,z=0}^{2^n-1} \ketbra{z}{y} \frac{\omega^{-z y}(-1)^{y_1} \omega^{yx}}{2^n} \ketbra{y}{x}.
+\end{align}
+We divide the sum over $y$ into two cases, $y_1$\,$=$\,$0$ and $y_1$\,$=$\,$1$:
+\begin{align}
+Z_1' &= \frac{1}{2^n}\sum_{x,z=0}^{2^n-1} \ketbra{z}{x} \left(\sum_{y:\, y_1 = 0} \omega^{(x-z) y} - \sum_{y:\, y_1= 1} \omega^{(x-z) y}\right).
+\end{align}
+We can compute these sums separately, giving
+\begin{align}
+\label{eq:zoneprime}
+Z_1' = \frac{1}{2^{n-1}}\sum_{x\neq z}\ketbra{z}{x} \frac{1 - (-1)^{(x-z)}}{1-\omega^{x-z}}.
+\end{align}
+The nonzero terms in the sum on the right-hand side of \cref{eq:zoneprime} occur when $x-z$ is odd, i.e., when $x_n$\,$-$\,$z_n$\,$=$\,$1 \bmod 2$.
+Therefore, the only terms that remain are off-diagonal on qubit $n$ or, equivalently, contain only the $X_n$ or $Y_n$ Pauli operators.
+This implies that $Z_1'$ has all its weight on operators acting nontrivially at distance $r$---formally, that $\mathcal{Q}_r |Z_1')$\,$=$\,$|Z_1')$.
+\end{proof}
+
+\section{Generalization of lower bound to approximate QFT}
+\label{sec:II}
+In this section, we generalize to the approximate QFT unitary our result showing that the QFT unitary can spread operators nontrivially beyond a distance $r$.
+Ref. \cite{Cleve2000} defined the approximate QFT as a unitary $\tilde{U}_\mathrm{QFT}$ that can implement the QFT approximately with error $\varepsilon$:
+\begin{equation}
+  \label{eq:AQFTdef}
+  \|U_\mathrm{QFT}-\tilde {U}_\mathrm{QFT}\|\leq \varepsilon,
+\end{equation}
+where $\|\cdot\|$ denotes the operator norm.
+Consider the operator $\tilde {U}_\mathrm{QFT}^\dag Z_1 \tilde {U}_\mathrm{QFT}$.
+We argue that this operator is spread out as well.
+From \cref{eq:AQFTdef}, it follows that
+\begin{equation}
+  \norm{\tilde {U}^\dag Z_1 \tilde {U} - U^\dag Z_1 U} \leq 2\varepsilon\norm{Z_1} = \O{\varepsilon},
+\end{equation}
+where $\| \cdot\|$ indicates the operator norm and we let $U$\,$\coloneqq$\,${U}_\mathrm{QFT}$ and $\tilde U$\,$\coloneqq$\,$\tilde {U}_\mathrm{QFT}$ for simplicity.
+Since the normalized Frobenius norm is upper-bounded by the operator norm, we have
+\begin{align}
+\norm{\tilde {U}^\dag Z_1 \tilde {U} - U^\dag Z_1 U}_F = \O{\varepsilon}.
+\end{align}
+Moving to the vector space of operators and applying the projector $\mathcal{Q}_r$ onto operators with support beyond radius $r$ yields
+\begin{align}
+\norm{\mathcal{Q}_r |\tilde {U}^\dag Z_1 \tilde {U}) - \mathcal{Q}_r |U^\dag Z_1 U)} = \O{\varepsilon},
+\end{align}
+where $\|\cdot\|$ is the Euclidean norm and using $\|\mathcal{Q}_r\|$\,$=$\,$1$. By the triangle inequality, we have
+\begin{align}
+\label{eq:frobeniuslowerbound}
+ \norm{\mathcal{Q}_r |\tilde {U}^\dag Z_1 \tilde {U})} & \geq \norm{\mathcal{Q}_r |U^\dag Z_1 U)} -\O{\varepsilon}
+ \\ &= 1-\O{\varepsilon}.
+\end{align}
+\Cref{eq:frobeniuslowerbound} implies that the operator $Z_1$ after conjugating by the AQFT has large support on sites beyond distance $r$ as well, implying that the lower bounds in Eqs.~(3) and (4) of the main text
+%\cref{eq:LRlowerbounds,eq:Froblowerbounds}
+also hold for the AQFT.
+
+\section{Experimental implementation}
+\label{sec:III}
+In this section, we describe an experimental procedure to implement the broadcast protocols from Refs.~\cite{Eldredge2017} and \cite{Tran2021a}.
+Specifically, we will consider dipole-dipole interactions between Rydberg atoms---which decay as $1/r^3$---in two and three dimensions.
+This would allow for implementing the fanout gate on $n$ qubits in time $\O{\polylog(n)}$.
+Our implementation builds on the one outlined in the Supplemental Material of Ref.~\cite{Eldredge2017}.
+
+We encode our ancillary qubits in the electronic ground state and excited Rydberg states of a neutral atom under a weak electric field.
+Using $\text{Rb}^{87}$, this can be done by encoding the qubit state $\ket{0}$ in the ground state $\ket{g}$ and the $\ket{1}$ state in the equal superposition state $(\ket{s} + \ket{p_0})/\sqrt{2}$ consisting of the excited Rydberg states $\ket{s} = \ket{L=0,J=\frac12,m_J=\frac12}$ and $\ket{p_0} = \ket{L=1,J=\frac12,m_J=\frac12}$, obtained by applying a microwave dressing field\footnote{We note that the $\ket{s}$ and $\ket{p_0}$ states (as well as the $\ket{p_+}$ state defined later) can all have different principal quantum numbers.}.
+This leads to the following effective dipolar interaction Hamiltonian between the qubits:
+\begin{align}
+\label{eq:dipole-Ham}
+  H_\mathrm{int} = \sum_{i\neq j} H_{ij} = \frac{1}{4\pi\eps_0} \sum_{i\neq j} \frac{\mu_0^2}{16} \frac{1-3\cos^2\theta_{ij}}{r_{ij}^3} \,(1-Z_i)\otimes (1-Z_j),
+\end{align}
+where $r_{ij}$ is the distance between atoms $i$ and $j$, $\theta_{ij}$ is the angle between the electric field and the vector separating the two atoms, and $Z_i = \ketbra{0}_i - \ketbra{1}_i$.
+Additionally, the transition dipole moment is given by $\mu_0 = \langle p_0 |d_0| s\rangle$, where $d_p = \mathbf{\hat{e}_p} \cdot \mathbf{d}$ is a component of the dipole operator $\mathbf{d}$ and $\mathbf{\hat{e}_0} = \mathbf{\hat{z}},\mathbf{\hat{e}_{\pm}} = \mp (\mathbf{\hat{x}}\pm i \mathbf{\hat{y}})/\sqrt{2}$.
+% We have ignored local terms like $Z_i$ and $Z_j$, as they can be removed by applying local gates.
+Our assumption here of instantaneous power-law interactions is a good approximation for a physical system, provided that the timescale of the dynamics is sufficiently long compared to the size of the system divided by the speed of light \cite{Chang2012}.
+
+The $(1-Z_i)\otimes (1-Z_j)$ interactions in \cref{eq:dipole-Ham} can be used to realize the $\ketbra{1}_i$\,$\otimes$\,$X_j$ interactions required for the protocol in Ref.~\cite{Eldredge2017} [see Eq.~(1)] as well as the $\ketbra{1}_i\otimes\ketbra{1}_j$ interactions used in Ref.~\cite{Tran2021b} [see Eq.~(6)], since the interactions are interchangeable up to local terms.
+ % by first applying local rotations to realize a controlled-phase gate and then applying Hadamard operations before and after the gate to obtain a \textsc{CNot} gate.
+While the local operations used in the protocol may require time-dependent control, we note that the dipolar interactions will remain constantly on throughout the entire broadcast process, which avoids the need for selective two-body interactions.
+The individual addressing required to perform the local rotations has been demonstrated in 2D tweezer arrays~\cite{Kaufman2021} as well as in a 3D optical lattice, as shown in Ref.~\cite{Wang2016}.
+The ~5 $\mu$m lattice spacing in those systems would also be appropriate for our protocol, as the distance between Rydberg atoms helps prevent the dipole-dipole interactions from reaching the scale of the energy-level spacing.
+
+In order to implement the ``selective'' asymmetric control-target interactions required by the protocols in Ref.~\cite{Eldredge2017} and Ref.~\cite{Tran2021a}, we use a procedure reminiscent of the Hahn spin-echo \cite{Hahn1950}.
+First, we apply the interaction Hamiltonian $H_\mathrm{int}$ on all qubits at once for a time $t$.
+Then, we apply a local $\pi$-pulse ($X$ gate) on either all of the control qubits or all of the target qubits at once.
+This has the effect of swapping $Z$ for $-Z$, which leaves all control-control and target-target interactions invariant, but flips the sign of the control-target interactions.
+Then, in the final step, we evolve by the interaction $-H_\mathrm{int}$  for time $t$.
+This will have the effect of zeroing out the control-control and target-target interactions and lead to a net evolution by the control-target interactions for the full time $t$.
+This is sufficient to implement the broadcast protocol from Ref.~\cite{Eldredge2017} using only local controls.
+
+To tie things up, we show how to implement the oppositely signed Hamiltonian $-H_\mathrm{int}$.
+We will use the same approach as for $H_\mathrm{int}$, but instead of resonantly dressing the $\ket{s}$ state with $\ket{p_0}$, we will instead use the state $\ket{s'}$ with a different principal quantum number and dress it
+with the state $\ket{p_+} = \ket{L=1,J=\frac32,m_J=\frac32}$ %(with the same principal quantum number as $\ket{s'}$)
+to form the state $\ket{1'} = (\ket{s'} + \ket{p_+})/\sqrt{2}$.
+In this case, the corresponding effective dipolar interaction Hamiltonian will be given by
+\begin{align}
+\label{eq:neg-dipole-Ham}
+  H_\mathrm{int}'= -\frac{1}{4\pi\eps_0}\sum_{i\neq j} \frac{\mu_+^2}{32} \frac{1-3\cos^2\theta_{ij}}{r_{ij}^3}\, (1-Z_i)\otimes (1-Z_j),
+\end{align}
+where $\mu_+ = \langle p_+|d_+|s\rangle$.
+Note that, apart from a constant factor, the dipole-dipole interaction here differs from $H_\mathrm{int}$ by only a negative sign.
+Thus, by
+%changing the polarization of the microwave field and
+transferring the $\ket{1}$ population to the $\ket{1'}$ state, it is possible to implement the state transfer protocols in Ref.~\cite{Eldredge2017} and Ref.~\cite{Tran2021a} via Rydberg atoms.
+Note that when the polarization of the drive is changed, one needs to guarantee that the qubit state is temporarily moved out of the $\ket{s}$, $\ket{p_0}$, and $\ket{p_+}$ states.
+
+% We conclude by observing that a similar procedure to the one described above would enable the implementation of the GHZ-state encoding protocol in Ref.~\cite{Tran2021a} using dipole-dipole interactions.
+% The details for this implementation will appear in an upcoming work.
+
+\section{Noise and decoherence}
+\label{sec:IV}
+In this section, we study the effects of possible decoherence mechanisms in the fast fanout protocol for the specific experimental system mentioned in the previous section.
+In particular, for the protocol using qubits encoded in the excited states of Rydberg atoms, two potential sources of noise are spontaneous emission from the Rydberg state as well as errors in single-qubit gates.
+The error analysis we detail here summarizes the analysis performed in the Supplemental Material of Ref.~\cite{Eldredge2017}.
+\subsection*{Spontaneous emission}
+The GHZ state is quite fragile, since the spontaneous emission of even a single qubit can cause the state to decohere entirely.
+If a single qubit in the $\ket{1}$ state has a lifetime $\tau$, the lifetime of the corresponding $n$-qubit GHZ state would be approximately $\sim \tau/n$.
+The lifetime of the 100$s$ Rydberg state of $\text{Rb}^{87}$ at 300K is $\tau = 340 \mu$s, so the lifetime of a GHZ state with $n$ qubits would be $\frac{340}n\,\mu$s.
+For the GHZ-state-encoding procedure given in Ref.~\cite{Eldredge2017}, the number of qubits that can be entangled with probability of success at least $\eps$ can be upper-bounded by
+\begin{align}
+  n < \frac{\tau\ln{\frac1\eps}}{\delta t},
+\end{align}
+where $\delta t$ is the time required to implement an intermediate expansion step.
+Assuming $\delta t = 5$ ns and $\eps = 1/2$,
+% it would take time on the order of 25 ns to implement the long-range broadcast.
+this would limit the maximum allowable size of the GHZ state to be roughly $n = 4.7\times 10^{4}$.
+% If we demand a success probability of $\eps = 1/2$, then the time required to create the state would take time on the order of 25 ns.
+
+Performing the fanout gate requires two GHZ-encoding steps, since after the intial GHZ-state encoding of the ancilla qubits and the parallel CNot gates between ancilla and data qubits, the ancilla qubits must be reset (in order to maintain the coherence of the first data qubit $d_1$).
+Thus, the total success probability must be replaced with $\sqrt{\epsilon}$ to reflect the fact that the GHZ-state creation step must be applied twice.
+For $\epsilon = 1/2$, this gives a maximum size for the fanout gate of $N = 2.4\times 10^{4}$.
+% The GHZ state is quite fragile, which means that a single emission of single qubit can cause the protocol to fail.
+% For an $N$-qubit GHZ state consisting of individual qubits that spontaneously emit at rate $\gamma$ , the lifetime of the overall state $\tau$ is given by $\tau = 1/(N\gamma)$.
+% The lifetime of the 100$s$ Rydberg state of $\text{Rb}^{87}$ is 340$\mu$s at 300K, so the lifetime of a GHZ state with $N$ qubits would be $(340/N)$$\mu$s.
+% More generally, for the GHZ-state-creation procedure given in Ref. \cite{Eldredge2017}, the number of qubits that can be entangled with probability of success $P > \eps$ can be upper-bounded by
+% \begin{align}
+%   N < 1 + \frac{\ln{\frac1\eps}}{\gamma\delta t},
+% \end{align}
+% where $\delta t$ is the time required to implement an intermediate expansion step.
+% Assuming $\delta t = 5$ ns and $\eps = 1/2$, it would take time on the order of 25 ns to implement the long-range broadcast.
+% Implementing the full fanout protocol requires two broadcast operations (the second in order to clean up the state of the ancilla qubits), which require the probability to be success of a single broadcast to be $\sqrt\eps$ instead of $\eps$.
+
+\subsection*{Single-qubit noise}
+The protocol in Ref.~\cite{Eldredge2017} uses a number of single-qubit gates in order to implement the control-target interactions.
+In this subsection, we discuss the effects of imperfections in those gates on the overall fidelity of the fanout protocol.
+
+Suppose we want to perform the protocol with overall probability of success $\eps$.
+For a sequence of $n_s$ noisy single-qubit gates each with probability of success $P$, the total probability of success is $P^{n_s}$.
+Setting this equal to $\eps$ implies that the single-qubit success probability must satisfy $P > \eps^{1/n_s}$.
+In a given step of the protocol, the average number of single-qubit gates involved is roughly 4 per qubit, so the total number of gates is $n_s = 4n$.
+Taking the achievable fidelity of a single-qubit gate to be $P = 1- 1\times10^{-4}$ and letting $\eps = 1/2$ as before, this implies that roughly $n = 900$ qubits could be entangled \cite{Eldredge2017}.
+This size estimate is an order of magnitude smaller than one obtained in the previous subsection, indicating that the protocol is quite sensitive to single-qubit errors.
