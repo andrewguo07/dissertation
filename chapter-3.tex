@@ -124,7 +124,7 @@ In this heterogeneous case, the $n$ $\textsc{CNot}$ gates between the data and a
 Alternatively, one may consider implementing the protocol entirely in a system of Rydberg atoms using power-law interactions of different strengths.
 This could be done using a gate based on %diagonal
 van der Waals interactions ($\al = 6$) to implement the short-range $\textsc{CNot}$ gates between data and ancilla qubits, and then rotating into a new basis in order to implement the long-range broadcast interaction using dipole-dipole interactions ($\al = 3$).
-We provide more discussion on the implementation of the protocol in the Supplemental Material \cite{SM}.
+We provide more discussion on the implementation of the protocol in the \cite{app:qfo}.
 
 \section{Intractability of classical simulation of long-range systems with $\al$\,$<$\,$2d$}
 As a corollary, the protocol shows that long-range interacting systems with $\al$\,$<$\,$2d$ evolving for time polylogarithmic in $n$ or longer are difficult to simulate classically in the worst case.
@@ -166,8 +166,8 @@ The same Frobenius-norm bound also constrains the time required to implement the
 We consider the $4^n$-dimensional vector space of $n$-qubit operators for which the set of Pauli operators $\{I,X,Y,Z\}^{\otimes n}$ forms a basis.
 We quantify operator spreading outside a region of radius $r$ as follows.
 Taking an operator $|O)$ initially supported on site 1, we measure the weight of its time-evolved version, $|O(t))$, on sites at distance $r$ (and beyond) using a \emph{projection} operator $\mathcal{Q}_{r}$, which projects onto strings of Pauli operators that act nontrivially on at least one site at distance $r$ or greater.
-We measure the weight of this projected operator $|O_r)$\,$\coloneqq$\,$\mathcal{Q}_{r}|O(t))$ via the (squared) normalized Frobenius norm $\norm{O_r}_F^2$\,$\coloneqq$\,$\Tr(O_r^\dag O_r)/2^n$, which coincides with the Euclidean norm over the operator space, $(O_r|O_r)$ \footnote{See Ref.\,\cite{Tran2020a} for a more precise definition.
-    We note that our projector $\mathcal{Q}_r$ is a variation on the $\mathbb{Q}_r$ used in {Ref.\,\cite{Tran2020a}}.
+We measure the weight of this projected operator $|O_r)$\,$\coloneqq$\,$\mathcal{Q}_{r}|O(t))$ via the (squared) normalized Frobenius norm $\norm{O_r}_F^2$\,$\coloneqq$\,$\Tr(O_r^\dag O_r)/2^n$, which coincides with the Euclidean norm over the operator space, $(O_r|O_r)$ \footnote{See Ref.\,\cite{Tran2020hierarchylinearlightcones} for a more precise definition.
+    We note that our projector $\mathcal{Q}_r$ is a variation on the $\mathbb{Q}_r$ used in {Ref.\,\cite{Tran2020hierarchylinearlightcones}}.
     Specifically, for $d=1$, they are related via $\mathcal{Q}_r = \sum_{x:\,|x|\ge r} \mathbb{Q}_x$.}.
 We define $t_2(r)$ to be the minimal time after which $\norm{O_r}_F^2$ is able to achieve a predetermined constant value \cite{Tran2020hierarchylinearlightcones}.
 % on sites at distance $r$ or beyond. \cite{note_t2r}.
@@ -181,8 +181,8 @@ Let $U_\mathrm{QFT}$ be the QFT operator on $n$ qubits arranged in a $d$-dimensi
 Then $U_\mathrm{QFT}^\dag Z_1 U_\mathrm{QFT}$\,$=:$\,$Z_1' $ is an operator with at least constant weight at distance $r$.
 \end{lemma*}
 
-We defer the (short) proof of this Lemma to the Supplementary Material \cite{SM}.
-As a result of the Lemma, $t_\mathrm{QFT}$ follows the light cone defined by the normalized Frobenius norm, which is at least as stringent as the Lieb-Robinson light cone.
+We defer the (short) proof of this lemma to \cref{app:qfo}.
+As a result of the lemma, $t_\mathrm{QFT}$ follows the light cone defined by the normalized Frobenius norm, which is at least as stringent as the Lieb-Robinson light cone.
 This leads directly to the following theorem:
 %
 % \begin{proof}
@@ -245,11 +245,10 @@ The unitary $V$\,$=$\,$H^{\otimes n} U_\mathrm{QFT}$ (where $H$ represents the s
 
 For the AQFT, the lower bound follows in a similar fashion.
 The circuit that implements the QFT approximately with error $\varepsilon$ can be represented by a unitary $\tilde{U}_\mathrm{QFT}$ such that $\|U_\mathrm{QFT}-\tilde {U}_\mathrm{QFT}\|\leq \varepsilon$ \cite{Cleve2000}.
-In the Supplemental Material, we show that the operator $\tilde {U}_\mathrm{QFT}^\dag Z_1 \tilde {U}_\mathrm{QFT}$ also has large support on sites beyond distance $r$ as well, implying that the lower bounds in \cref{eq:LRlowerbounds,eq:Froblowerbounds} also hold for the AQFT.
+In \cref{app:qfo}, we show that the operator $\tilde {U}_\mathrm{QFT}^\dag Z_1 \tilde {U}_\mathrm{QFT}$ also has large support on sites beyond distance $r$ as well, implying that the lower bounds in \cref{eq:LRlowerbounds,eq:Froblowerbounds} also hold for the AQFT.
 
 \section{Conclusions and Outlook}
-In
-summary, we have developed a fast protocol for the unbounded fanout gate using power-law interactions.
+In summary, we have developed a fast protocol for the unbounded fanout gate using power-law interactions.
 For $\al$\,$\le$\,$2d$, the protocol can perform the gate parametrically faster than is possible with short-range interactions.
 In particular, for experimentally realizable dipole-dipole interactions with $\al$\,$=$\,$3$ in two and three dimensions, as well as van der Waals interactions with $\al$\,$=$\,$6$ in three dimensions, the fast fanout protocol allows the quantum Fourier transform and Shor's algorithm to be performed in time that scales subpolynomially in the number of qubits.
 As a corollary, we showed that the classical simulation of long-range systems with $\al$\,$<$\,$2d$ for time $t$\,$=$\,$\O{\polylog(n)}$ is at least as difficult as integer factorization, which is believed to be intractable in polynomial time classically.
