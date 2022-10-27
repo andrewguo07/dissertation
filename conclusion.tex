@@ -1,2 +1,37 @@
 \chapter{Conclusion}
-My conclusion.
+We conclude with some discussion of open directions.
+
+$VLR scrambling$
+
+Finding an optimal protocol that saturates the Lieb-Robinson bounds for $\al \le d$ is still an open question, even though we've proven that the bounds are tight for many-site signaling.
+Also, recent work has shown that the scrambling time is better bounded by the so-called Frobenius bound, which has been shown to yield tighter bounds than the Lieb-Robinson bound for the Frobenius norm of the unequal-time comutator (which can be related to the out-of-time-order correlator). Indeed, a hierarchy of linear light cones has been shown in which the Frobenius bound yields a finite scrambling speed at a smaller value of $\alpha$ than the Lieb-Robinson bound does for signaling, thus clearly delineates these types of bounds \cite{Tran2020hierarchylinearlightcones}.
+For higher dimensions, the conjectured Frobenius light cone is $t$\,$=$\,$\W{r^{\alpha-d}}$ for $d$\,$<$\,$\al$\,$<$\,$d+1$ \cite{Chen2021Frobenius}.
+If this generalization of the Frobenius bound were to hold, our lower bounds on the circuit complexity of QFT and fanout in \cref{ch:qfo} would immediately generalize.
+
+%QFO
+
+We have derived our lower bounds on $t_\textrm{QFT}$ under the assumption that the first and last qubits of the QFT are separated by a distance of $r$\,$=$\,$\Theta(n^{1/d})$.
+However, other mappings of computational qubits to lattice qubits could potentially lead to faster implementations.
+For example, consider the mapping onto a one-dimensional chain of qubits wherein the second half of the chain is interleaved in reverse order with the first half \footnote{Specifically, for even $n$, this mapping is defined by $q_i\mapsto q_{2i-1}$ for $i \le n/2$ and $q_i\mapsto q_{2(n-i+1)}$ for $i > n/2$.}.
+Applying the QFT to a product state in this layout results in a state with two-qubit correlations that decay exponentially in the distance between the qubits.
+In this case, our lower bound techniques cannot rule out the possibility of $t_\textrm{QFT}$\,$=$\,$o(n)$ for short-range interacting Hamiltonians.
+This suggests that $t_\textrm{QFT}$ could depend strongly on qubit placement.
+Given that the QFT is typically used as a subroutine for more complex algorithms, it may not always be possible to reassign qubits without incurring costs elsewhere in the circuit.
+Still, it would be interesting to investigate whether careful qubit placement could yield a faster QFT.
+
+% OCC
+In this work, we have  generalized the proof of Lieb-Robinson bounds from closed system dynamics to Markovian evolution (\textit{a priori}, such bounds need not exist for Markovian dynamics).
+However, our bounds only depend on interaction range and the dimension of the lattice.
+Any bound that only depends on these two inputs cannot be tighter than the corresponding closed-system Lieb-Robinson bound, since the latter is a special case of former.
+As such, the saturating protocols for closed systems \cite{Tran2020hierarchylinearlightcones,Tran2021a} can be used to saturate open Lieb-Robinson bounds such as those uncovered in  \cref{lemma:LRbound_truncated}.
+In the future, it would be interesting to add another degree of freedom into formulations of open Lieb-Robinson bounds: the dissipative gap. (Some progress has been made in showing that Lieb-Robinson velocities can get tighter in dissipative systems \cite{descamps2013}.)
+In principle, it might be possible to derive Lieb-Robinson bounds that reduce to closed-system ones when the dissipative gap is zero, and get tighter in the presence of non-zero dissipation.
+Then one can develop protocols that saturate the dissipative-gap-dependent bounds.
+Another question in this direction is whether the conditional evolution generated via a non-Hermitian Hamiltonian can also exhibit a dissipative-gap-dependent Lieb-Robinson bound that reduces to the conventional one in the dissipationless limit.
+
+Lieb-Robinson bounds can be used  to prove area-law entanglement scaling in the ground state of one-dimensional systems with local interactions \cite{Hastings2007}. This result helps to rigorously justify the validity of the matrix-product state  ansatz for the ground state of such systems.  For closed systems with power-law interactions, Lieb-Robinson bounds can be used to further extend area-law scaling to certain broad classes of systems \cite{Gong2017}. Do the results presented in this paper have similar implications for area-law scaling of the steady state? This would have direct implications for the matrix-product operator ansatz in modeling open systems.
+
+Finally, the Lieb-Robinson-type bounds we proved apply for the operator, or $\infty$-norm.
+However, there exists a hierarchy of Lieb-Robinson-like bounds that have the potential to be tighter for certain information processing tasks such as scrambling and transferring a quantum state of a local subsystem without knowledge of the initial state of the rest of the system.
+These bounds can use other norms such as the Frobenius norm defined by $\|O\|_F = \sqrt{\Tr{O^\dag O}}$ \cite{Tran2020hierarchylinearlightcones,Kuwahara2020aPolynomialGrowthOutoftimeorder,Yin2020ScramblingAlltoall,Chen2021Frobenius} or apply to free-particle systems \cite{Guo2019,Tran2020hierarchylinearlightcones}.
+It would be interesting to generalize these bounds to open systems as well.

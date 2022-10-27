@@ -30,7 +30,7 @@ Specifically, for a lattice of qubits in $d$ dimensions, the interaction strengt
 These long-range interactions are native to many experimental quantum systems and have attracted interest as potential resources for faster quantum information processing. Examples of long-range interactions include dipole-dipole and van der Waals interactions between Rydberg atoms~\cite{Saffman2010,Weimer2012}, and dipole-dipole interactions between polar molecules~\cite{Yan2013} and between defect centers in diamond~\cite{Yao2012,Weimer2012}.
 Previous works have explored the acceleration of quantum information processing using strong and tunable power-law interactions between Rydberg states~\cite{Isenhower2011,Molmer2011,Petrosyan2017,Gulliksen2015,Muller2009,Young2020,Levine2019}, which can implement $k$-local gates that control or target simultaneously $k \gg 10$ qubits.
 Those gates still have a finite spatial range and can therefore only give a constant-factor speed-up over nearest-neighbor architectures.
-Recently, Refs.~\cite{Eldredge2017,Guo2020,Tran2020hierarchylinearlightcones,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
+Recently, Refs.~\cite{Eldredge2017,Guo2022,Tran2020hierarchylinearlightcones,kuwaharaStrictlyLinearLight2020} gave protocols that take advantage of power-law interactions to quickly transfer a quantum state across a lattice.
 As we will show, it is also possible to leverage the power of these interactions to implement quantum gates asymptotically faster than is possible with finite-range interactions \footnote{We note that in Refs.~\cite{Maslov2018,Lu2019}, it was shown that the unbounded quantum fanout could be implemented in trapped-ion systems using a global Molmer-Sorensen gate.
     However, those methods lead to gate durations that scale superlinearly in the system size in order to achieve a certain value of state fidelity and, as such, do not yield an asymptotic speed-up.}.
 
@@ -74,7 +74,7 @@ However, as we now show, it is possible to adapt the broadcast protocol to imple
 \centering
     \includegraphics[scale=0.45]{figures/fanoutgate.pdf}
 \centering
-  \caption{A protocol for a fast unbounded quantum fanout gate using long-range interactions, depicted here for a 1D lattice.
+  \caption[A protocol for a fast unbounded quantum fanout gate using long-range interactions]{A protocol for a fast unbounded quantum fanout gate using long-range interactions, depicted here for a 1D lattice.
   The layout consists of a chain of data qubits, along with their adjacent ancillary qubits that are initialized to $\ket{0}$.
   (a) The first step is a local controlled-\textsc{Not} (\textsc{CNot}) gate from $\ket{d_1}$ to $\ket{a_1}$.
   (b) The application of the long-range ``broadcast'' from $\ket{a_1}$ to the rest of the ancillary qubits $\ket{a_i}$ creates a GHZ-like state in Eq.\,(\ref{eq:longrangebroadcast}) for the ancillary qubits together with the first data qubit.

@@ -16,7 +16,6 @@
 \include{titlepage} %(must follow Abstract, required, non-numbered)
 \include{copyright} %(highly recommended, non-numbered)
 
-
 %Pages from this point start at lower-case Roman number ii)
 \pagestyle{plain}
 \setcounter{page}{2}
@@ -24,7 +23,7 @@
 \ifbool{doublespaced}{\doublespacing}{}
 % Preface or Foreword
 % Dedication
-% \include{acknowledgements} %(if present, lower-case Roman)
+\include{acknowledgements} %(if present, lower-case Roman)
 \ifbool{doublespaced}{\singlespacing}{}
 
 % \cleardoublepage
@@ -34,6 +33,7 @@
 
 % List of tables
 % List of figures
+\listoffigures
 % List of abbreviations
 
 \newpage
